@@ -57,7 +57,8 @@ También es posible abrir el proyecto desde IntelliJ IDEA o Eclipse como un proy
 ## Estado Actual del Proyecto:
 Configuración inicial y estructura del proyecto.
 
-
+## Wiki del Proyecto:
+[Ver la Propuesta completa del Proyecto aquí](https://github.com/Julinza2007/SpeedG2L/wiki/Propuesta-del-Proyecto-%E2%80%90-SpeedG2L)
 
 
 
