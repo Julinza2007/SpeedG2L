@@ -1,12 +1,12 @@
-# Nombre del Proyecto: SpeedG2L
+# SpeedG2L
 ## Integrantes del proyecto: Giménez Ignacio, Laje Eluney, Linzalata Julián Martín.
 ## Descripción Corta del Juego:
 Desarrollaremos un videojuego (en Java 21 LTS,  framework LibGDX en la versión 1.14.2) de carreras plataformero en 2D para PC. Nos basamos en el videojuego “SpeedRunners”, donde dos jugadores en red competirán en un mapa lleno de obstáculos para llegar a la meta en el menor tiempo posible. Se llamará “SPEED G2L”.
-## Tecnología Utilizadas:
+## Tecnologías Utilizadas:
 - Java 21 LTS.
 - Framework LibGDX.
 - Git y GitHub para el control de versiones.
-- Tiled o LDtk para la creación de mapas.
+- Herramienta para creación de mapas: pendiente de investigación y selección.
 
 
 ### Plataforma objetivo:
@@ -17,7 +17,7 @@ Desarrollaremos un videojuego (en Java 21 LTS,  framework LibGDX en la versión 
 ### Requisitos
 
 
-- Java Development Kit (JDK) 21 o superior.
+- Java Development Kit (JDK) 21.
 - Git.
 - Un IDE compatible con Gradle, como IntelliJ IDEA o Eclipse.
 
@@ -49,7 +49,7 @@ gradlew.bat lwjgl3:run
 ```
 
 
-También es posible abrir el proyecto desde IntelliJ IDEA o Eclipse como un proyecto Gradle y ejecutar la clase principal del módulo `lwjgl3`.
+También es posible abrir el proyecto desde IntelliJ IDEA o Eclipse como un proyecto Gradle y ejecutar la clase principal del módulo `lwjgl3`. Para esto hay que ir hasta SpeedG2L/lwjgl3/src/main/java/com.g2l.speedg2l.lwjgl3 y ejecutar el archivo llamado "lwjgl3Launcher"
 
 
 
@@ -59,65 +59,3 @@ Configuración inicial y estructura del proyecto.
 
 ## Wiki del Proyecto:
 [Ver la Propuesta completa del Proyecto aquí](https://github.com/Julinza2007/SpeedG2L/wiki/Propuesta-del-Proyecto-%E2%80%90-SpeedG2L)
-
-
-
-
-[//]: # ()
-[//]: # (# SpeedG2L)
-
-[//]: # ()
-[//]: # (A [libGDX]&#40;https://libgdx.com/&#41; project generated with [gdx-liftoff]&#40;https://github.com/libgdx/gdx-liftoff&#41;.)
-
-[//]: # ()
-[//]: # (This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.)
-
-[//]: # ()
-[//]: # (## Platforms)
-
-[//]: # ()
-[//]: # (- `core`: Main module with the application logic shared by all platforms.)
-
-[//]: # (- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.)
-
-[//]: # ()
-[//]: # (## Gradle)
-
-[//]: # ()
-[//]: # (This project uses [Gradle]&#40;https://gradle.org/&#41; to manage dependencies.)
-
-[//]: # (The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.)
-
-[//]: # (Useful Gradle tasks and flags:)
-
-[//]: # ()
-[//]: # (- `--continue`: when using this flag, errors will not stop the tasks from running.)
-
-[//]: # (- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.)
-
-[//]: # (- `--offline`: when using this flag, cached dependency archives will be used.)
-
-[//]: # (- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.)
-
-[//]: # (- `build`: builds sources and archives of every project.)
-
-[//]: # (- `cleanEclipse`: removes Eclipse project data.)
-
-[//]: # (- `cleanIdea`: removes IntelliJ project data.)
-
-[//]: # (- `clean`: removes `build` folders, which store compiled classes and built archives.)
-
-[//]: # (- `eclipse`: generates Eclipse project data.)
-
-[//]: # (- `idea`: generates IntelliJ project data.)
-
-[//]: # (- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.)
-
-[//]: # (- `lwjgl3:run`: starts the application.)
-
-[//]: # (- `test`: runs unit tests &#40;if any&#41;.)
-
-[//]: # ()
-[//]: # (Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.)
-
-[//]: # (For example, `core:clean` removes `build` folder only from the `core` project.)
