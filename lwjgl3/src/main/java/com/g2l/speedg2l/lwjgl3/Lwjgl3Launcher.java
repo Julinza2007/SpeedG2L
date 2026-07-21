@@ -3,6 +3,7 @@ package com.g2l.speedg2l.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.g2l.speedg2l.Main;
+import com.g2l.speedg2l.SpeedG2L;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -11,8 +12,18 @@ public class Lwjgl3Launcher {
         createApplication();
     }
 
+    public static final String TITULO = "SpeedG2L";
+    public static final int V_WIDTH = 320;
+    public static final int V_HEIGHT = 240;
+    public static final int SCALE = 2;
+
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new Main(), getDefaultConfiguration());
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
+        config.setTitle(TITULO);
+        config.setWindowedMode((V_WIDTH * SCALE),(V_HEIGHT * SCALE));
+
+        return new Lwjgl3Application(new SpeedG2L(), config);
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {

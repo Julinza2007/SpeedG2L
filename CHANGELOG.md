@@ -5,6 +5,12 @@ Todos los cambios importantes de este proyecto serán documentados en este archi
 El formato de este archivo está basado en Keep a Changelog.
 
 
+## [0.4.0] - 2026-07-21
+
+### Agregado
+
+- Se incorporo la clase "SpeedG2L" al programa
+
 ## [0.3.0] - 2026-07-15
 
 ### Agregado
