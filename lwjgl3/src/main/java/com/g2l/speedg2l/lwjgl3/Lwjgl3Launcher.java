@@ -2,7 +2,6 @@ package com.g2l.speedg2l.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.g2l.speedg2l.Main;
 import com.g2l.speedg2l.SpeedG2L;
 
 /** Launches the desktop (LWJGL3) application. */
