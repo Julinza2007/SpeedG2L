@@ -15,6 +15,13 @@ public class Jugador extends Entidad{
     private double gravedad = 0.5;
     private double velocidadYMenosGravedad = velocidadY;
 
+    private double velocidadConAceleracionDerecha = velocidadX;
+    private double velocidadConAceleracionIzquierda = velocidadX;
+    private double aceleracion = 0.1;
+    private boolean acelerandoDerecha = false;
+    private boolean acelerandoIzquierda = false;
+    private final double velocidadMaxima = 10;
+
     boolean saltando = false;
 
     public Jugador(float ancho , float alto){
@@ -23,11 +30,17 @@ public class Jugador extends Entidad{
 
     public void moverJugador(Entradas entradas){
         if (entradas.izquierda()){
-            this.posicionX -= velocidadX;
+            acelerandoIzquierda = true;
+        }
+        else{
+            acelerandoIzquierda = false;
         }
 
         if (entradas.derecha()){
-            this.posicionX += velocidadX;
+            acelerandoDerecha = true;
+        }
+        else{
+            acelerandoDerecha = false;
         }
 
         /*
@@ -56,6 +69,19 @@ public class Jugador extends Entidad{
         if (saltando){
             saltar();
         }
+        if (acelerandoDerecha){
+            acelerarDerecha();
+        }
+        else{
+            desAcelerarDerecha();
+        }
+
+        if(acelerandoIzquierda){
+            acelerarIzquierda();
+        }
+        else{
+            desAcelerarIzquierda();
+        }
     }
 
     private void saltar(){
@@ -70,5 +96,34 @@ public class Jugador extends Entidad{
             posicionY = posicionSuelo;
             return;
         }
+    }
+
+    private void acelerarDerecha(){
+        if(velocidadConAceleracionDerecha <= velocidadMaxima){
+            this.velocidadConAceleracionDerecha += aceleracion;
+        }
+        posicionX += velocidadConAceleracionDerecha;
+        // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
+    }
+
+    private void desAcelerarDerecha(){
+        if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha -= aceleracion;
+        }
+        posicionX += velocidadConAceleracionDerecha;
+    }
+
+    private void acelerarIzquierda(){
+        if(velocidadConAceleracionIzquierda <= velocidadMaxima){
+            velocidadConAceleracionIzquierda += aceleracion;
+        }
+        posicionX -= velocidadConAceleracionIzquierda;
+    }
+
+    private void desAcelerarIzquierda(){
+        if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda -= aceleracion;
+        }
+        posicionX -= velocidadConAceleracionIzquierda;
     }
 }
