@@ -62,14 +62,14 @@ public class Jugador extends Entidad{
             saltar(listaDeEntidades);
         }
         if (acelerandoDerecha){
-            acelerarDerecha();
+            acelerarDerecha(listaDeEntidades);
         }
         else{
             desAcelerarDerecha();
         }
 
         if(acelerandoIzquierda){
-            acelerarIzquierda();
+            acelerarIzquierda(listaDeEntidades);
         }
         else{
             desAcelerarIzquierda();
@@ -79,26 +79,30 @@ public class Jugador extends Entidad{
     private void saltar(ArrayList<Entidad> listaDeEntidades){
         velocidadYMenosGravedad -= gravedad;
         this.posicionY += velocidadYMenosGravedad;
-        int indiceColision = detectarColsionArriba(listaDeEntidades);
+        actualizarHitbox();
+        int indiceColision = detectarColsion(listaDeEntidades);
         if (posicionY >= posicionTecho || indiceColision != -1) {
                 velocidadYMenosGravedad = 0;
-                if (indiceColision != -1){
-                    posicionY = (float) listaDeEntidades.get(indiceColision).getPosicionY();
-                }
         }
         if (posicionY <= posicionSuelo){
             this.saltando = false;
             velocidadYMenosGravedad = velocidadY;
             posicionY = posicionSuelo;
+            actualizarHitbox();
             return;
         }
     }
 
-    private void acelerarDerecha(){
+    private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades){
         if(velocidadConAceleracionDerecha <= velocidadMaxima){
             this.velocidadConAceleracionDerecha += aceleracion;
         }
+        if(detectarColsion(listaDeEntidades) != -1){
+            velocidadConAceleracionDerecha = 0;
+        }
+
         posicionX += velocidadConAceleracionDerecha;
+        actualizarHitbox();
         // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
     }
 
@@ -107,13 +111,18 @@ public class Jugador extends Entidad{
             velocidadConAceleracionDerecha -= aceleracion;
         }
         posicionX += velocidadConAceleracionDerecha;
+        actualizarHitbox();
     }
 
-    private void acelerarIzquierda(){
+    private void acelerarIzquierda(ArrayList<Entidad> listaDeEntidades){
         if(velocidadConAceleracionIzquierda <= velocidadMaxima){
             velocidadConAceleracionIzquierda += aceleracion;
         }
+        if(detectarColsion(listaDeEntidades) != -1){
+            velocidadConAceleracionIzquierda = 0;
+        }
         posicionX -= velocidadConAceleracionIzquierda;
+        actualizarHitbox();
     }
 
     private void desAcelerarIzquierda(){
@@ -121,6 +130,7 @@ public class Jugador extends Entidad{
             velocidadConAceleracionIzquierda -= aceleracion;
         }
         posicionX -= velocidadConAceleracionIzquierda;
+        actualizarHitbox();
     }
 
 
@@ -129,7 +139,31 @@ public class Jugador extends Entidad{
         int indiceColision = -1;
         int i=0;
         while(i<listaDeEntidades.size() && !hayColision){
-            if ((posicionY - getAlto()) == listaDeEntidades.get(i).getPosicionX()) {
+            Entidad entidadIndiceI = listaDeEntidades.get(i);
+            if ((posicionY + getAlto()) >= entidadIndiceI.getPosicionY()
+                 && (posicionY + getAlto()) <= (entidadIndiceI.getPosicionY() + entidadIndiceI.getAlto())) {
+
+                if ((posicionX + getAncho()) >= entidadIndiceI.getPosicionX()
+                    && (posicionX) <= (entidadIndiceI.getPosicionX() + entidadIndiceI.getAncho())) {
+
+                    hayColision = true;
+                    indiceColision = i;
+
+                }
+            }
+            i++;
+        }
+
+        return indiceColision;
+    }
+
+    private int detectarColsion(ArrayList<Entidad> listaDeEntidades){
+        boolean hayColision = false;
+        int indiceColision = -1;
+        int i=0;
+        while(i<listaDeEntidades.size() && !hayColision){
+            Entidad entidadIndiceI = listaDeEntidades.get(i);
+            if (getHitbox().overlaps(entidadIndiceI.getHitbox())){
                 hayColision = true;
                 indiceColision = i;
             }
