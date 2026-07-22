@@ -23,9 +23,10 @@ public class SpeedG2L extends Game {
     public void render() {
         ScreenUtils.clear(0f, 0f, 0f, 0f);
         jugador.moverJugador();
+        jugador.actualizarFisicas();
         // y detectar las colisiones.
         batch.begin();
-        batch.draw(image, jugador.getPosicionX(), jugador.getPosicionY());
+        batch.draw(image, (float) jugador.getPosicionX(), (float) jugador.getPosicionY());
         batch.end();
     }
 
