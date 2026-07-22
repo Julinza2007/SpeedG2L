@@ -4,6 +4,9 @@ import com.g2l.speedg2l.utilidades.Entradas;
 
 public class Jugador extends Entidad{
 
+    private final double alto;
+    private final double ancho;
+
     private final double velocidadX = 1;
     private final double velocidadY = 10;
     private double posicionX = 100;
@@ -25,7 +28,9 @@ public class Jugador extends Entidad{
     boolean saltando = false;
 
     public Jugador(float ancho , float alto){
-        super(100, 100);
+        super(ancho, alto);
+        this.ancho = ancho;
+        this.alto = alto;
     }
 
     public void moverJugador(Entradas entradas){
@@ -87,7 +92,7 @@ public class Jugador extends Entidad{
     private void saltar(){
         velocidadYMenosGravedad -= gravedad;
         this.posicionY += velocidadYMenosGravedad;
-        if (posicionY >= posicionTecho) {
+        if (posicionY >= posicionTecho /*|| hayColsionArriba()*/) {
                 velocidadYMenosGravedad = 0;
         }
         if (posicionY <= posicionSuelo){
@@ -126,4 +131,16 @@ public class Jugador extends Entidad{
         }
         posicionX -= velocidadConAceleracionIzquierda;
     }
+
+    /*
+    private boolean hayColsionArriba(){
+        boolean hayColision = false;
+
+        if (posicionY + alto){
+
+        }
+
+        return hayColision;
+    }
+    */
 }
