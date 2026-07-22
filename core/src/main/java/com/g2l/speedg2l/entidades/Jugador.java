@@ -2,20 +2,17 @@ package com.g2l.speedg2l.entidades;
 
 import com.g2l.speedg2l.utilidades.Entradas;
 
-public class Jugador extends Entidad{
+import java.util.ArrayList;
 
-    private final double alto;
-    private final double ancho;
+public class Jugador extends Entidad{
 
     private final double velocidadX = 1;
     private final double velocidadY = 10;
-    private double posicionX = 100;
-    private double posicionY = 100;
 
     private int posicionTecho = 300;
     private int posicionSuelo = 100;
 
-    private double gravedad = 0.5;
+    private double gravedad = 0.4;
     private double velocidadYMenosGravedad = velocidadY;
 
     private double velocidadConAceleracionDerecha = velocidadX;
@@ -27,10 +24,8 @@ public class Jugador extends Entidad{
 
     boolean saltando = false;
 
-    public Jugador(float ancho , float alto){
-        super(ancho, alto);
-        this.ancho = ancho;
-        this.alto = alto;
+    public Jugador(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
     }
 
     public void moverJugador(Entradas entradas){
@@ -62,17 +57,9 @@ public class Jugador extends Entidad{
         }
     }
 
-    public double getPosicionY(){
-        return this.posicionY;
-    }
-
-    public double getPosicionX(){
-        return this.posicionX;
-    }
-
-    public void actualizarFisicas(){
+    public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades){
         if (saltando){
-            saltar();
+            saltar(listaDeEntidades);
         }
         if (acelerandoDerecha){
             acelerarDerecha();
@@ -89,11 +76,15 @@ public class Jugador extends Entidad{
         }
     }
 
-    private void saltar(){
+    private void saltar(ArrayList<Entidad> listaDeEntidades){
         velocidadYMenosGravedad -= gravedad;
         this.posicionY += velocidadYMenosGravedad;
-        if (posicionY >= posicionTecho /*|| hayColsionArriba()*/) {
+        int indiceColision = detectarColsionArriba(listaDeEntidades);
+        if (posicionY >= posicionTecho || indiceColision != -1) {
                 velocidadYMenosGravedad = 0;
+                if (indiceColision != -1){
+                    posicionY = (float) listaDeEntidades.get(indiceColision).getPosicionY();
+                }
         }
         if (posicionY <= posicionSuelo){
             this.saltando = false;
@@ -132,15 +123,20 @@ public class Jugador extends Entidad{
         posicionX -= velocidadConAceleracionIzquierda;
     }
 
-    /*
-    private boolean hayColsionArriba(){
+
+    private int detectarColsionArriba(ArrayList<Entidad> listaDeEntidades){
         boolean hayColision = false;
-
-        if (posicionY + alto){
-
+        int indiceColision = -1;
+        int i=0;
+        while(i<listaDeEntidades.size() && !hayColision){
+            if ((posicionY - getAlto()) == listaDeEntidades.get(i).getPosicionX()) {
+                hayColision = true;
+                indiceColision = i;
+            }
+            i++;
         }
 
-        return hayColision;
+        return indiceColision;
     }
-    */
+
 }
