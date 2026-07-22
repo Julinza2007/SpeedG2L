@@ -1,11 +1,11 @@
 package com.g2l.speedg2l.entidades;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.g2l.speedg2l.utilidades.Entradas;
 
 public class Jugador extends Entidad{
-    private double velocidadX = 1;
-    private double velocidadY = 10;
+
+    private final double velocidadX = 1;
+    private final double velocidadY = 10;
     private double posicionX = 100;
     private double posicionY = 100;
 
@@ -17,26 +17,29 @@ public class Jugador extends Entidad{
 
     boolean saltando = false;
 
-    public Jugador(){
+    public Jugador(float ancho , float alto){
         super(100, 100);
     }
 
-    public void moverJugador(){
-        if (Gdx.input.isKeyPressed(Input.Keys.A)){
+    public void moverJugador(Entradas entradas){
+        if (entradas.izquierda()){
             this.posicionX -= velocidadX;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D)){
+        if (entradas.derecha()){
             this.posicionX += velocidadX;
         }
 
         /*
         if (Gdx.input.isKeyPressed(Input.Keys.S)){
+=======
+        if (entradas.abajo()){
+>>>>>>> a3a6fbe29620d4cf94e3e310ea5fd019e698c0ba
             this.posicionY -= velocidadY;
         }
         */
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && !saltando){
+        if (entradas.arriba() && !saltando){
             this.saltando = true;
         }
     }

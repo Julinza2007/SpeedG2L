@@ -1,19 +1,19 @@
 package com.g2l.speedg2l.entidades;
 
 public class Entidad {
-    protected int ancho;
-    protected int alto;
+    protected float ancho;
+    protected float alto;
 
-    protected Entidad(int ancho, int alto){
+    protected Entidad(float ancho, float alto){
         this.ancho = ancho;
         this.alto = alto;
     }
 
-    public int getAncho(){
+    public float getAncho(){
         return this.ancho;
     }
 
-    public int getAlto(){
+    public float getAlto(){
         return this.alto;
     }
 }
