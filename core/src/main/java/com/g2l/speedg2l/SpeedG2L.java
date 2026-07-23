@@ -19,9 +19,9 @@ public class SpeedG2L extends Game {
         this.setScreen(new PantallaMenu());
         b = Render.batch;
 
-        jugador = new Jugador(100.0f, 100.0f);
-        logo = new Imagen("libgdx.png");
-        logo.setSize(jugador.getAncho(), jugador.getAlto());
+//        jugador = new Jugador(100.0f, 100.0f);
+//        logo = new Imagen("libgdx.png");
+//        logo.setSize(jugador.getAncho(), jugador.getAlto());
     }
 
     @Override
@@ -29,12 +29,12 @@ public class SpeedG2L extends Game {
         Render.limpiarPantalla();
         super.render();
 
-        jugador.moverJugador(new Entradas());
-        b.begin();
-        logo.setX(jugador.getPosicionX());
-        logo.setY(jugador.getPosicionY());
-        logo.dibujar();
-        b.end();
+//        jugador.moverJugador(new Entradas());
+//        b.begin();
+//        logo.setX(jugador.getPosicionX());
+//        logo.setY(jugador.getPosicionY());
+//        logo.dibujar();
+//        b.end();
     }
 
     @Override
