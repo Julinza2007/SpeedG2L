@@ -6,8 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.entidades.Entidad;
 import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.entidades.Plataforma;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
 
 import java.util.ArrayList;
@@ -19,7 +21,12 @@ public class PantallaJuego implements Screen {
     private Jugador jugador;
     private Imagen imagenJugador;
     private SpriteBatch b;
+
+    private Plataforma plataforma;
+    private Imagen imgPlataforma;
+
     private ArrayList<Entidad> listaDeEntidades;
+
 
     @Override
     public void show() {
@@ -28,11 +35,15 @@ public class PantallaJuego implements Screen {
         imagenJugador = new Imagen("libgdx.png");
         imagenJugador.setSize(jugador.getAncho(), jugador.getAlto());
         listaDeEntidades = new ArrayList<>();
-        listaDeEntidades.add(jugador);
+
+
+        plataforma = new Plataforma((float) 221, (float) 31, 250.0f, 200.0f);
+        listaDeEntidades.add(plataforma);
+        imgPlataforma = new Imagen(Recursos.PLATAFORMA_VERDE);
 
         stage = new Stage();
 
-        
+
     }
 
     @Override
@@ -46,6 +57,11 @@ public class PantallaJuego implements Screen {
         imagenJugador.setX((float) jugador.getPosicionX());
         imagenJugador.setY((float) jugador.getPosicionY());
         imagenJugador.dibujar();
+
+        imgPlataforma.setX((float) plataforma.getPosicionX());
+        imgPlataforma.setY((float) plataforma.getPosicionY());
+        imgPlataforma.dibujar();
+
         b.end();
         stage.act(delta);
         stage.draw();
@@ -76,6 +92,6 @@ public class PantallaJuego implements Screen {
 
     @Override
     public void dispose() {
-
+        stage.dispose();
     }
 }

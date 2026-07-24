@@ -80,7 +80,7 @@ public class Jugador extends Entidad{
         velocidadYMenosGravedad -= gravedad;
         this.posicionY += velocidadYMenosGravedad;
         actualizarHitbox();
-        int indiceColision = detectarColsion(listaDeEntidades);
+        int indiceColision = detectarColsionArriba(listaDeEntidades);
         if (posicionY >= posicionTecho || indiceColision != -1) {
             velocidadYMenosGravedad = 0;
         }
