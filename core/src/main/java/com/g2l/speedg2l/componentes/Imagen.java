@@ -2,6 +2,7 @@ package com.g2l.speedg2l.componentes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
 
 public class Imagen {
@@ -28,4 +29,14 @@ public class Imagen {
     public void setSize(float ancho, float altura){
         s.setSize(ancho, altura);
     }
+
+    public void centrar(){
+        setX((Config.ancho/2.0f) - (s.getWidth()/2));
+        setY((Config.alto/2.0f) - (s.getHeight()/2));
+    }
+
+    public void setTransparencia(float alpha){
+        s.setAlpha(alpha);
+    }
+
 }
