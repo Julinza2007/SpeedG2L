@@ -99,6 +99,7 @@ public class PantallaMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Jugando...");
+                Render.app.setScreen(new PantallaJuego());
             }
         });
 
