@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.pantallas.PantallaCarga;
 import com.g2l.speedg2l.pantallas.PantallaMenu;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Render;
@@ -16,7 +17,8 @@ public class SpeedG2L extends Game {
 
     @Override
     public void create() {
-        this.setScreen(new PantallaMenu());
+        Render.app = this;
+        this.setScreen(new PantallaCarga());
         b = Render.batch;
 
 //        jugador = new Jugador(100.0f, 100.0f);

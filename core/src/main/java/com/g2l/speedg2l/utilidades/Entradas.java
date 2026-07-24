@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 public class Entradas implements InputProcessor {
 
     private boolean abajo=false, arriba=false;
+    private int mouseX, mouseY;
 
     public boolean izquierda(){
         return Gdx.input.isKeyPressed(Keys.A);
@@ -81,6 +82,9 @@ public class Entradas implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        mouseX = screenX;
+        mouseY = screenY;
+
         return false;
     }
 
@@ -96,4 +100,13 @@ public class Entradas implements InputProcessor {
     public boolean isAbajo() {
         return abajo;
     }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
 }
+
