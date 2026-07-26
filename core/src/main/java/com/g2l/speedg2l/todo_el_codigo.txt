@@ -1,0 +1,980 @@
+=============================== 
+  CODIGO COMPLETO DEL PROYECTO 
+=============================== 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\SpeedG2L.java 
+====================================== 
+package com.g2l.speedg2l;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.pantallas.PantallaCarga;
+import com.g2l.speedg2l.pantallas.PantallaMenu;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class SpeedG2L extends Game {
+
+    private SpriteBatch b;
+    private Imagen logo;
+    private Jugador jugador;
+
+    @Override
+    public void create() {
+        Render.app = this;
+        this.setScreen(new PantallaCarga());
+        b = Render.batch;
+
+//        jugador = new Jugador(100.0f, 100.0f);
+//        logo = new Imagen("libgdx.png");
+//        logo.setSize(jugador.getAncho(), jugador.getAlto());
+    }
+
+    @Override
+    public void render() {
+        Render.limpiarPantalla();
+        super.render();
+
+//        jugador.moverJugador(new Entradas());
+//        b.begin();
+//        logo.setX(jugador.getPosicionX());
+//        logo.setY(jugador.getPosicionY());
+//        logo.dibujar();
+//        b.end();
+    }
+
+    @Override
+    public void dispose() {
+        b.dispose();
+    }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\TipoPantalla.java 
+====================================== 
+package com.g2l.speedg2l;
+
+public enum TipoPantalla {
+    MENU,
+    GAME,
+    OPTIONS
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Boton.java 
+====================================== 
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+public class Boton extends TextButton {
+
+    public Boton(String text, Skin skin) {
+        super(text, skin);
+    }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Imagen.java 
+====================================== 
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class Imagen {
+    private Texture t;
+    private Sprite s;
+
+    public Imagen(String ruta){
+        t = new Texture(ruta);
+        s = new Sprite(t);
+    }
+
+    public void dibujar(){
+        s.draw(Render.batch);
+    }
+
+    public void setX(float x){
+        s.setX(x);
+    }
+
+    public void setY(float y){
+        s.setY(y);
+    }
+
+    public void setSize(float ancho, float altura){
+        s.setSize(ancho, altura);
+    }
+
+    public void centrar(){
+        setX((Config.ancho/2.0f) - (s.getWidth()/2));
+        setY((Config.alto/2.0f) - (s.getHeight()/2));
+    }
+
+    public void setTransparencia(float alpha){
+        s.setAlpha(alpha);
+    }
+
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Texto.java 
+====================================== 
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class Texto {
+    private BitmapFont fuente;
+    private float x=0, y=0;
+    private String texto;
+    private GlyphLayout layout;
+
+    public Texto(String rutaFuente, int tamanio, Color color) {
+        FreeTypeFontGenerator generador = new FreeTypeFontGenerator(Gdx.files.internal(rutaFuente));
+        FreeTypeFontParameter parametros = new FreeTypeFontParameter();
+
+        parametros.size = tamanio;
+        parametros.color = color;
+
+        fuente = generador.generateFont(parametros);
+
+        layout = new GlyphLayout();
+    }
+
+    public void dibujar() {
+        fuente.draw(Render.batch, texto, x, y);
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+        layout.setText(fuente, texto);
+    }
+
+    public void setPosition(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void centrar(){
+        this.setPosition((Config.ancho/2.0f) - (getAncho()/2), (Config.alto/2.0f) - (getAlto()/2));
+    }
+
+    public void centrarArriba(int paddingTop){
+        this.setPosition((Config.ancho/2.0f) - (getAncho()/2), Config.alto - paddingTop);
+    }
+
+    public void centrarAbajo(int paddingBottom){
+        this.setPosition((Config.ancho/2.0f) - (getAncho()/2), getAlto() + paddingBottom);
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public float getAncho(){
+        return layout.width;
+    }
+
+    public float getAlto(){
+        return layout.height;
+    }
+
+    // ver si conviene hacer un setTamanio tambien.
+
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Entidad.java 
+====================================== 
+package com.g2l.speedg2l.entidades;
+
+import com.badlogic.gdx.math.Rectangle;
+
+public class Entidad {
+    private float ancho;
+    private float alto;
+    protected float posicionX;
+    protected float posicionY;
+
+    private Rectangle hitbox;
+
+    protected Entidad(float ancho, float alto, float posicionX, float posicionY){
+        this.ancho = ancho;
+        this.alto = alto;
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
+
+        this.hitbox = new Rectangle(posicionX, posicionY, ancho, alto);
+    }
+
+    public float getAncho(){
+        return this.ancho;
+    }
+
+    public float getAlto(){
+        return this.alto;
+    }
+
+    public double getPosicionY(){ return this.posicionY; }
+
+    public double getPosicionX(){ return this.posicionX; }
+
+    protected Rectangle getHitbox(){ return this.hitbox; }
+
+    public void actualizarHitbox(){ hitbox.setPosition(posicionX, posicionY); }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Jugador.java 
+====================================== 
+package com.g2l.speedg2l.entidades;
+
+import com.g2l.speedg2l.utilidades.Entradas;
+
+import java.util.ArrayList;
+
+public class Jugador extends Entidad{
+
+    private final double velocidadX = 1;
+    private final double velocidadY = 10;
+
+    private int posicionTecho = 300;
+    private int posicionSuelo = 100;
+
+    private double gravedad = 0.4;
+    private double velocidadYMenosGravedad = velocidadY;
+
+    private double velocidadConAceleracionDerecha = velocidadX;
+    private double velocidadConAceleracionIzquierda = velocidadX;
+    private double aceleracion = 0.1;
+    private boolean acelerandoDerecha = false;
+    private boolean acelerandoIzquierda = false;
+    private final double velocidadMaxima = 10;
+
+    boolean saltando = false;
+
+    public Jugador(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+    public void moverJugador(Entradas entradas){
+        if (entradas.izquierda()){
+            acelerandoIzquierda = true;
+        }
+        else{
+            acelerandoIzquierda = false;
+        }
+
+        if (entradas.derecha()){
+            acelerandoDerecha = true;
+        }
+        else{
+            acelerandoDerecha = false;
+        }
+
+        /*
+        if (Gdx.input.isKeyPressed(Input.Keys.S)){
+=======
+        if (entradas.abajo()){
+>>>>>>> a3a6fbe29620d4cf94e3e310ea5fd019e698c0ba
+            this.posicionY -= velocidadY;
+        }
+        */
+
+        if (entradas.arriba() && !saltando){
+            this.saltando = true;
+        }
+    }
+
+    public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades){
+        if (saltando){
+            saltar(listaDeEntidades);
+        }
+        if (acelerandoDerecha){
+            acelerarDerecha(listaDeEntidades);
+        }
+        else{
+            desAcelerarDerecha();
+        }
+
+        if(acelerandoIzquierda){
+            acelerarIzquierda(listaDeEntidades);
+        }
+        else{
+            desAcelerarIzquierda();
+        }
+    }
+
+    private void saltar(ArrayList<Entidad> listaDeEntidades){
+        velocidadYMenosGravedad -= gravedad;
+        this.posicionY += velocidadYMenosGravedad;
+        actualizarHitbox();
+        int indiceColision = detectarColsionArriba(listaDeEntidades);
+        if (posicionY >= posicionTecho || indiceColision != -1) {
+            velocidadYMenosGravedad = 0;
+        }
+        if (posicionY <= posicionSuelo){
+            this.saltando = false;
+            velocidadYMenosGravedad = velocidadY;
+            posicionY = posicionSuelo;
+            actualizarHitbox();
+            return;
+        }
+    }
+
+    private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades){
+        if(velocidadConAceleracionDerecha <= velocidadMaxima){
+            this.velocidadConAceleracionDerecha += aceleracion;
+        }
+        if(detectarColsion(listaDeEntidades) != -1){
+            velocidadConAceleracionDerecha = 0;
+        }
+
+        posicionX += velocidadConAceleracionDerecha;
+        actualizarHitbox();
+        // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
+    }
+
+    private void desAcelerarDerecha(){
+        if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha -= aceleracion;
+        }
+        posicionX += velocidadConAceleracionDerecha;
+        actualizarHitbox();
+    }
+
+    private void acelerarIzquierda(ArrayList<Entidad> listaDeEntidades){
+        if(velocidadConAceleracionIzquierda <= velocidadMaxima){
+            velocidadConAceleracionIzquierda += aceleracion;
+        }
+        if(detectarColsion(listaDeEntidades) != -1){
+            velocidadConAceleracionIzquierda = 0;
+        }
+        posicionX -= velocidadConAceleracionIzquierda;
+        actualizarHitbox();
+    }
+
+    private void desAcelerarIzquierda(){
+        if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda -= aceleracion;
+        }
+        posicionX -= velocidadConAceleracionIzquierda;
+        actualizarHitbox();
+    }
+
+
+    private int detectarColsionArriba(ArrayList<Entidad> listaDeEntidades){
+        boolean hayColision = false;
+        int indiceColision = -1;
+        int i=0;
+        while(i<listaDeEntidades.size() && !hayColision){
+            Entidad entidadIndiceI = listaDeEntidades.get(i);
+            if ((posicionY + getAlto()) >= entidadIndiceI.getPosicionY()
+                && (posicionY + getAlto()) <= (entidadIndiceI.getPosicionY() + entidadIndiceI.getAlto())) {
+
+                if ((posicionX + getAncho()) >= entidadIndiceI.getPosicionX()
+                    && (posicionX) <= (entidadIndiceI.getPosicionX() + entidadIndiceI.getAncho())) {
+
+                    hayColision = true;
+                    indiceColision = i;
+
+                }
+            }
+            i++;
+        }
+
+        return indiceColision;
+    }
+
+    private int detectarColsion(ArrayList<Entidad> listaDeEntidades){
+        boolean hayColision = false;
+        int indiceColision = -1;
+        int i=0;
+        while(i<listaDeEntidades.size() && !hayColision){
+            Entidad entidadIndiceI = listaDeEntidades.get(i);
+            if (getHitbox().overlaps(entidadIndiceI.getHitbox())){
+                hayColision = true;
+                indiceColision = i;
+            }
+            i++;
+        }
+
+        return indiceColision;
+    }
+
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Plataforma.java 
+====================================== 
+package com.g2l.speedg2l.entidades;
+
+public class Plataforma extends Entidad{
+
+    private double posicionX = 250;
+    private double posicionY = 200;
+
+    public Plataforma(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaCarga.java 
+====================================== 
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class PantallaCarga implements Screen {
+
+    private Imagen imagenFondo;
+    private SpriteBatch b;
+    private float a = 0;
+    private boolean fadeInTerminado=false;
+    private boolean terminado=false;
+    private float contTiempo;
+    private Texto coords;
+    private Entradas entradas;
+    @Override
+    public void show() {
+        b = Render.batch;
+        imagenFondo = new Imagen(Recursos.FONDO_CARGA);
+        imagenFondo.setSize(405, 512);
+        imagenFondo.centrar();
+        imagenFondo.setTransparencia(a);
+        coords = new Texto(Recursos.FUENTE_MENU, 20, Color.WHITE);
+        entradas = new Entradas();
+        Gdx.input.setInputProcessor(entradas);
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+        coords.setTexto("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
+        coords.centrar();
+        System.out.println("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
+        mostrarFade();
+        b.begin();
+        coords.dibujar();
+        imagenFondo.dibujar();
+        b.end();
+    }
+
+    private void mostrarFade(){
+        if(fadeInTerminado) {
+            final float TIEMPO_ESPERA = 5.0f;
+            if(contTiempo < TIEMPO_ESPERA){
+                contTiempo+=0.03f;
+            }else{
+                a-=0.003f;
+                if(a<0) {
+                    a = 0.0f;
+                    terminado=true;
+                }
+            }
+
+            if(terminado){
+                Render.app.setScreen(new PantallaMenu());
+            }
+
+        }else{
+            a+=0.003f;
+            if(a>1){
+                a=1.0f;
+                fadeInTerminado=true;
+            }
+        }
+
+
+        imagenFondo.setTransparencia(a);
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        b.dispose();
+    }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaJuego.java 
+====================================== 
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.entidades.Entidad;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.entidades.Plataforma;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+import java.util.ArrayList;
+
+public class PantallaJuego implements Screen {
+
+    private Stage stage;
+
+    private Jugador jugador;
+    private Imagen imagenJugador;
+    private SpriteBatch b;
+
+    private Plataforma plataforma;
+    private Imagen imgPlataforma;
+
+    private ArrayList<Entidad> listaDeEntidades;
+
+
+    @Override
+    public void show() {
+        b = Render.batch;
+        jugador = new Jugador(50.0f, 50.0f, 100.0f, 100.0f);
+        imagenJugador = new Imagen("libgdx.png");
+        imagenJugador.setSize(jugador.getAncho(), jugador.getAlto());
+        listaDeEntidades = new ArrayList<>();
+
+
+        plataforma = new Plataforma((float) 221, (float) 31, 250.0f, 200.0f);
+        listaDeEntidades.add(plataforma);
+        imgPlataforma = new Imagen(Recursos.PLATAFORMA_VERDE);
+
+        stage = new Stage();
+
+
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+
+        jugador.moverJugador(new Entradas());
+        jugador.actualizarFisicas(listaDeEntidades);
+
+        b.begin();
+        imagenJugador.setX((float) jugador.getPosicionX());
+        imagenJugador.setY((float) jugador.getPosicionY());
+        imagenJugador.dibujar();
+
+        imgPlataforma.setX((float) plataforma.getPosicionX());
+        imgPlataforma.setY((float) plataforma.getPosicionY());
+        imgPlataforma.dibujar();
+
+        b.end();
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        Config.ancho = width;
+        Config.alto = height;
+
+        stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaMenu.java 
+====================================== 
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+import static com.badlogic.gdx.Gdx.app;
+import static com.badlogic.gdx.Gdx.input;
+
+public class PantallaMenu implements Screen {
+    private Stage stage;
+    private Boton btnJugar, btnConfig, btnSalir;
+    private int anchoBtn=200, altoBtn=60, paddingBtn=10;
+    private Imagen imagenFondo;
+    private SpriteBatch b;
+    Texto texto;
+    @Override
+    public void show() {
+        b = Render.batch;
+        imagenFondo = new Imagen(Recursos.FONDO_MENU);
+        imagenFondo.setSize(Config.ancho, Config.alto);
+        texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+        texto.setTexto("SpeedG2L");
+        texto.centrarArriba(100);
+
+        stage = new Stage();
+
+        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+        crearBotones(skin);
+        escucharClicks();
+        agregarAlStage();
+
+        input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+        b.begin();
+        imagenFondo.dibujar();
+        texto.dibujar();
+        b.end();
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        Config.ancho = width;
+        Config.alto = height;
+
+        stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+
+    private void crearBotones(Skin skin) {
+        btnJugar = new Boton("Jugar", skin);
+        btnConfig = new Boton("Configuracion", skin);
+        btnSalir = new Boton("Salir", skin);
+    }
+
+    private void escucharClicks() {
+
+        btnJugar.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Jugando...");
+                Render.app.setScreen(new PantallaJuego());
+            }
+        });
+
+        btnConfig.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Configurando...");
+                Config.ancho = ((Config.ancho==1280)? (800):(1280));
+                Config.alto = ((Config.alto==720)? (600): (720));
+                System.out.println("Ancho: " + Config.getAncho());
+                System.out.println("Alto: " + Config.getAlto());
+
+                Gdx.graphics.setWindowedMode(Config.ancho, Config.alto);
+            }
+        });
+
+        btnSalir.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                app.exit();
+            }
+        });
+    }
+
+    private void agregarAlStage() {
+        Table table = new Table();
+        table.setFillParent(true);
+        table.bottom();
+
+        table.add(btnJugar).size(anchoBtn, altoBtn).pad(paddingBtn).row();
+        table.add(btnConfig).size(anchoBtn, altoBtn).pad(paddingBtn).row();
+        table.add(btnSalir).size(anchoBtn, altoBtn).pad(paddingBtn);
+
+        stage.addActor(table);
+    }
+
+
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Config.java 
+====================================== 
+package com.g2l.speedg2l.utilidades;
+
+public class Config {
+    public static int ancho = 1280;
+    public static int alto = 720;
+    private Config(){}
+
+    public static int getAncho() {
+        return ancho;
+    }
+
+    public static int getAlto() {
+        return alto;
+    }
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Entradas.java 
+====================================== 
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+
+public class Entradas implements InputProcessor {
+
+    private boolean abajo=false, arriba=false;
+    private int mouseX, mouseY;
+
+    public boolean izquierda(){
+        return Gdx.input.isKeyPressed(Keys.A);
+    }
+
+    public boolean derecha(){
+        return Gdx.input.isKeyPressed(Keys.D);
+    }
+
+    public boolean abajo(){
+        return Gdx.input.isKeyPressed(Keys.S);
+    }
+    public boolean arriba(){
+        return Gdx.input.isKeyPressed(Keys.W);
+    }
+
+    public boolean barraEspaciadora(){
+        return Gdx.input.isKeyJustPressed(Keys.SPACE);
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+
+        if(keycode == Keys.UP){
+            arriba = true;
+            return true;
+        }else if(keycode == Keys.DOWN){
+            abajo = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if(keycode == Keys.UP){
+            arriba = false;
+            return true;
+        }else if(keycode == Keys.DOWN){
+            abajo = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        mouseX = screenX;
+        mouseY = screenY;
+
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
+
+    public boolean isArriba() {
+        return arriba;
+    }
+
+    public boolean isAbajo() {
+        return abajo;
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+}
+
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Recursos.java 
+====================================== 
+package com.g2l.speedg2l.utilidades;
+
+public class Recursos {
+    public static final String FONDO_MENU = "fondos/fondoMenu.png";
+    public static final String FONDO_CARGA = "fondos/G2L.png";
+    public static final String FUENTE_MENU = "fuentes/fuentePrueba.ttf";
+    public static final String PLATAFORMA_VERDE = "plataformas/bloque verde.png";
+}
+ 
+ 
+====================================== 
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Render.java 
+====================================== 
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.g2l.speedg2l.SpeedG2L;
+
+public class Render {
+
+    private Render(){}
+
+    public static SpriteBatch batch = new SpriteBatch();
+    public static SpeedG2L app;
+    public static void limpiarPantalla(){
+       ScreenUtils.clear(Color.BLACK);
+    }
+
+}
+ 
+ 
