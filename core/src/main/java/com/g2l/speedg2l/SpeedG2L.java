@@ -3,17 +3,26 @@ package com.g2l.speedg2l;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.entidades.Entidad;
 import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.entidades.Plataforma;
 import com.g2l.speedg2l.pantallas.PantallaCarga;
 import com.g2l.speedg2l.pantallas.PantallaMenu;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Render;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class SpeedG2L extends Game {
 
     private SpriteBatch b;
     private Imagen logo;
+    private Imagen imgPlataforma;
+    private Plataforma plataforma;
     private Jugador jugador;
+
+    private ArrayList<Entidad> listaDeEntidades;
 
     @Override
     public void create() {
@@ -24,6 +33,7 @@ public class SpeedG2L extends Game {
 //        jugador = new Jugador(100.0f, 100.0f);
 //        logo = new Imagen("libgdx.png");
 //        logo.setSize(jugador.getAncho(), jugador.getAlto());
+
     }
 
     @Override

@@ -120,6 +120,7 @@ public class Jugador extends Entidad{
         return hayColision;
     }
 
+
     private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades){
         if(velocidadConAceleracionDerecha <= velocidadMaxima){
             this.velocidadConAceleracionDerecha += aceleracion;
@@ -130,112 +131,69 @@ public class Jugador extends Entidad{
         else{
             velocidadConAceleracionDerecha = 0;
         }
+
+
         actualizarHitbox();
         // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
     }
 
-    private void desAcelerarDerecha(ArrayList<Entidad> listaDeEntidades){
-        if (velocidadConAceleracionDerecha > 0){
+    private void desAcelerarDerecha(ArrayList<Entidad> listaDeEntidades) {
+        if (velocidadConAceleracionDerecha > 0) {
             velocidadConAceleracionDerecha -= aceleracion;
         }
         if (!hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha)) {
             posicionX += velocidadConAceleracionDerecha;
-        }
-        else{
+        } else {
             velocidadConAceleracionDerecha = 0;
         }
-        actualizarHitbox();
     }
 
-    private void acelerarIzquierda(ArrayList<Entidad> listaDeEntidades){
-        if(velocidadConAceleracionIzquierda <= velocidadMaxima){
-            velocidadConAceleracionIzquierda += aceleracion;
-        }
-        if(!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)){ //Como acelera hacia la izquierda se pone la velocidad negativa
-            posicionX -= velocidadConAceleracionIzquierda;
-        }
-        else{
-            velocidadConAceleracionIzquierda = 0;
-        }
-        actualizarHitbox();
-    }
-
-    private void desAcelerarIzquierda(ArrayList<Entidad> listaDeEntidades){
-        if (velocidadConAceleracionIzquierda > 0){
-            velocidadConAceleracionIzquierda -= aceleracion;
-        }
-        if (!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)) { //Como acelera hacia la izquierda se pone la velocidad negativa
-            posicionX -= velocidadConAceleracionIzquierda;
-        }
-        else{
-            velocidadConAceleracionDerecha = 0;
-        }
-        actualizarHitbox();
-    }
-
-    private boolean hayColisionHorizontal(ArrayList<Entidad> listaDeEntidades, double aceleracion) {
-
-        boolean hayColision = false;
-
-        Rectangle futuraHitbox = new Rectangle(
-            (float) getPosicionX() + (float) aceleracion,
-            (float) getPosicionY(),
-            getAncho(),
-            getAlto()
-        );
-
-        int i =0;
-
-        while(i<listaDeEntidades.size() && !hayColision){
-
-            if(futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())){
-                hayColision = true;
+    private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
+            if (velocidadConAceleracionIzquierda <= velocidadMaxima) {
+                velocidadConAceleracionIzquierda += aceleracion;
             }
-
-            i++;
-        }
-
-        return hayColision;
+            if (!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)) { //Como acelera hacia la izquierda se pone la velocidad negativa
+                posicionX -= velocidadConAceleracionIzquierda;
+            } else {
+                velocidadConAceleracionIzquierda = 0;
+            }
+            actualizarHitbox();
     }
 
+    private void desAcelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
+            if (velocidadConAceleracionIzquierda > 0) {
+                velocidadConAceleracionIzquierda -= aceleracion;
+            }
+            if (!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)) { //Como acelera hacia la izquierda se pone la velocidad negativa
+                posicionX -= velocidadConAceleracionIzquierda;
+            } else {
+                velocidadConAceleracionDerecha = 0;
+            }
+            actualizarHitbox();
+    }
 
-    private int detectarColsionArriba(ArrayList<Entidad> listaDeEntidades){
-        boolean hayColision = false;
-        int indiceColision = -1;
-        int i=0;
-        while(i<listaDeEntidades.size() && !hayColision){
-            Entidad entidadIndiceI = listaDeEntidades.get(i);
-            if ((posicionY + getAlto()) >= entidadIndiceI.getPosicionY()
-                && (posicionY + getAlto()) <= (entidadIndiceI.getPosicionY() + entidadIndiceI.getAlto())) {
+    private boolean hayColisionHorizontal (ArrayList < Entidad > listaDeEntidades,double aceleracion){
 
-                if ((posicionX + getAncho()) >= entidadIndiceI.getPosicionX()
-                    && (posicionX) <= (entidadIndiceI.getPosicionX() + entidadIndiceI.getAncho())) {
+            boolean hayColision = false;
 
+            Rectangle futuraHitbox = new Rectangle(
+                (float) getPosicionX() + (float) aceleracion,
+                (float) getPosicionY(),
+                getAncho(),
+                getAlto()
+            );
+
+            int i = 0;
+
+            while (i < listaDeEntidades.size() && !hayColision) {
+
+                if (futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())) {
                     hayColision = true;
-                    indiceColision = i;
-
                 }
+
+                i++;
             }
-            i++;
-        }
 
-        return indiceColision;
+            return hayColision;
     }
-
-    private int detectarColsion(ArrayList<Entidad> listaDeEntidades){
-        boolean hayColision = false;
-        int indiceColision = -1;
-        int i=0;
-        while(i<listaDeEntidades.size() && !hayColision){
-            Entidad entidadIndiceI = listaDeEntidades.get(i);
-            if (getHitbox().overlaps(entidadIndiceI.getHitbox())){
-                hayColision = true;
-                indiceColision = i;
-            }
-            i++;
-        }
-
-        return indiceColision;
-    }
-
 }
