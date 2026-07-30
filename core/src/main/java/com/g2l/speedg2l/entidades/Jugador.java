@@ -95,6 +95,34 @@ public class Jugador extends Entidad{
         }
     }
 
+    protected void rebotar(ArrayList<Entidad> listaDeEntidades){
+        saltar(listaDeEntidades);
+        if (velocidadConAceleracionDerecha > 5){
+            variacionVelocidad(0.5);
+        }
+        else if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha = 2.5;
+        }
+        else if (velocidadConAceleracionIzquierda > 5){
+            variacionVelocidad(0.5);
+        }
+        else if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda = 5;
+        }
+        else if (velocidadConAceleracionIzquierda == 0 && velocidadConAceleracionDerecha == 0){
+            velocidadConAceleracionDerecha = 2.5;
+        }
+    }
+
+    protected void variacionVelocidad(double multiplicadorDeVariacion){
+        if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha *= multiplicadorDeVariacion;
+        }
+        else if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda *= multiplicadorDeVariacion;
+        }
+    }
+
     private boolean hayColisionVertical(ArrayList<Entidad> listaDeEntidades, double aceleracion) {
 
         boolean hayColision = false;
@@ -196,4 +224,6 @@ public class Jugador extends Entidad{
 
             return hayColision;
     }
+
+
 }

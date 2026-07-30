@@ -1,15 +1,26 @@
 package com.g2l.speedg2l.entidades;
 
+import java.util.ArrayList;
+
 public abstract class Obstaculo extends Entidad{
 
-    private double posicionX ;
-    private double posicionY ;
+    protected boolean colisionLateral;
+    protected boolean colisionVertical;
 
     public Obstaculo(float ancho , float alto, float posicionX, float posicionY){
         super(ancho, alto, posicionX, posicionY);
     }
 
+    public boolean getColisionLateral(){
+        return this.colisionLateral;
+    }
 
-    public abstract void colisionar(Jugador jugador);
+    public boolean getColisionVertical(){
+        return this.colisionVertical;
+    }
+
+    public abstract void alColisionar(Jugador jugador, ArrayList<Entidad> listaDeEntidades);
+
+    public abstract void asignarTipoDeColision();
 
 }
