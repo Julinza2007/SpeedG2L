@@ -10,7 +10,10 @@ public class Pincho extends Obstaculo{
 
     @Override
     public void alColisionar(Jugador jugador, ArrayList<Entidad> listaDeEntidades){
-        jugador.rebotar(listaDeEntidades);
+        if(jugador.getHitbox().overlaps(this.getHitbox())){
+            // jugador.rebotar(listaDeEntidades);
+            jugador.variacionVelocidad(0.5);
+        }
     }
 
     @Override
