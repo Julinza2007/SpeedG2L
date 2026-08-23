@@ -1,6 +1,7 @@
 package com.g2l.speedg2l.entidades;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.g2l.speedg2l.utilidades.Direccion;
 import com.g2l.speedg2l.utilidades.Entradas;
 
 import java.util.ArrayList;
@@ -79,7 +80,9 @@ public class Jugador extends Entidad{
 
     private void saltar(ArrayList<Entidad> listaDeEntidades){
         velocidadYMenosGravedad -= gravedad;
-        if (posicionY >= posicionTecho || hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad)) {
+        Entidad entidadColisionada = null;
+        entidadColisionada = hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad);
+        if (posicionY >= posicionTecho || entidadColisionada instanceof Plataforma) {
             velocidadYMenosGravedad = 0;
         }
 
@@ -123,9 +126,10 @@ public class Jugador extends Entidad{
         }
     }
 
-    private boolean hayColisionVertical(ArrayList<Entidad> listaDeEntidades, double aceleracion) {
+    private Entidad hayColisionVertical(ArrayList<Entidad> listaDeEntidades, double aceleracion) {
 
         boolean hayColision = false;
+        Entidad entidadColisionada = null;
 
         Rectangle futuraHitbox = new Rectangle(
             (float) getPosicionX(),
@@ -140,12 +144,13 @@ public class Jugador extends Entidad{
 
             if(futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())){
                 hayColision = true;
+                entidadColisionada = listaDeEntidades.get(i);
             }
 
             i++;
         }
 
-        return hayColision;
+        return entidadColisionada;
     }
 
 
@@ -153,14 +158,8 @@ public class Jugador extends Entidad{
         if(velocidadConAceleracionDerecha <= velocidadMaxima){
             this.velocidadConAceleracionDerecha += aceleracion;
         }
-        if(!hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha)){
-            posicionX += velocidadConAceleracionDerecha;
-        }
-        else{
-            velocidadConAceleracionDerecha = 0;
-        }
-
-
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
         actualizarHitbox();
         // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
     }
@@ -169,22 +168,17 @@ public class Jugador extends Entidad{
         if (velocidadConAceleracionDerecha > 0) {
             velocidadConAceleracionDerecha -= aceleracion;
         }
-        if (!hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha)) {
-            posicionX += velocidadConAceleracionDerecha;
-        } else {
-            velocidadConAceleracionDerecha = 0;
-        }
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
+        actualizarHitbox();
     }
 
     private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
             if (velocidadConAceleracionIzquierda <= velocidadMaxima) {
                 velocidadConAceleracionIzquierda += aceleracion;
             }
-            if (!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)) { //Como acelera hacia la izquierda se pone la velocidad negativa
-                posicionX -= velocidadConAceleracionIzquierda;
-            } else {
-                velocidadConAceleracionIzquierda = 0;
-            }
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
             actualizarHitbox();
     }
 
@@ -192,17 +186,15 @@ public class Jugador extends Entidad{
             if (velocidadConAceleracionIzquierda > 0) {
                 velocidadConAceleracionIzquierda -= aceleracion;
             }
-            if (!hayColisionHorizontal(listaDeEntidades, -velocidadConAceleracionIzquierda)) { //Como acelera hacia la izquierda se pone la velocidad negativa
-                posicionX -= velocidadConAceleracionIzquierda;
-            } else {
-                velocidadConAceleracionDerecha = 0;
-            }
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
             actualizarHitbox();
     }
 
-    private boolean hayColisionHorizontal (ArrayList < Entidad > listaDeEntidades,double aceleracion){
+    private Entidad hayColisionHorizontal (ArrayList < Entidad > listaDeEntidades,double aceleracion){
 
             boolean hayColision = false;
+            Entidad entidadColisionada = null;
 
             Rectangle futuraHitbox = new Rectangle(
                 (float) getPosicionX() + (float) aceleracion,
@@ -217,13 +209,50 @@ public class Jugador extends Entidad{
 
                 if (futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())) {
                     hayColision = true;
+                    entidadColisionada = listaDeEntidades.get(i);
                 }
 
                 i++;
             }
 
-            return hayColision;
+            return entidadColisionada;
     }
 
+
+    private void trabajarColisionHorizontal(Entidad entidadColisionada, Direccion direccionMovimiento) {
+
+        switch (direccionMovimiento) {
+            case DERECHA:
+
+                if (entidadColisionada == null){
+                    posicionX += velocidadConAceleracionDerecha;
+                }
+                else if (entidadColisionada instanceof Plataforma) {
+                    velocidadConAceleracionDerecha = 0;
+                }
+                else if (entidadColisionada instanceof Obstaculo){
+                    Obstaculo obstaculoColisionado = (Obstaculo) entidadColisionada;
+                    if (obstaculoColisionado.getColisionLateral()){
+                        obstaculoColisionado.alColisionar(this);
+                    }
+                }
+
+
+            case IZQUIERDA:
+
+                if (entidadColisionada == null){
+                    posicionX += velocidadConAceleracionIzquierda;
+                }
+                else if (entidadColisionada instanceof Plataforma) {
+                    velocidadConAceleracionIzquierda = 0;
+                }
+                else if (entidadColisionada instanceof Obstaculo){
+                    Obstaculo obstaculoColisionado = (Obstaculo) entidadColisionada;
+                    if (obstaculoColisionado.getColisionLateral()){
+                        obstaculoColisionado.alColisionar(this);
+                    }
+                }
+        }
+    }
 
 }

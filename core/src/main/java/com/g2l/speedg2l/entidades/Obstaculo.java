@@ -19,7 +19,7 @@ public abstract class Obstaculo extends Entidad{
         return this.colisionVertical;
     }
 
-    public abstract void alColisionar(Jugador jugador, ArrayList<Entidad> listaDeEntidades);
+    public abstract void alColisionar(Jugador jugador /*, ArrayList<Entidad> listaDeEntidades*/);
 
     public abstract void asignarTipoDeColision();
 
