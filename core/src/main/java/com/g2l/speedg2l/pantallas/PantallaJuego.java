@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.entidades.*;
+import com.g2l.speedg2l.sonidos.Musica;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Recursos;
@@ -41,6 +42,12 @@ public class PantallaJuego implements Screen {
     @Override
     public void show() {
         b = Render.batch;
+
+        Musica musicaMenu = new Musica("assets/sonidos/musicaInGame/musicaNivel1.wav");
+
+        musicaMenu.volumen(0.5f);
+        musicaMenu.repetir(true);
+        musicaMenu.reproducir();
 
         TmxMapLoader loader = new TmxMapLoader();
 
@@ -85,6 +92,8 @@ public class PantallaJuego implements Screen {
         renderMapa.render();
 
         b.setProjectionMatrix(camara.combined);
+        b.begin();
+        
         imagenJugador.setX((float) jugador.getPosicionX());
         imagenJugador.setY((float) jugador.getPosicionY());
         imagenJugador.dibujar();
