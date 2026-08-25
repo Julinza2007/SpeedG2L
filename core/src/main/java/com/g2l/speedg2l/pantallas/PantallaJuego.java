@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
 import com.g2l.speedg2l.sonidos.Musica;
 import com.g2l.speedg2l.utilidades.Config;
@@ -24,6 +25,8 @@ public class PantallaJuego implements Screen {
     private Jugador jugador;
     private Imagen imagenJugador;
     private SpriteBatch b;
+
+    private Hud hud;
 
     private Plataforma plataforma;
     private Imagen imgPlataforma;
@@ -59,6 +62,8 @@ public class PantallaJuego implements Screen {
         imagenJugador = new Imagen("libgdx.png");
         imagenJugador.setSize(jugador.getAncho(), jugador.getAlto());
 
+        hud = new Hud();
+
         camara = new OrthographicCamera();
         camara.setToOrtho(false, Config.ancho, Config.alto);
         camara.update();
@@ -91,9 +96,11 @@ public class PantallaJuego implements Screen {
         renderMapa.setView(camara);
         renderMapa.render();
 
+        hud.actualizar();
+
         b.setProjectionMatrix(camara.combined);
         b.begin();
-        
+
         imagenJugador.setX((float) jugador.getPosicionX());
         imagenJugador.setY((float) jugador.getPosicionY());
         imagenJugador.dibujar();
@@ -105,6 +112,9 @@ public class PantallaJuego implements Screen {
         imgPincho.setX((float) pincho.getPosicionX());
         imgPincho.setY((float) pincho.getPosicionY());
         imgPincho.dibujar();
+
+
+        hud.dibujar();
 
         b.end();
         stage.act(delta);
