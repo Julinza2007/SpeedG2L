@@ -8,7 +8,7 @@ import com.g2l.speedg2l.entidades.Jugador;
 import com.g2l.speedg2l.entidades.Plataforma;
 import com.g2l.speedg2l.pantallas.PantallaCarga;
 import com.g2l.speedg2l.pantallas.PantallaMenu;
-import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
 
 import java.awt.*;
@@ -27,7 +27,8 @@ public class SpeedG2L extends Game {
     @Override
     public void create() {
         Render.app = this;
-        this.setScreen(new PantallaCarga());
+
+        this.setScreen(new PantallaMenu());
         b = Render.batch;
 
 //        jugador = new Jugador(100.0f, 100.0f);
