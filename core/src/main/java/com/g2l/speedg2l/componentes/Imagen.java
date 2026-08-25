@@ -31,8 +31,8 @@ public class Imagen {
     }
 
     public void centrar(){
-        setX((Config.ancho/2.0f) - (s.getWidth()/2));
-        setY((Config.alto/2.0f) - (s.getHeight()/2));
+        setX((Config.getAncho()/2.0f) - (s.getWidth()/2));
+        setY((Config.getAlto()/2.0f) - (s.getHeight()/2));
     }
 
     public void setTransparencia(float alpha){
