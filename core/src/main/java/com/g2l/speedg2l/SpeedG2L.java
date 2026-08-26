@@ -6,6 +6,7 @@ import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.entidades.Entidad;
 import com.g2l.speedg2l.entidades.Jugador;
 import com.g2l.speedg2l.entidades.Plataforma;
+import com.g2l.speedg2l.pantallas.PantallaCarga;
 import com.g2l.speedg2l.pantallas.PantallaMenu;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
@@ -27,7 +28,7 @@ public class SpeedG2L extends Game {
     public void create() {
         Render.app = this;
 
-        this.setScreen(new PantallaMenu());
+        this.setScreen(new PantallaCarga());
         b = Render.batch;
 
     }
