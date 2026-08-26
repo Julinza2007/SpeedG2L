@@ -1,7 +1,8 @@
-package com.g2l.speedg2l.utilidades;
+package com.g2l.speedg2l.mundo;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.utilidades.ConfigViewport;
 
 public class Camara {
 
