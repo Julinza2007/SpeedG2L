@@ -1,18 +1,14 @@
 package com.g2l.speedg2l.pantallas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.g2l.speedg2l.componentes.Boton;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.PanelBotones;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
@@ -21,28 +17,30 @@ import com.g2l.speedg2l.utilidades.Render;
 import static com.badlogic.gdx.Gdx.app;
 import static com.badlogic.gdx.Gdx.input;
 
-public class PantallaMenu implements Screen {
+public class PantallaMenu extends Pantalla {
     private Stage stage;
-    private Boton btnJugar, btnConfig, btnSalir;
-    private int anchoBtn=200, altoBtn=60, paddingBtn=10;
+    private PanelBotones panelBotones;
     private Imagen imagenFondo;
     private SpriteBatch b;
-    Texto texto;
+    private Texto texto;
+
     @Override
     public void show() {
         b = Render.batch;
         imagenFondo = new Imagen(Recursos.FONDO_MENU);
-        imagenFondo.setSize(Config.ancho, Config.alto);
+        imagenFondo.setSize(Config.getAnchoJuego(), Config.getAltoJuego());
         texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
         texto.setTexto("SpeedG2L");
         texto.centrarArriba(100);
 
-        stage = new Stage();
+        stage = new Stage(configViewport.getViewport());
 
         Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
-        crearBotones(skin);
-        escucharClicks();
+        crearPanelBotones(skin);
+        panelBotones.centrar();
+
+
         agregarAlStage();
 
         input.setInputProcessor(stage);
@@ -51,20 +49,14 @@ public class PantallaMenu implements Screen {
     @Override
     public void render(float delta) {
         Render.limpiarPantalla();
+
+        configViewport.aplicarViewport(b);
         b.begin();
         imagenFondo.dibujar();
         texto.dibujar();
         b.end();
         stage.act(delta);
         stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        Config.ancho = width;
-        Config.alto = height;
-
-        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -87,54 +79,75 @@ public class PantallaMenu implements Screen {
         stage.dispose();
     }
 
-    private void crearBotones(Skin skin) {
-        btnJugar = new Boton("Jugar", skin);
-        btnConfig = new Boton("Configuracion", skin);
-        btnSalir = new Boton("Salir", skin);
-    }
 
-    private void escucharClicks() {
+    private void crearPanelBotones(Skin skin) {
+        panelBotones = new PanelBotones();
 
-        btnJugar.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Jugando...");
-                Render.app.setScreen(new PantallaJuego());
-            }
-        });
+        final int PADDING = 10;
+        final int ANCHO_BOTONES = 200;
+        final int ALTURA_BOTONES = 60;
 
-        btnConfig.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Configurando...");
-                Config.ancho = ((Config.ancho==1280)? (800):(1280));
-                Config.alto = ((Config.alto==720)? (600): (720));
-                System.out.println("Ancho: " + Config.getAncho());
-                System.out.println("Alto: " + Config.getAlto());
+        panelBotones.agregarBoton(
+            new Boton(
+                "Jugar",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaJuego());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
 
-                Gdx.graphics.setWindowedMode(Config.ancho, Config.alto);
-            }
-        });
+        panelBotones.agregarBoton(
+            new Boton(
+                "Configuracion",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaConfig());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
 
-        btnSalir.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                app.exit();
-            }
-        });
+        panelBotones.agregarBoton(
+            new Boton(
+                "Salir",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        app.exit();
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+
     }
 
     private void agregarAlStage() {
-        Table table = new Table();
-        table.setFillParent(true);
-        table.bottom();
-
-        table.add(btnJugar).size(anchoBtn, altoBtn).pad(paddingBtn).row();
-        table.add(btnConfig).size(anchoBtn, altoBtn).pad(paddingBtn).row();
-        table.add(btnSalir).size(anchoBtn, altoBtn).pad(paddingBtn);
-
-        stage.addActor(table);
+      stage.addActor(panelBotones.getContenedor());
     }
-
 
 }

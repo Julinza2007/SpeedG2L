@@ -12,7 +12,7 @@ import com.g2l.speedg2l.utilidades.Render;
 
 import java.util.ArrayList;
 
-public class PantallaJuego implements Screen {
+public class PantallaJuego extends Pantalla {
 
     private Stage stage;
 
@@ -48,8 +48,7 @@ public class PantallaJuego implements Screen {
         listaDeObstaculos.add(pincho);
         imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
-        stage = new Stage();
-
+        stage = new Stage(configViewport.getViewport());
 
     }
 
@@ -76,14 +75,6 @@ public class PantallaJuego implements Screen {
         b.end();
         stage.act(delta);
         stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        Config.ancho = width;
-        Config.alto = height;
-
-        stage.getViewport().update(width, height, true);
     }
 
     @Override

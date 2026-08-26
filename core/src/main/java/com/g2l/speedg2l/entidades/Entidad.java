@@ -27,9 +27,9 @@ public class Entidad {
         return this.alto;
     }
 
-    public double getPosicionY(){ return this.posicionY; }
+    public float getPosicionY(){ return this.posicionY; }
 
-    public double getPosicionX(){ return this.posicionX; }
+    public float getPosicionX(){ return this.posicionX; }
 
     protected Rectangle getHitbox(){ return this.hitbox; }
 

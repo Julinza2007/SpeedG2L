@@ -30,9 +30,9 @@ public class Imagen {
         s.setSize(ancho, altura);
     }
 
-    public void centrar(){
-        setX((Config.ancho/2.0f) - (s.getWidth()/2));
-        setY((Config.alto/2.0f) - (s.getHeight()/2));
+    public void centrar() {
+        setX((Config.getAnchoJuego() / 2.0f) - (s.getWidth() / 2));
+        setY((Config.getAltoJuego() / 2.0f) - (s.getHeight() / 2));
     }
 
     public void setTransparencia(float alpha){
