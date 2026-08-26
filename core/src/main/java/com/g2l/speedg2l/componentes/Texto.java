@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.g2l.speedg2l.mundo.Cerrable;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
 
-public class Texto {
+public class Texto implements Cerrable {
     private BitmapFont fuente;
     private float x=0, y=0;
     private String texto;
@@ -71,6 +72,11 @@ public class Texto {
 
     public float getAlto(){
         return layout.height;
+    }
+
+    @Override
+    public void cerrar() {
+        fuente.dispose();
     }
 
     // ver si conviene hacer un setTamanio tambien.

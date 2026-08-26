@@ -125,7 +125,6 @@ public class PantallaConfig extends Pantalla {
                     textoVolumen.setText(
                         "Volumen: " + (int)(volumen * 100) + "%"
                     );
-
                     // Aca tambien iria Music.setVolume() / Sound.play().
                 }
             },

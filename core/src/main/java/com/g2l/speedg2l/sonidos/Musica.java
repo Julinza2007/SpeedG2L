@@ -2,8 +2,9 @@ package com.g2l.speedg2l.sonidos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.g2l.speedg2l.mundo.Cerrable;
 
-public class Musica {
+public class Musica implements Cerrable {
 
     private Music musica;
 
@@ -35,7 +36,8 @@ public class Musica {
         return musica.isPlaying();
     }
 
-    public void dispose() {
+    @Override
+    public void cerrar() {
         musica.dispose();
     }
 }

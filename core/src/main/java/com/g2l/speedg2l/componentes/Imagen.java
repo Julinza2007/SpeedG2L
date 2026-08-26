@@ -2,10 +2,11 @@ package com.g2l.speedg2l.componentes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.g2l.speedg2l.mundo.Cerrable;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
 
-public class Imagen {
+public class Imagen implements Cerrable {
     private Texture t;
     private Sprite s;
 
@@ -39,4 +40,8 @@ public class Imagen {
         s.setAlpha(alpha);
     }
 
+    @Override
+    public void cerrar() {
+        t.dispose();
+    }
 }

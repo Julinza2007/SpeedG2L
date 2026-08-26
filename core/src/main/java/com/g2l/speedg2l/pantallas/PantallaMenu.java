@@ -17,7 +17,7 @@ import com.g2l.speedg2l.utilidades.Render;
 import static com.badlogic.gdx.Gdx.app;
 import static com.badlogic.gdx.Gdx.input;
 
-public class PantallaMenu extends Pantalla {
+public class PantallaMenu extends Pantalla{
     private Stage stage;
     private PanelBotones panelBotones;
     private Imagen imagenFondo;
@@ -76,6 +76,7 @@ public class PantallaMenu extends Pantalla {
 
     @Override
     public void dispose() {
+        texto.cerrar();
         stage.dispose();
     }
 

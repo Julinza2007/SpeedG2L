@@ -67,5 +67,6 @@ public class PantallaCarga extends Pantalla {
     @Override
     public void dispose() {
         b.dispose();
+        imagenFondo.cerrar();
     }
 }

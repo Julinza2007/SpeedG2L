@@ -2,7 +2,7 @@ package com.g2l.speedg2l.componentes;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-public class PanelBotones {
+public class PanelBotones{
     private Table contenedor;
 
     public PanelBotones() {
