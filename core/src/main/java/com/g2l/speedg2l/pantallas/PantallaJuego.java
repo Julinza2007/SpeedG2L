@@ -4,11 +4,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
+import com.g2l.speedg2l.sonidos.Musica;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import java.util.ArrayList;
 
@@ -20,6 +26,8 @@ public class PantallaJuego extends Pantalla {
     private Imagen imagenJugador;
     private SpriteBatch b;
 
+    private Hud hud;
+
     private Plataforma plataforma;
     private Imagen imgPlataforma;
 
@@ -29,13 +37,36 @@ public class PantallaJuego extends Pantalla {
     private ArrayList<Entidad> listaDeEntidades;
     private ArrayList<Obstaculo> listaDeObstaculos;
 
+    private TiledMap mapa;
+    private OrthogonalTiledMapRenderer renderMapa;
+    private OrthographicCamera camara;
+
 
     @Override
     public void show() {
         b = Render.batch;
+
+        Musica musicaMenu = new Musica("assets/sonidos/musicaInGame/musicaNivel1.wav");
+
+        musicaMenu.volumen(0.5f);
+        musicaMenu.repetir(true);
+        musicaMenu.reproducir();
+
+        TmxMapLoader loader = new TmxMapLoader();
+
+        mapa = loader.load("nivel/mapaPrueba.tmx");
+
+        renderMapa = new OrthogonalTiledMapRenderer(mapa);
+
         jugador = new Jugador(50.0f, 50.0f, 100.0f, 100.0f);
         imagenJugador = new Imagen("libgdx.png");
         imagenJugador.setSize(jugador.getAncho(), jugador.getAlto());
+
+        hud = new Hud();
+
+        camara = new OrthographicCamera();
+        camara.setToOrtho(false, Config.ancho, Config.alto);
+        camara.update();
 
         listaDeEntidades = new ArrayList<>();
         listaDeObstaculos = new ArrayList<>();
@@ -59,7 +90,18 @@ public class PantallaJuego extends Pantalla {
         jugador.moverJugador(new Entradas());
         jugador.actualizarFisicas(listaDeEntidades);
 
+        camara.position.x = (float) jugador.getPosicionX();
+        camara.position.y = (float) jugador.getPosicionY();
+
+        camara.update();
+        renderMapa.setView(camara);
+        renderMapa.render();
+
+        hud.actualizar();
+
+        b.setProjectionMatrix(camara.combined);
         b.begin();
+
         imagenJugador.setX((float) jugador.getPosicionX());
         imagenJugador.setY((float) jugador.getPosicionY());
         imagenJugador.dibujar();
@@ -72,7 +114,11 @@ public class PantallaJuego extends Pantalla {
         imgPincho.setY((float) pincho.getPosicionY());
         imgPincho.dibujar();
 
+        hud.dibujar();
+
+
         b.end();
+
         stage.act(delta);
         stage.draw();
     }
