@@ -3,6 +3,7 @@ package com.g2l.speedg2l.componentes.interfaz;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
 
 public class Hud {
@@ -36,6 +37,7 @@ public class Hud {
         );
 
         cronometro.setTexto(textoCronometro);
+        cronometro.setPosition(((Config.ancho / 2) - (cronometro.getAncho() / 2)), ((Config.alto / 2) - (cronometro.getAlto() / 2)));
         cronometro.dibujar();
 
     }

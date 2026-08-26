@@ -91,8 +91,10 @@ public class PantallaJuego implements Screen {
         jugador.moverJugador(new Entradas());
         jugador.actualizarFisicas(listaDeEntidades);
 
-        camara.update();
+        camara.position.x = (float) jugador.getPosicionX();
+        camara.position.y = (float) jugador.getPosicionY();
 
+        camara.update();
         renderMapa.setView(camara);
         renderMapa.render();
 
@@ -113,10 +115,11 @@ public class PantallaJuego implements Screen {
         imgPincho.setY((float) pincho.getPosicionY());
         imgPincho.dibujar();
 
-
         hud.dibujar();
 
+
         b.end();
+
         stage.act(delta);
         stage.draw();
     }
