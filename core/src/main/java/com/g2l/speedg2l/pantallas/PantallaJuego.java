@@ -48,8 +48,7 @@ public class PantallaJuego extends Pantalla {
         listaDeObstaculos.add(pincho);
         imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
-        stage = new Stage();
-
+        stage = new Stage(configViewport.getViewport());
 
     }
 

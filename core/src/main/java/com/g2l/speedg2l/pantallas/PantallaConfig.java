@@ -1,16 +1,19 @@
 package com.g2l.speedg2l.pantallas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.g2l.speedg2l.componentes.Boton;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
+import com.g2l.speedg2l.utilidades.Resolucion;
 
 public class PantallaConfig extends Pantalla {
 
@@ -19,35 +22,80 @@ public class PantallaConfig extends Pantalla {
 
     private Label textoVolumen;
     private Label textoSilencio;
-    private Label textoResolucion;
-
     private float volumen = 1.0f;
     private boolean sonidoSilenciado = false;
+    private Resolucion[] resoluciones;
 
     @Override
     public void show() {
 
-        stage = new Stage();
+        stage = new Stage(configViewport.getViewport());
         skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        calcularResoluciones();
 
         crearInterfaz();
-
         Gdx.input.setInputProcessor(stage);
     }
 
-    private void crearInterfaz() {
+    private void calcularResoluciones() {
+        int anchoMax = Config.getAnchoMonitor();
+        int altoMax = Config.getAltoMonitor();
 
+        Resolucion[] resolucionesDisponibles = Resolucion.values();
+        Resolucion[] resolucionesSoportadas = new Resolucion[resolucionesDisponibles.length];
+        int cantidadResolucionesDisponibles=0;
+
+        for(int i=0; i < resolucionesDisponibles.length; i++){
+            Resolucion r = resolucionesDisponibles[i];
+
+            if(r.getAncho() <= anchoMax && r.getAlto() <= altoMax){
+                resolucionesSoportadas[cantidadResolucionesDisponibles] = r;
+                cantidadResolucionesDisponibles++;
+            }
+        }
+
+        resoluciones = new Resolucion[cantidadResolucionesDisponibles];
+
+        for(int i=0; i < cantidadResolucionesDisponibles; i++){
+            resoluciones[i] = resolucionesSoportadas[i];
+        }
+    }
+
+    private void crearInterfaz() {
         Table tabla = new Table();
         tabla.setFillParent(true);
         tabla.center();
 
-        Label titulo = new Label("CONFIGURACIÓN", skin);
+        Label titulo = new Label("CONFIGURACION", skin);
         titulo.setFontScale(1.5f);
 
-        textoResolucion = new Label(
-            "Resolución: " + Config.getAncho() + "x" + Config.getAlto(),
-            skin
-        );
+        Label textoResolucion = new Label("Resolucion:", skin);
+
+        SelectBox<Resolucion> selectorResoluciones = new SelectBox<>(skin);
+        selectorResoluciones.setItems(resoluciones);
+        selectorResoluciones.setSelected(Resolucion.values()[0]);
+
+        for (Resolucion resolucion : resoluciones) {
+            if (resolucion.getAncho() == Gdx.graphics.getWidth()
+                && resolucion.getAlto() == Gdx.graphics.getHeight()) {
+
+                selectorResoluciones.setSelected(resolucion);
+                break;
+            }
+        }
+
+        selectorResoluciones.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                Resolucion seleccionada = selectorResoluciones.getSelected();
+
+                Gdx.graphics.setWindowedMode(
+                    seleccionada.getAncho(),
+                    seleccionada.getAlto()
+                );
+            }
+        });
 
         textoVolumen = new Label(
             "Volumen: " + (int)(volumen * 100) + "%",
@@ -57,38 +105,6 @@ public class PantallaConfig extends Pantalla {
         textoSilencio = new Label(
             "Sonido: " + (sonidoSilenciado ? "Silenciado" : "Activado"),
             skin
-        );
-
-        Boton btnResolucion = new Boton(
-            "Cambiar resolución",
-            skin,
-            new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-
-                    int ancho;
-                    int alto;
-
-                    if (Config.getAncho() == 1280) {
-                        ancho = 800;
-                        alto = 600;
-                    } else {
-                        ancho = 1280;
-                        alto = 720;
-                    }
-
-                    Config.setAncho(ancho);
-                    Config.setAlto(alto);
-
-                    Gdx.graphics.setWindowedMode(ancho, alto);
-
-                    textoResolucion.setText(
-                        "Resolución: " + ancho + "x" + alto
-                    );
-                }
-            },
-            250,
-            60
         );
 
         Boton btnSubirVolumen = new Boton(
@@ -110,7 +126,7 @@ public class PantallaConfig extends Pantalla {
                         "Volumen: " + (int)(volumen * 100) + "%"
                     );
 
-                    // Acá después conectamos Music.setVolume() / Sound.play().
+                    // Aca tambien iria Music.setVolume() / Sound.play().
                 }
             },
             250,
@@ -136,7 +152,7 @@ public class PantallaConfig extends Pantalla {
                         "Volumen: " + (int)(volumen * 100) + "%"
                     );
 
-                    // Acá después conectamos Music.setVolume() / Sound.play().
+                    // Aca conectariamos Music.setVolume() o Sound.play().
                 }
             },
             250,
@@ -157,7 +173,7 @@ public class PantallaConfig extends Pantalla {
                             (sonidoSilenciado ? "Silenciado" : "Activado")
                     );
 
-                    // Acá después conectamos la lógica de Music/Sound.
+                    // Aca despues conectamos lo de Music/Sound.
                 }
             },
             250,
@@ -180,7 +196,7 @@ public class PantallaConfig extends Pantalla {
         tabla.add(titulo).padBottom(30).row();
 
         tabla.add(textoResolucion).padBottom(10).row();
-        tabla.add(btnResolucion).padBottom(25).row();
+        tabla.add(selectorResoluciones).width(250).padBottom(25).row();
 
         tabla.add(textoVolumen).padBottom(10).row();
         tabla.add(btnSubirVolumen).pad(5).row();

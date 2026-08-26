@@ -50,15 +50,15 @@ public class Texto {
     }
 
     public void centrar(){
-        this.setPosition((Config.getAncho()/2.0f) - (getAncho()/2), (Config.getAncho()/2.0f) - (getAlto()/2));
+        this.setPosition((Config.getAnchoVp()/2.0f) - (getAncho()/2), (Config.getAnchoVp()/2.0f) - (getAlto()/2));
     }
 
     public void centrarArriba(int paddingTop){
-        this.setPosition((Config.getAncho()/2.0f) - (getAncho()/2), Config.getAlto() - paddingTop);
+        this.setPosition((Config.getAnchoVp()/2.0f) - (getAncho()/2), Config.getAltoVp() - paddingTop);
     }
 
     public void centrarAbajo(int paddingBottom){
-        this.setPosition((Config.getAncho()/2.0f) - (getAncho()/2), getAlto() + paddingBottom);
+        this.setPosition((Config.getAnchoVp()/2.0f) - (getAncho()/2), getAlto() + paddingBottom);
     }
 
     public String getTexto() {

@@ -7,7 +7,7 @@ public class ConfigViewport {
     private FitViewport viewport;
 
     public ConfigViewport(){
-        viewport = new FitViewport(Config.getAncho(), Config.getAlto());
+        viewport = new FitViewport(Config.getAnchoVp(), Config.getAltoVp());
     }
 
     public void aplicarViewport(SpriteBatch b) {

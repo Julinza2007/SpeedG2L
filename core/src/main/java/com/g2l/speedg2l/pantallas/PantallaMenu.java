@@ -28,17 +28,16 @@ public class PantallaMenu extends Pantalla {
     public void show() {
         b = Render.batch;
         imagenFondo = new Imagen(Recursos.FONDO_MENU);
-        imagenFondo.setSize(Config.getAncho(), Config.getAlto());
+        imagenFondo.setSize(Config.getAnchoVp(), Config.getAltoVp());
         texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
         texto.setTexto("SpeedG2L");
         texto.centrarArriba(100);
 
-        stage = new Stage();
+        stage = new Stage(configViewport.getViewport());
 
         Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
         crearPanelBotones(skin);
-        panelBotones.setSizeCeldas(200, 60);
         panelBotones.centrar();
 
 
