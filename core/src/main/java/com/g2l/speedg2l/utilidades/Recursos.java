@@ -9,5 +9,6 @@ public class Recursos {
     public static final String FUENTE_MENU = "fuentes/fuentePrueba.ttf";
     public static final String PLATAFORMA_VERDE = "plataformas/bloque verde.png";
     public static final String OBSTACULO_PINCHO = "plataformas/pincho.png";
-
+    public static final String MUSICA_JUEGO = "sonidos/musicaInGame/musicaNivel1.wav";
+    public static final String NIVEL_1 = "nivel/mapaPrueba.tmx";
 }
