@@ -3,20 +3,19 @@ package com.g2l.speedg2l.componentes.interfaz;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.mundo.Cerrable;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
 
-public class Hud {
+public class Hud implements Cerrable {
 
-    private Texto cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.WHITE);
+    private Texto cronometro;
     private float tiempo;
 
     private Texto posicion;
 
-
-
     public Hud() {
-        tiempo = 0;
+        tiempo = 0.0f;
     }
 
     public void actualizar() {
@@ -24,25 +23,23 @@ public class Hud {
     }
 
     public void dibujar() {
-
-        int tiempoMinutos = (int) tiempo / 60;
-        int tiempoSegundos = (int) tiempo % 60;
-        int tiempocentesimasDeSegundos = (int) (tiempo * 100) % 100;
-
-        String textoCronometro = String.format(
-            "%02d:%02d:%02d",
-            tiempoMinutos,
-            tiempoSegundos,
-            tiempocentesimasDeSegundos
-        );
-
-        cronometro.setTexto(textoCronometro);
-        cronometro.setPosition(((Config.ancho / 2) - (cronometro.getAncho() / 2)), ((Config.alto / 2) - (cronometro.getAlto() / 2)));
+        crearCronometro();
+        cronometro.setPosition(((Config.getAnchoJuego() / 2) - (cronometro.getAncho() / 2)), ((Config.getAltoJuego() / 2) - (cronometro.getAlto() / 2)));
         cronometro.dibujar();
-
     }
 
-    public void dispose() {
+    private void crearCronometro(){
+        cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.WHITE);
+
+        int minutos = (int) tiempo / 60;
+        int segundos = (int) tiempo % 60;
+        int centesimas = (int) (tiempo * 100) % 100;
+
+        cronometro.setTexto( minutos + "m: " + segundos + "s: " + centesimas);
     }
 
+    @Override
+    public void cerrar() {
+        cronometro.cerrar();
+    }
 }
