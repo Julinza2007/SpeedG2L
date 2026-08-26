@@ -10,10 +10,10 @@ public class ConfigViewport {
 
     public ConfigViewport(){
         camara = new OrthographicCamera(
-            Config.getAnchoVp(),
-            Config.getAltoVp()
+            Config.getAnchoJuego(),
+            Config.getAltoJuego()
         );
-        viewport = new FitViewport(Config.getAnchoVp(), Config.getAltoVp());
+        viewport = new FitViewport(Config.getAnchoJuego(), Config.getAltoJuego());
     }
 
     public void aplicarViewport(SpriteBatch b) {

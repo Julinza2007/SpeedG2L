@@ -28,7 +28,7 @@ public class PantallaMenu extends Pantalla {
     public void show() {
         b = Render.batch;
         imagenFondo = new Imagen(Recursos.FONDO_MENU);
-        imagenFondo.setSize(Config.getAnchoVp(), Config.getAltoVp());
+        imagenFondo.setSize(Config.getAnchoJuego(), Config.getAltoJuego());
         texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
         texto.setTexto("SpeedG2L");
         texto.centrarArriba(100);
