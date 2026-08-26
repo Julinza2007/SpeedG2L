@@ -45,16 +45,7 @@ public class Jugador extends Entidad{
             acelerandoDerecha = false;
         }
 
-        /*
-        if (Gdx.input.isKeyPressed(Input.Keys.S)){
-=======
-        if (entradas.abajo()){
->>>>>>> a3a6fbe29620d4cf94e3e310ea5fd019e698c0ba
-            this.posicionY -= velocidadY;
-        }
-        */
-
-        if (entradas.arriba() && !saltando){
+      if (entradas.arriba() && !saltando){
             this.saltando = true;
         }
     }
@@ -138,7 +129,7 @@ public class Jugador extends Entidad{
             getAlto()
         );
 
-        int i =0;
+        int i = 0;
 
         while(i<listaDeEntidades.size() && !hayColision){
 
@@ -197,8 +188,8 @@ public class Jugador extends Entidad{
             Entidad entidadColisionada = null;
 
             Rectangle futuraHitbox = new Rectangle(
-                (float) getPosicionX() + (float) aceleracion,
-                (float) getPosicionY(),
+                getPosicionX() + (float) aceleracion,
+                getPosicionY(),
                 getAncho(),
                 getAlto()
             );
@@ -237,11 +228,13 @@ public class Jugador extends Entidad{
                     }
                 }
 
+                break;
+
 
             case IZQUIERDA:
 
                 if (entidadColisionada == null){
-                    posicionX += velocidadConAceleracionIzquierda;
+                    posicionX -= velocidadConAceleracionIzquierda;
                 }
                 else if (entidadColisionada instanceof Plataforma) {
                     velocidadConAceleracionIzquierda = 0;
