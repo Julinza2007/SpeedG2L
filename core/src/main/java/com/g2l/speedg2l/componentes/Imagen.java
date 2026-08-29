@@ -1,8 +1,8 @@
-package com.g2l.speedg2l.componentes;
+package com.g2l.speedg2l.componentes.imagenes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.g2l.speedg2l.mundo.Cerrable;
+import com.g2l.speedg2l.Cerrable;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Render;
 
