@@ -2,7 +2,7 @@ package com.g2l.speedg2l.sonidos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.g2l.speedg2l.mundo.Cerrable;
+import com.g2l.speedg2l.Cerrable;
 
 public class Musica implements Cerrable {
 

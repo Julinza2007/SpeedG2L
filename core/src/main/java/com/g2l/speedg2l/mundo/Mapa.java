@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.g2l.speedg2l.Cerrable;
 
-public class Mapa implements Cerrable{
+public class Mapa implements Cerrable {
     private TiledMap mapa;
     private OrthogonalTiledMapRenderer renderMapa;
     private Nivel nivelActual;

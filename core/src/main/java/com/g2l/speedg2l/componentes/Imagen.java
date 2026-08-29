@@ -1,4 +1,4 @@
-package com.g2l.speedg2l.componentes.imagenes;
+package com.g2l.speedg2l.componentes;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;

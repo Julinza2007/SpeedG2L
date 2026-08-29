@@ -3,7 +3,7 @@ package com.g2l.speedg2l.componentes.interfaz;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.g2l.speedg2l.componentes.Texto;
-import com.g2l.speedg2l.mundo.Cerrable;
+import com.g2l.speedg2l.Cerrable;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
 
