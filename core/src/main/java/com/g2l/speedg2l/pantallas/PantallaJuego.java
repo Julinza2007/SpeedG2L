@@ -2,6 +2,7 @@ package com.g2l.speedg2l.pantallas;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
@@ -19,8 +20,7 @@ public class PantallaJuego extends Pantalla {
     private Stage stage;
 
     private Jugador jugador;
-    private Imagen imagenJugador;
-    private SpriteBatch b;
+    private AnimacionEntidad caminataJugador;    private SpriteBatch b;
     private Musica musicaJuego;
     private Hud hud;
 
@@ -45,10 +45,7 @@ public class PantallaJuego extends Pantalla {
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
-        jugador = new Jugador(50.0f, 50.0f, 100.0f, 100.0f);
-        imagenJugador = new Imagen("libgdx.png");
-        imagenJugador.setSize(jugador.getAncho(), jugador.getAlto());
-
+        jugador = new Jugador(70.0f, 70.0f, 0.0f, 100.0f);
         hud = new Hud();
 
         listaDeEntidades = new ArrayList<>();
@@ -88,20 +85,18 @@ public class PantallaJuego extends Pantalla {
         b.setProjectionMatrix(camara.getCamara().combined);
         b.begin();
 
-        imagenJugador.setX((float) jugador.getPosicionX());
-        imagenJugador.setY((float) jugador.getPosicionY());
-        imagenJugador.dibujar();
+        jugador.animar(delta);
+        jugador.dibujar();
 
-        imgPlataforma.setX((float) plataforma.getPosicionX());
-        imgPlataforma.setY((float) plataforma.getPosicionY());
+        imgPlataforma.setX(plataforma.getPosicionX());
+        imgPlataforma.setY(plataforma.getPosicionY());
         imgPlataforma.dibujar();
 
-        imgPincho.setX((float) pincho.getPosicionX());
-        imgPincho.setY((float) pincho.getPosicionY());
+        imgPincho.setX(pincho.getPosicionX());
+        imgPincho.setY(pincho.getPosicionY());
         imgPincho.dibujar();
 
         hud.dibujar();
-
 
         b.end();
 
