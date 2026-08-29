@@ -3,7 +3,7 @@ package com.g2l.speedg2l.animaciones;
 public abstract class Animacion {
 
     protected boolean terminado=false;
-    protected float duracion;
+    protected float duracion=0;
     protected float tiempoTranscurrido;
 
     protected Animacion(float duracion){
@@ -14,7 +14,9 @@ public abstract class Animacion {
         }
     }
 
-    public abstract boolean iniciar();
+    protected Animacion(){}
+
+    public abstract void iniciar();
 
     public boolean isTerminado() {
         return terminado;

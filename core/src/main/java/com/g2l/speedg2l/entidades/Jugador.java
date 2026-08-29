@@ -1,6 +1,7 @@
 package com.g2l.speedg2l.entidades;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
 import com.g2l.speedg2l.utilidades.Direccion;
 import com.g2l.speedg2l.utilidades.Entradas;
 
@@ -23,11 +24,28 @@ public class Jugador extends Entidad{
     private boolean acelerandoDerecha = false;
     private boolean acelerandoIzquierda = false;
     private final double velocidadMaxima = 10;
-
+    private AnimacionEntidad animacion;
     boolean saltando = false;
 
     public Jugador(float ancho , float alto, float posicionX, float posicionY){
         super(ancho, alto, posicionX, posicionY);
+        animacion = new AnimacionEntidad("soldado_corriendo.png", 0.09f, 4, 3);
+        animacion.iniciar();
+    }
+
+    public void animar(float delta) {
+        if (acelerandoDerecha || acelerandoIzquierda) {
+            animacion.animar(delta);
+        }
+    }
+
+    public void dibujar() {
+        animacion.dibujar(
+            posicionX,
+            posicionY,
+            getAncho(),
+            getAlto()
+        );
     }
 
     public void moverJugador(Entradas entradas){

@@ -4,7 +4,6 @@ import com.g2l.speedg2l.componentes.Imagen;
 
 public class Fade extends Animacion{
 
-//    private Screen pantallaNueva;
     private boolean fadeInTerminado=false;
     private float transparencia = 0;
     private Imagen imagen;
@@ -18,15 +17,10 @@ public class Fade extends Animacion{
             this.imagen = imagen;
         }
 
-//        if (pantallaNueva == null) {
-//            throw new IllegalArgumentException("Error, pantalla nueva está nula en la animación.");
-//        }else{
-//            this.pantallaNueva = pantallaNueva;
-//        }
     }
 
 @Override
-    public boolean iniciar(){
+    public void iniciar(){
         if(fadeInTerminado) {
             if(tiempoTranscurrido < duracion){
                 tiempoTranscurrido += 0.03f;
@@ -39,7 +33,7 @@ public class Fade extends Animacion{
             }
 
             if(terminado){
-                return terminado;
+                return;
             }
 
         }else{
@@ -51,8 +45,6 @@ public class Fade extends Animacion{
         }
 
         imagen.setTransparencia(transparencia);
-
-    return false;
-}
+    }
 
 }
