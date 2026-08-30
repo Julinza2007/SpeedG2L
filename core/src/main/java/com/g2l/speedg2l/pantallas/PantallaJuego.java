@@ -1,14 +1,20 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.g2l.speedg2l.animaciones.AnimacionEntidad;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
 import com.g2l.speedg2l.mundo.Camara;
 import com.g2l.speedg2l.mundo.Mapa;
 import com.g2l.speedg2l.sonidos.Musica;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
@@ -37,6 +43,10 @@ public class PantallaJuego extends Pantalla {
     private Camara camara;
     private Entradas entradas;
 
+    private boolean pausado = false;
+    private ShapeRenderer pantallaPausa = new ShapeRenderer();
+    private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+
     @Override
     public void show() {
         b = Render.batch;
@@ -59,6 +69,10 @@ public class PantallaJuego extends Pantalla {
         listaDeObstaculos.add(pincho);
         imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
+
+        textoPausa.setTexto("PAUSADO");
+
+
         stage = new Stage(configViewport.getViewport());
     }
 
@@ -73,19 +87,35 @@ public class PantallaJuego extends Pantalla {
     public void render(float delta) {
         Render.limpiarPantalla();
 
-        jugador.moverJugador(entradas);
-        jugador.actualizarFisicas(listaDeEntidades);
-
         camara.seguirJugador(jugador);
 
         mapa.dibujar(camara.getCamara());
 
-        hud.actualizar();
-
         b.setProjectionMatrix(camara.getCamara().combined);
         b.begin();
 
-        jugador.animar(delta);
+        if(entradas.escape()){
+            pausado = !pausado;
+        }
+
+        if(!pausado) {
+            jugador.moverJugador(entradas);
+            jugador.actualizarFisicas(listaDeEntidades);
+            jugador.animar(delta);
+            musicaJuego.reproducir();
+            hud.actualizar();
+        }
+
+
+        else if(pausado){
+            textoPausa.setPosition(
+                camara.getCamara().position.x / 2,
+                camara.getCamara().position.y / 2
+            );
+
+            musicaJuego.pausar();
+        }
+
         jugador.dibujar();
 
         imgPlataforma.setX(plataforma.getPosicionX());
@@ -96,12 +126,55 @@ public class PantallaJuego extends Pantalla {
         imgPincho.setY(pincho.getPosicionY());
         imgPincho.dibujar();
 
+        b.end();
+
+        b.setProjectionMatrix(stage.getCamera().combined);
+
+        b.begin();
+
+        if (pausado) {
+
+            textoPausa.setPosition(
+                (Config.getAnchoJuego() / 2) - (textoPausa.getAncho() / 2),
+                (Config.getAltoJuego() / 2) - (textoPausa.getAlto() / 2)
+            );
+
+            textoPausa.dibujar();
+        }
+
         hud.dibujar();
 
         b.end();
 
+        if (pausado) {
+            dibujarPuasa();
+        }
+
         stage.act(delta);
         stage.draw();
+    }
+
+    private void dibujarPuasa() {
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+
+        pantallaPausa.setProjectionMatrix(camara.getCamara().combined);
+
+        pantallaPausa.begin(ShapeRenderer.ShapeType.Filled);
+
+        pantallaPausa.setColor(0, 0, 0, 0.5f);
+
+        pantallaPausa.rect(
+            0,
+            0,
+            Config.getAnchoMonitor(),
+            Config.getAltoMonitor()
+        );
+
+
+        pantallaPausa.end();
+
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override

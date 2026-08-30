@@ -28,6 +28,8 @@ public class Entradas implements InputProcessor {
         return Gdx.input.isKeyJustPressed(Keys.SPACE);
     }
 
+    public boolean escape(){return Gdx.input.isKeyJustPressed(Keys.ESCAPE);}
+
     @Override
     public boolean keyDown(int keycode) {
 

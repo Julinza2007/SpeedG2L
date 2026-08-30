@@ -12,9 +12,7 @@ public class Musica implements Cerrable {
         musica = Gdx.audio.newMusic(Gdx.files.internal(ruta));
     }
 
-    public void reproducir() {
-        musica.play();
-    }
+    public void reproducir() { musica.play();}
 
     public void pausar() {
         musica.pause();

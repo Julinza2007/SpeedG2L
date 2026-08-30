@@ -12,7 +12,6 @@ public class Hud implements Cerrable {
     private Texto cronometro;
     private float tiempo;
 
-    private Texto posicion;
 
     public Hud() {
         tiempo = 0.0f;
@@ -24,7 +23,7 @@ public class Hud implements Cerrable {
 
     public void dibujar() {
         crearCronometro();
-        cronometro.setPosition(((Config.getAnchoJuego() / 2) - (cronometro.getAncho() / 2)), ((Config.getAltoJuego() / 2) - (cronometro.getAlto() / 2)));
+        cronometro.setPosition(((Config.getAnchoJuego() / 2) - (cronometro.getAncho() / 2)), ((Config.getAltoJuego()) - (cronometro.getAlto() / 2)));
         cronometro.dibujar();
     }
 
@@ -35,7 +34,7 @@ public class Hud implements Cerrable {
         int segundos = (int) tiempo % 60;
         int centesimas = (int) (tiempo * 100) % 100;
 
-        cronometro.setTexto( minutos + "m: " + segundos + "s: " + centesimas);
+        cronometro.setTexto( "m: " + minutos + " seg: " + segundos + "," + centesimas);
     }
 
     @Override
