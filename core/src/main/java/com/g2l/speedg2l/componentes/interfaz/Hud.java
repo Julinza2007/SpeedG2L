@@ -41,4 +41,8 @@ public class Hud implements Cerrable {
     public void cerrar() {
         cronometro.cerrar();
     }
+
+    public Texto getCronometro() {
+        return cronometro;
+    }
 }

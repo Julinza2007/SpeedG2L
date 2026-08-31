@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.SpeedG2L;
 import com.g2l.speedg2l.animaciones.AnimacionEntidad;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.componentes.Texto;
@@ -47,6 +48,8 @@ public class PantallaJuego extends Pantalla {
     private ShapeRenderer pantallaPausa = new ShapeRenderer();
     private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
 
+    private Meta meta;
+
     @Override
     public void show() {
         b = Render.batch;
@@ -69,6 +72,7 @@ public class PantallaJuego extends Pantalla {
         listaDeObstaculos.add(pincho);
         imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
+        meta = new Meta(50.0f, 1000.0f, 8000.0f, 100.0f);
 
         textoPausa.setTexto("PAUSADO");
 
@@ -78,7 +82,7 @@ public class PantallaJuego extends Pantalla {
 
     private void crearYaplicarMusica() {
         musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
-        musicaJuego.volumen(0.5f);
+        musicaJuego.volumen(0.1f);
         musicaJuego.repetir(true);
         musicaJuego.reproducir();
     }
@@ -104,6 +108,10 @@ public class PantallaJuego extends Pantalla {
             jugador.animar(delta);
             musicaJuego.reproducir();
             hud.actualizar();
+            if(jugador.colisionaCon(meta)){
+                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                musicaJuego.cerrar();
+            }
         }
 
 
@@ -133,22 +141,12 @@ public class PantallaJuego extends Pantalla {
         b.begin();
 
         if (pausado) {
-
-            textoPausa.setPosition(
-                (Config.getAnchoJuego() / 2) - (textoPausa.getAncho() / 2),
-                (Config.getAltoJuego() / 2) - (textoPausa.getAlto() / 2)
-            );
-
             textoPausa.dibujar();
         }
 
         hud.dibujar();
 
         b.end();
-
-        if (pausado) {
-            dibujarPuasa();
-        }
 
         stage.act(delta);
         stage.draw();

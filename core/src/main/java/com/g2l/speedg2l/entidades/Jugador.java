@@ -266,4 +266,8 @@ public class Jugador extends Entidad{
         }
     }
 
+    public boolean colisionaCon(Entidad entidad) {
+        return getHitbox().overlaps(entidad.getHitbox());
+    }
+
 }
