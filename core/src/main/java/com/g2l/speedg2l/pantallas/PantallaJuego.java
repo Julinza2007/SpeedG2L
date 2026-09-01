@@ -14,6 +14,8 @@ import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class PantallaJuego extends Pantalla {
 
@@ -45,19 +47,14 @@ public class PantallaJuego extends Pantalla {
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
-        jugador = new Jugador(70.0f, 70.0f, 0.0f, 100.0f);
+        jugador = new Jugador(70.0f, 70.0f, 1000.0f, 00.0f);
         hud = new Hud();
 
         listaDeEntidades = new ArrayList<>();
         listaDeObstaculos = new ArrayList<>();
 
-        plataforma = new Plataforma(221.0f, 31.0f, 250.0f, 200.0f);
-        listaDeEntidades.add(plataforma);
-        imgPlataforma = new Imagen(Recursos.PLATAFORMA_VERDE);
+        cargarColisionesDesdeMapa();
 
-        pincho = new Pincho(57.0f, 31.0f, 400.0f, 100.0f);
-        listaDeObstaculos.add(pincho);
-        imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
         stage = new Stage(configViewport.getViewport());
     }
@@ -88,13 +85,6 @@ public class PantallaJuego extends Pantalla {
         jugador.animar(delta);
         jugador.dibujar();
 
-        imgPlataforma.setX(plataforma.getPosicionX());
-        imgPlataforma.setY(plataforma.getPosicionY());
-        imgPlataforma.dibujar();
-
-        imgPincho.setX(pincho.getPosicionX());
-        imgPincho.setY(pincho.getPosicionY());
-        imgPincho.dibujar();
 
         hud.dibujar();
 
@@ -102,6 +92,38 @@ public class PantallaJuego extends Pantalla {
 
         stage.act(delta);
         stage.draw();
+    }
+
+    private void cargarColisionesDesdeMapa() {
+        if (mapa != null && mapa.getMapa() != null) {
+            TiledMapTileLayer capa = (TiledMapTileLayer) mapa.getMapa().getLayers().get("Capa de patrones 1");
+
+            if (capa != null) {
+                int tileAncho = (int) capa.getTileWidth();
+                int tileAlto = (int) capa.getTileHeight();
+
+                for (int x = 0; x < capa.getWidth(); x++) {
+                    for (int y = 0; y < capa.getHeight(); y++) {
+                        TiledMapTileLayer.Cell cell = capa.getCell(x, y);
+
+                        if (cell != null && cell.getTile() != null) {
+                            MapProperties propiedades = cell.getTile().getProperties();
+
+
+                            if (propiedades.containsKey("solido") && propiedades.get("solido", Boolean.class)) {
+                                Plataforma bloque = new Plataforma(tileAncho, tileAlto, x * tileAncho, y * tileAlto);
+                                listaDeEntidades.add(bloque);
+                            }
+
+
+                            if (propiedades.containsKey("mortal") && propiedades.get("mortal", Boolean.class)) {
+                                // Faltan los metodos morir y reaparecer
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @Override

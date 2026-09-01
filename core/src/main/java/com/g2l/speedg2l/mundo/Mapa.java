@@ -31,4 +31,8 @@ public class Mapa implements Cerrable {
             mapa.dispose();
             renderMapa.dispose();
     }
+
+    public TiledMap getMapa() {
+        return this.mapa;
+    }
 }
