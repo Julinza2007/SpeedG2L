@@ -13,9 +13,7 @@ import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
-
 import static com.badlogic.gdx.Gdx.app;
-import static com.badlogic.gdx.Gdx.input;
 
 public class PantallaMenu extends Pantalla{
     private Stage stage;
@@ -43,7 +41,7 @@ public class PantallaMenu extends Pantalla{
 
         agregarAlStage();
 
-        input.setInputProcessor(stage);
+        configurarInput(stage);
     }
 
     @Override

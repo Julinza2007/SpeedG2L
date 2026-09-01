@@ -1,5 +1,7 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.g2l.speedg2l.utilidades.ConfigViewport;
 import com.g2l.speedg2l.utilidades.Render;
@@ -8,6 +10,7 @@ public abstract class Pantalla implements Screen {
     protected ConfigViewport configViewport;
 
     protected Pantalla(){
+        configurarInput(null);
         configViewport = new ConfigViewport();
     }
 
@@ -19,5 +22,9 @@ public abstract class Pantalla implements Screen {
 
     protected void cambiarPantalla(Screen pantallaNueva){
         Render.app.setScreen(pantallaNueva);
+    }
+
+    protected void configurarInput(InputProcessor inputProcessor){
+        Gdx.input.setInputProcessor(inputProcessor);
     }
 }
