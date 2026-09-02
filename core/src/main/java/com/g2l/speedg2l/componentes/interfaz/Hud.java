@@ -14,6 +14,7 @@ public class Hud implements Cerrable {
 
 
     public Hud() {
+        cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.WHITE);
         tiempo = 0.0f;
     }
 
@@ -28,7 +29,6 @@ public class Hud implements Cerrable {
     }
 
     private void crearCronometro(){
-        cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.WHITE);
 
         int minutos = (int) tiempo / 60;
         int segundos = (int) tiempo % 60;
