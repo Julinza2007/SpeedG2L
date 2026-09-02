@@ -13,7 +13,7 @@ public class Jugador extends Entidad{
     private final double velocidadY = 10;
 
     private int posicionTecho = 300;
-    private int posicionSuelo = 100;
+    private int posicionSuelo = 33;
 
     private double gravedad = 0.4;
     private double velocidadYMenosGravedad = velocidadY;
