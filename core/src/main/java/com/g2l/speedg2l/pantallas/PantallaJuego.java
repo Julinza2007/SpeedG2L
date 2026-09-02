@@ -1,14 +1,21 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.SpeedG2L;
 import com.g2l.speedg2l.animaciones.AnimacionEntidad;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
 import com.g2l.speedg2l.mundo.Camara;
 import com.g2l.speedg2l.mundo.Mapa;
 import com.g2l.speedg2l.sonidos.Musica;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Entradas;
 import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
@@ -37,6 +44,12 @@ public class PantallaJuego extends Pantalla {
     private Camara camara;
     private Entradas entradas;
 
+    private boolean pausado = false;
+    private ShapeRenderer pantallaPausa = new ShapeRenderer();
+    private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+
+    private Meta meta;
+
     @Override
     public void show() {
         b = Render.batch;
@@ -59,12 +72,17 @@ public class PantallaJuego extends Pantalla {
         listaDeObstaculos.add(pincho);
         imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
 
+        meta = new Meta(50.0f, 1000.0f, 8000.0f, 100.0f);
+
+        textoPausa.setTexto("PAUSADO");
+
+
         stage = new Stage(configViewport.getViewport());
     }
 
     private void crearYaplicarMusica() {
         musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
-        musicaJuego.volumen(0.5f);
+        musicaJuego.volumen(0.1f);
         musicaJuego.repetir(true);
         musicaJuego.reproducir();
     }
@@ -73,19 +91,39 @@ public class PantallaJuego extends Pantalla {
     public void render(float delta) {
         Render.limpiarPantalla();
 
-        jugador.moverJugador(entradas);
-        jugador.actualizarFisicas(listaDeEntidades);
-
         camara.seguirJugador(jugador);
 
         mapa.dibujar(camara.getCamara());
 
-        hud.actualizar();
-
         b.setProjectionMatrix(camara.getCamara().combined);
         b.begin();
 
-        jugador.animar(delta);
+        if(entradas.escape()){
+            pausado = !pausado;
+        }
+
+        if(!pausado) {
+            jugador.moverJugador(entradas);
+            jugador.actualizarFisicas(listaDeEntidades);
+            jugador.animar(delta);
+            musicaJuego.reproducir();
+            hud.actualizar();
+            if(jugador.colisionaCon(meta)){
+                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                musicaJuego.cerrar();
+            }
+        }
+
+
+        else if(pausado){
+            textoPausa.setPosition(
+                camara.getCamara().position.x / 2,
+                camara.getCamara().position.y / 2
+            );
+
+            musicaJuego.pausar();
+        }
+
         jugador.dibujar();
 
         imgPlataforma.setX(plataforma.getPosicionX());
@@ -96,12 +134,45 @@ public class PantallaJuego extends Pantalla {
         imgPincho.setY(pincho.getPosicionY());
         imgPincho.dibujar();
 
+        b.end();
+
+        b.setProjectionMatrix(stage.getCamera().combined);
+
+        b.begin();
+
+        if (pausado) {
+            textoPausa.dibujar();
+        }
+
         hud.dibujar();
 
         b.end();
 
         stage.act(delta);
         stage.draw();
+    }
+
+    private void dibujarPuasa() {
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+
+        pantallaPausa.setProjectionMatrix(camara.getCamara().combined);
+
+        pantallaPausa.begin(ShapeRenderer.ShapeType.Filled);
+
+        pantallaPausa.setColor(0, 0, 0, 0.5f);
+
+        pantallaPausa.rect(
+            0,
+            0,
+            Config.getAnchoMonitor(),
+            Config.getAltoMonitor()
+        );
+
+
+        pantallaPausa.end();
+
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override
