@@ -43,6 +43,7 @@ public class PantallaFin extends Pantalla {
 
         crearPanelBotones(skin);
         agregarAlStage();
+        configurarInput(stage);
     }
 
     private void crearPanelBotones(Skin skin) {
