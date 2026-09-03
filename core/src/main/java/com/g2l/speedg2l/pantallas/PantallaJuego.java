@@ -58,7 +58,7 @@ public class PantallaJuego extends Pantalla {
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
-        jugador = new Jugador(70.0f, 70.0f, 0.0f, 100.0f);
+        jugador = new Jugador(70.0f, 70.0f, 0.0f, 33.0f);
         hud = new Hud();
 
         listaDeEntidades = new ArrayList<>();
