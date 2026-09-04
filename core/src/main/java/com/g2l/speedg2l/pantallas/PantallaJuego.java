@@ -80,10 +80,31 @@ public class PantallaJuego extends Pantalla {
     }
 
     private void crearYaplicarMusica() {
-        musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
-        musicaJuego.volumen(0.1f);
-        musicaJuego.repetir(true);
-        musicaJuego.reproducir();
+
+        if (Render.musicaJuego == null) {
+
+            Render.musicaJuego =
+                new Musica(Recursos.MUSICA_JUEGO);
+
+            Render.musicaJuego.repetir(true);
+        }
+
+        if (Config.isSonidoSilenciado()) {
+
+            Render.musicaJuego.volumen(0.0f);
+
+        } else {
+
+            Render.musicaJuego.volumen(
+                Config.getVolumenMusica()
+            );
+        }
+
+        musicaJuego = Render.musicaJuego;
+
+        if (!musicaJuego.estaReproduciendo()) {
+            musicaJuego.reproducir();
+        }
     }
 
     @Override
@@ -102,14 +123,19 @@ public class PantallaJuego extends Pantalla {
         }
 
         if(!pausado) {
+
+            if(!musicaJuego.estaReproduciendo()) {
+                musicaJuego.reproducir();
+            }
+
             jugador.moverJugador(entradas);
             jugador.actualizarFisicas(listaDeEntidades);
             jugador.animar(delta);
-            musicaJuego.reproducir();
             hud.actualizar();
             if(jugador.colisionaCon(meta)){
                 cambiarPantalla(new PantallaFin(hud.getCronometro()));
                 musicaJuego.cerrar();
+                Render.musicaJuego = null;
             }
         }
 

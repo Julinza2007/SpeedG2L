@@ -1,6 +1,5 @@
 package com.g2l.speedg2l.lwjgl3;
 
-import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.g2l.speedg2l.SpeedG2L;
@@ -18,12 +17,8 @@ public class Lwjgl3Launcher {
         Lwjgl3ApplicationConfiguration config =
             new Lwjgl3ApplicationConfiguration();
 
-        DisplayMode modoMonitor =
-            Lwjgl3ApplicationConfiguration.getDisplayMode();
-
         config.setTitle(TITULO);
-
-        config.setFullscreenMode(modoMonitor);
+        config.setWindowedMode(1280, 720);
 
         new Lwjgl3Application(new SpeedG2L(), config);
     }
