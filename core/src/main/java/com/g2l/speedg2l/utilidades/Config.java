@@ -20,6 +20,14 @@ public class Config {
         return ALTO_JUEGO;
     }
 
+    public static int getAnchoPantallaActual() {
+        return Gdx.graphics.getWidth();
+    }
+
+    public static int getAltoPantallaActual() {
+        return Gdx.graphics.getHeight();
+    }
+
     public static int getAnchoMonitor() {
         return Gdx.graphics.getDisplayMode().width;
     }
