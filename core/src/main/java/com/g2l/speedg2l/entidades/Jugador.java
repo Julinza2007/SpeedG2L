@@ -12,11 +12,11 @@ public class Jugador extends Entidad{
     private final double velocidadX = 1;
     private final double velocidadY = 10;
 
-    private int posicionTecho = 300;
-    private int posicionSuelo = 33;
+    private int posicionTecho = 1000;
+    private int posicionSuelo = 0;
 
     private double gravedad = 0.4;
-    private double velocidadYMenosGravedad = velocidadY;
+    private double velocidadYMenosGravedad = 0;
 
     private double velocidadConAceleracionDerecha = velocidadX;
     private double velocidadConAceleracionIzquierda = velocidadX;
@@ -64,14 +64,15 @@ public class Jugador extends Entidad{
         }
 
       if (entradas.arriba() && !saltando){
+            velocidadYMenosGravedad = velocidadY;
             this.saltando = true;
         }
     }
 
     public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades){
-        if (saltando){
-            saltar(listaDeEntidades);
-        }
+
+            actualizarMovimientoVertical(listaDeEntidades);
+
         if (acelerandoDerecha){
             acelerarDerecha(listaDeEntidades);
         }
@@ -85,30 +86,64 @@ public class Jugador extends Entidad{
         else{
             desAcelerarIzquierda(listaDeEntidades);
         }
+//        if(!saltando) {
+//            int velocidadCayendo = 0;
+//            Entidad entidadColisionada = null;
+//            entidadColisionada = hayColisionVertical(listaDeEntidades, gravedad);
+//            while (entidadColisionada == null) {
+//                if(velocidadCayendo <= 10) {velocidadCayendo -= gravedad;}
+//                else {velocidadCayendo = 10;}
+//                posicionY += velocidadCayendo;
+//                entidadColisionada = hayColisionVertical(listaDeEntidades, gravedad);
+//            }
+//        }
     }
 
-    private void saltar(ArrayList<Entidad> listaDeEntidades){
-        velocidadYMenosGravedad -= gravedad;
-        Entidad entidadColisionada = null;
-        entidadColisionada = hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad);
-        if (posicionY >= posicionTecho || entidadColisionada instanceof Plataforma) {
-            velocidadYMenosGravedad = 0;
+    private void actualizarMovimientoVertical(ArrayList<Entidad> listaDeEntidades) {
+
+            velocidadYMenosGravedad -= gravedad;
+
+        Entidad entidadColisionada =
+            hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad);
+
+        if (entidadColisionada instanceof Plataforma) {
+
+            if (velocidadYMenosGravedad < 0) {
+                // Está cayendo sobre la plataforma
+
+                posicionY = entidadColisionada.getPosicionY()
+                    + entidadColisionada.getAlto();
+
+                velocidadYMenosGravedad = 0;
+                saltando = false;
+            }
+            else {
+                // Está subiendo y golpeó la parte inferior
+
+                velocidadYMenosGravedad = 0;
+            }
+
+        }
+        if (entidadColisionada == null){
+            // No hay plataforma: continúa moviéndose
+            int velocidadCaida = 0;
+            velocidadCaida -= gravedad;
+            posicionY += velocidadYMenosGravedad;
         }
 
-        this.posicionY += velocidadYMenosGravedad;
-        actualizarHitbox();
-
-        if (posicionY <= posicionSuelo){
-            this.saltando = false;
-            velocidadYMenosGravedad = velocidadY;
+        // Evitar atravesar el suelo
+        if (posicionY <= posicionSuelo) {
             posicionY = posicionSuelo;
-            actualizarHitbox();
-            return;
+            velocidadYMenosGravedad = 0;
+            saltando = false;
         }
+
+        actualizarHitbox();
     }
+
 
     protected void rebotar(ArrayList<Entidad> listaDeEntidades){
-        saltar(listaDeEntidades);
+        actualizarMovimientoVertical(listaDeEntidades);
         if (velocidadConAceleracionDerecha > 5){
             variacionVelocidad(0.5);
         }
