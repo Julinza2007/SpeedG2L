@@ -116,8 +116,8 @@ public class PantallaJuego extends Pantalla {
 
         else if(pausado){
             textoPausa.setPosition(
-                camara.getCamara().position.x / 2,
-                camara.getCamara().position.y / 2
+                ((Config.getAnchoJuego() / 2) - (textoPausa.getAncho() / 2)),
+                ((Config.getAltoJuego()  / 2) + (textoPausa.getAlto() / 2))
             );
 
             musicaJuego.pausar();
@@ -137,6 +137,10 @@ public class PantallaJuego extends Pantalla {
 
         b.setProjectionMatrix(stage.getCamera().combined);
 
+        if(pausado){
+            dibujarPuasa();
+        }
+
         b.begin();
 
         if (pausado) {
@@ -155,23 +159,20 @@ public class PantallaJuego extends Pantalla {
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
 
-        pantallaPausa.setProjectionMatrix(camara.getCamara().combined);
+        pantallaPausa.setProjectionMatrix(stage.getCamera().combined);
 
         pantallaPausa.begin(ShapeRenderer.ShapeType.Filled);
 
-        pantallaPausa.setColor(0, 0, 0, 0.5f);
+        pantallaPausa.setColor(0, 0, 0, 0.7f);
 
         pantallaPausa.rect(
             0,
             0,
-            Config.getAnchoMonitor(),
-            Config.getAltoMonitor()
+            Config.getAnchoJuego(),
+            Config.getAltoJuego()
         );
 
-
         pantallaPausa.end();
-
-        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override
