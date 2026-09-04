@@ -47,7 +47,7 @@ public class PantallaJuego extends Pantalla {
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
-        jugador = new Jugador(70.0f, 70.0f, 000.0f, 00.0f);
+        jugador = new Jugador(70.0f, 70.0f, 000.0f, 50.0f);
         hud = new Hud();
 
         listaDeEntidades = new ArrayList<>();
@@ -111,10 +111,6 @@ public class PantallaJuego extends Pantalla {
                             if (propiedades.containsKey("solido") && propiedades.get("solido", Boolean.class)) {
                                 Plataforma bloque = new Plataforma(tileAncho, tileAlto, x * tileAncho, y * tileAlto);
                                 listaDeEntidades.add(bloque);
-                            }
-
-                            if (propiedades.containsKey("mortal") && propiedades.get("mortal", Boolean.class)) {
-                                // Faltan los metodos morir y reaparecer
                             }
                         }
                     }
