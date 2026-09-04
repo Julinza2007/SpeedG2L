@@ -54,6 +54,7 @@ public class PantallaJuego extends Pantalla {
         b = Render.batch;
 
         crearYaplicarMusica();
+
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
@@ -73,10 +74,22 @@ public class PantallaJuego extends Pantalla {
     }
 
     private void crearYaplicarMusica() {
-        musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
-        musicaJuego.volumen(0.1f);
-        musicaJuego.repetir(true);
-        musicaJuego.reproducir();
+
+        if (Render.musicaJuego == null) {
+            Render.musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
+            Render.musicaJuego.repetir(true);
+        }
+        if (Config.isSonidoSilenciado()) {
+            Render.musicaJuego.setVolumen(0.0f);
+        } else {
+            Render.musicaJuego.setVolumen(Config.getVolumenMaster());
+        }
+
+        musicaJuego = Render.musicaJuego;
+
+        if (!musicaJuego.estaReproduciendo()) {
+            musicaJuego.reproducir();
+        }
     }
 
     @Override
@@ -200,5 +213,7 @@ public class PantallaJuego extends Pantalla {
     @Override
     public void dispose() {
         stage.dispose();
+        musicaJuego.cerrar();
+        Render.musicaJuego = null;
     }
 }

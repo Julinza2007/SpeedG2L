@@ -26,7 +26,7 @@ public class Musica implements Cerrable {
         musica.setLooping(repetir);
     }
 
-    public void volumen(float volumen) {
+    public void setVolumen(float volumen) {
         musica.setVolume(volumen);
     }
 

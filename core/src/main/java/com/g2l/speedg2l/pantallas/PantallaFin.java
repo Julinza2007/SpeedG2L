@@ -11,6 +11,8 @@ import com.g2l.speedg2l.componentes.Boton;
 import com.g2l.speedg2l.componentes.PanelBotones;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
+import com.g2l.speedg2l.sonidos.EfectoSonido;
+import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
 import com.g2l.speedg2l.utilidades.Render;
 
@@ -21,6 +23,7 @@ public class PantallaFin extends Pantalla {
     private PanelBotones panelBotones;
     private SpriteBatch b;
     private Texto texto, cronometro;
+    private EfectoSonido efectoMeta;
 
     public PantallaFin(Texto cronometro) {
         this.cronometro = cronometro;
@@ -30,6 +33,13 @@ public class PantallaFin extends Pantalla {
     public void show() {
 
         b = Render.batch;
+        efectoMeta = new EfectoSonido(Recursos.EFECTO_META);
+        if (Config.isSonidoSilenciado()) {
+            efectoMeta.setVolumen(0.0f);
+        } else {
+            efectoMeta.setVolumen(Config.getVolumenMaster());
+            efectoMeta.reproducir();
+        }
 
         stage = new Stage(configViewport.getViewport());
 
@@ -109,7 +119,8 @@ public class PantallaFin extends Pantalla {
 
     @java.lang.Override
     public void dispose() {
-
+        stage.dispose();
+        efectoMeta.cerrar();
     }
 
     private void agregarAlStage() {

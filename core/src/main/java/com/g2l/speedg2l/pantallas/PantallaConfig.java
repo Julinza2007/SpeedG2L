@@ -212,7 +212,7 @@ public class PantallaConfig extends Pantalla {
     }
 
     private void crearTextosVolumen() {
-        textoVolumen = new Label("Volumen: " + Math.round(Config.getVolumenMusica() * 100) + "%", skin);
+        textoVolumen = new Label("Volumen: " + Math.round(Config.getVolumenMaster() * 100) + "%", skin);
         textoSilencio = new Label("Sonido: " +(Config.isSonidoSilenciado()? "Silenciado": "Activado"), skin);
     }
 
@@ -221,10 +221,10 @@ public class PantallaConfig extends Pantalla {
             new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    float volumenActual =Config.getVolumenMusica();
+                    float volumenActual = Config.getVolumenMaster();
                     volumenActual += 0.1f;
-                    Config.setVolumenMusica(volumenActual);
-                    actualizarVolumenMusica();
+                    Config.setVolumenMaster(volumenActual);
+                    actualizarVolumen();
                     actualizarTextoVolumen();
                 }
             },
@@ -244,10 +244,10 @@ public class PantallaConfig extends Pantalla {
                     float x,
                     float y
                 ) {
-                    float volumenActual = Config.getVolumenMusica();
+                    float volumenActual = Config.getVolumenMaster();
                     volumenActual -= 0.1f;
-                    Config.setVolumenMusica(volumenActual);
-                    actualizarVolumenMusica();
+                    Config.setVolumenMaster(volumenActual);
+                    actualizarVolumen();
                     actualizarTextoVolumen();
                 }
             },
@@ -268,7 +268,7 @@ public class PantallaConfig extends Pantalla {
                 ) {
                     boolean silenciado = !Config.isSonidoSilenciado();
                     Config.setSonidoSilenciado(silenciado);
-                    actualizarVolumenMusica();
+                    actualizarVolumen();
                     actualizarTextoVolumen();
                     actualizarTextoSilencio();
                 }
@@ -278,13 +278,13 @@ public class PantallaConfig extends Pantalla {
         );
     }
 
-    private void actualizarVolumenMusica() {
+    private void actualizarVolumen() {
         if (Render.musicaJuego == null) {
             return;
         }else if(Config.isSonidoSilenciado()) {
-            Render.musicaJuego.volumen(0.0f);
+            Render.musicaJuego.setVolumen(0.0f);
         } else {
-            Render.musicaJuego.volumen(Config.getVolumenMusica());
+            Render.musicaJuego.setVolumen(Config.getVolumenMaster());
         }
     }
 
@@ -343,7 +343,7 @@ public class PantallaConfig extends Pantalla {
     }
 
     private void actualizarTextoVolumen() {
-        textoVolumen.setText("Volumen: " + Math.round(Config.getVolumenMusica() * 100) + "%");
+        textoVolumen.setText("Volumen: " + Math.round(Config.getVolumenMaster() * 100) + "%");
     }
 
     private void actualizarTextoSilencio() {

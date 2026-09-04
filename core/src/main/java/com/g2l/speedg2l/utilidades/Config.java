@@ -7,7 +7,7 @@ public class Config {
     private static final int ANCHO_JUEGO = 1280;
     private static final int ALTO_JUEGO = 720;
 
-    private static float volumenMusica = 0.1f;
+    private static float volumenMaster = 0.1f;
     private static boolean sonidoSilenciado = false;
 
     private Config() {}
@@ -36,11 +36,11 @@ public class Config {
         return Gdx.graphics.getDisplayMode().height;
     }
 
-    public static float getVolumenMusica() {
-        return volumenMusica;
+    public static float getVolumenMaster() {
+        return volumenMaster;
     }
 
-    public static void setVolumenMusica(float volumen) {
+    public static void setVolumenMaster(float volumen) {
         if (volumen < 0.0f) {
             volumen = 0.0f;
         }
@@ -49,7 +49,7 @@ public class Config {
             volumen = 1.0f;
         }
 
-        volumenMusica = volumen;
+        volumenMaster = volumen;
     }
 
     public static boolean isSonidoSilenciado() {
