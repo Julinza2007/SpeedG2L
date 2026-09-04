@@ -1,0 +1,3667 @@
+============================================================
+                INFORME DEL PROYECTO SPEEDG2L
+============================================================
+
+Fecha: lun. 31/08/2026
+Hora:  17:43:40.54
+Ruta:  C:\Users\Admin\SpeedG2L
+
+============================================================
+1. ESTRUCTURA DEL PROYECTO
+============================================================
+
+Listado de rutas de carpetas
+El n�mero de serie del volumen es 8EF1-F879
+C:.
+|   .editorconfig
+|   .gitattributes
+|   .gitignore
+|   build.gradle
+|   CHANGELOG.md
+|   generar_informe_speedg2l.bat
+|   gradle.properties
+|   gradlew
+|   gradlew.bat
+|   README.md
+|   settings.gradle
+|   todo_el_proyecto.txt
+|   
++---.gradle
+|   |   file-system.probe
+|   |   
+|   +---9.5.1
+|   |   |   gc.properties
+|   |   |   
+|   |   +---checksums
+|   |   |       checksums.lock
+|   |   |       
+|   |   +---executionHistory
+|   |   |       executionHistory.bin
+|   |   |       executionHistory.lock
+|   |   |       
+|   |   +---expanded
+|   |   +---fileChanges
+|   |   |       last-build.bin
+|   |   |       
+|   |   +---fileHashes
+|   |   |       fileHashes.bin
+|   |   |       fileHashes.lock
+|   |   |       resourceHashesCache.bin
+|   |   |       
+|   |   \---vcsMetadata
+|   +---buildOutputCleanup
+|   |       buildOutputCleanup.lock
+|   |       cache.properties
+|   |       outputFiles.bin
+|   |       
+|   \---vcs-1
+|           gc.properties
+|           
++---.idea
+|       compiler.xml
+|       gradle.xml
+|       misc.xml
+|       vcs.xml
+|       workspace.xml
+|       
++---assets
+|   |   assets.txt
+|   |   libgdx.png
+|   |   soldado_corriendo.png
+|   |   
+|   +---fondos
+|   |       fondoMenu.png
+|   |       G2L.png
+|   |       
+|   +---fuentes
+|   |       fuentePrueba.ttf
+|   |       
+|   +---nivel
+|   |       mapaPrueba.tmx
+|   |       Tileset (2).tsx
+|   |       TilesSet.png
+|   |       
+|   +---plataformas
+|   |       bloque verde.png
+|   |       Pincho.png
+|   |       
+|   +---skin
+|   |       default.fnt
+|   |       default.png
+|   |       uiskin.atlas
+|   |       uiskin.json
+|   |       uiskin.png
+|   |       
+|   \---sonidos
+|       |   8bit attempt.ogg
+|       |   
+|       \---musicaInGame
+|               INFO.txt
+|               Juhani Junkala [Retro Game Music Pack] Ending.wav
+|               Juhani Junkala [Retro Game Music Pack] Level 2.wav
+|               Juhani Junkala [Retro Game Music Pack] Level 3.wav
+|               Juhani Junkala [Retro Game Music Pack] Title Screen.wav
+|               musicaNivel1.wav
+|               
++---build
+|   \---reports
+|       \---problems
+|               problems-report.html
+|               
++---core
+|   |   build.gradle
+|   |   
+|   +---build
+|   |   +---classes
+|   |   |   \---java
+|   |   |       \---main
+|   |   |           \---com
+|   |   |               \---g2l
+|   |   |                   \---speedg2l
+|   |   |                       |   Cerrable.class
+|   |   |                       |   SpeedG2L.class
+|   |   |                       |   TipoPantalla.class
+|   |   |                       |   
+|   |   |                       +---animaciones
+|   |   |                       |       Animacion.class
+|   |   |                       |       AnimacionEntidad.class
+|   |   |                       |       Fade.class
+|   |   |                       |       
+|   |   |                       +---componentes
+|   |   |                       |   |   Boton.class
+|   |   |                       |   |   Imagen.class
+|   |   |                       |   |   PanelBotones.class
+|   |   |                       |   |   Texto.class
+|   |   |                       |   |   
+|   |   |                       |   \---interfaz
+|   |   |                       |           Hud.class
+|   |   |                       |           
+|   |   |                       +---entidades
+|   |   |                       |       Caja.class
+|   |   |                       |       Entidad.class
+|   |   |                       |       Jugador$1.class
+|   |   |                       |       Jugador.class
+|   |   |                       |       Meta.class
+|   |   |                       |       Obstaculo.class
+|   |   |                       |       Pincho.class
+|   |   |                       |       Plataforma.class
+|   |   |                       |       
+|   |   |                       +---mundo
+|   |   |                       |       Camara.class
+|   |   |                       |       Mapa.class
+|   |   |                       |       Nivel.class
+|   |   |                       |       
+|   |   |                       +---pantallas
+|   |   |                       |       Pantalla.class
+|   |   |                       |       PantallaCarga.class
+|   |   |                       |       PantallaConfig$1.class
+|   |   |                       |       PantallaConfig$2.class
+|   |   |                       |       PantallaConfig$3.class
+|   |   |                       |       PantallaConfig$4.class
+|   |   |                       |       PantallaConfig$5.class
+|   |   |                       |       PantallaConfig.class
+|   |   |                       |       PantallaFin$1.class
+|   |   |                       |       PantallaFin.class
+|   |   |                       |       PantallaJuego.class
+|   |   |                       |       PantallaMenu$1.class
+|   |   |                       |       PantallaMenu$2.class
+|   |   |                       |       PantallaMenu$3.class
+|   |   |                       |       PantallaMenu.class
+|   |   |                       |       
+|   |   |                       +---sonidos
+|   |   |                       |       Musica.class
+|   |   |                       |       
+|   |   |                       \---utilidades
+|   |   |                               Config.class
+|   |   |                               ConfigViewport.class
+|   |   |                               Direccion.class
+|   |   |                               Entradas.class
+|   |   |                               Recursos.class
+|   |   |                               Render.class
+|   |   |                               Resolucion.class
+|   |   |                               
+|   |   +---generated
+|   |   |   \---sources
+|   |   |       +---annotationProcessor
+|   |   |       |   \---java
+|   |   |       |       \---main
+|   |   |       \---headers
+|   |   |           \---java
+|   |   |               \---main
+|   |   +---libs
+|   |   |       core-1.0.0.jar
+|   |   |       
+|   |   \---tmp
+|   |       +---compileJava
+|   |       |   |   previous-compilation-data.bin
+|   |       |   |   
+|   |       |   \---compileTransaction
+|   |       |       +---backup-dir
+|   |       |       \---stash-dir
+|   |       |               PantallaJuego.class.uniqueId3
+|   |       |               PantallaMenu$1.class.uniqueId1
+|   |       |               PantallaMenu$2.class.uniqueId2
+|   |       |               PantallaMenu$3.class.uniqueId0
+|   |       |               PantallaMenu.class.uniqueId4
+|   |       |               
+|   |       \---jar
+|   |               MANIFEST.MF
+|   |               
+|   \---src
+|       \---main
+|           \---java
+|               \---com
+|                   \---g2l
+|                       \---speedg2l
+|                           |   Cerrable.java
+|                           |   SpeedG2L.java
+|                           |   
+|                           +---animaciones
+|                           |       Animacion.java
+|                           |       AnimacionEntidad.java
+|                           |       Fade.java
+|                           |       
+|                           +---componentes
+|                           |   |   Boton.java
+|                           |   |   Imagen.java
+|                           |   |   PanelBotones.java
+|                           |   |   Texto.java
+|                           |   |   
+|                           |   \---interfaz
+|                           |           Hud.java
+|                           |           
+|                           +---entidades
+|                           |       Caja.java
+|                           |       Entidad.java
+|                           |       Jugador.java
+|                           |       Meta.java
+|                           |       Obstaculo.java
+|                           |       Pincho.java
+|                           |       Plataforma.java
+|                           |       
+|                           +---mundo
+|                           |       Camara.java
+|                           |       Mapa.java
+|                           |       Nivel.java
+|                           |       
+|                           +---pantallas
+|                           |       Pantalla.java
+|                           |       PantallaCarga.java
+|                           |       PantallaConfig.java
+|                           |       PantallaFin.java
+|                           |       PantallaJuego.java
+|                           |       PantallaMenu.java
+|                           |       TipoPantalla.java
+|                           |       
+|                           +---sonidos
+|                           |       Musica.java
+|                           |       
+|                           \---utilidades
+|                                   Config.java
+|                                   ConfigViewport.java
+|                                   Direccion.java
+|                                   Entradas.java
+|                                   Recursos.java
+|                                   Render.java
+|                                   Resolucion.java
+|                                   
++---gradle
+|   |   gradle-daemon-jvm.properties
+|   |   
+|   \---wrapper
+|           gradle-wrapper.jar
+|           gradle-wrapper.properties
+|           
+\---lwjgl3
+    |   build.gradle
+    |   nativeimage.gradle
+    |   replay_pid9180.log
+    |   
+    +---build
+    |   +---classes
+    |   |   \---java
+    |   |       \---main
+    |   |           \---com
+    |   |               \---g2l
+    |   |                   \---speedg2l
+    |   |                       \---lwjgl3
+    |   |                               Lwjgl3Launcher.class
+    |   |                               StartupHelper.class
+    |   |                               
+    |   +---generated
+    |   |   \---sources
+    |   |       +---annotationProcessor
+    |   |       |   \---java
+    |   |       |       \---main
+    |   |       \---headers
+    |   |           \---java
+    |   |               \---main
+    |   +---resources
+    |   |   \---main
+    |   |       |   assets.txt
+    |   |       |   libgdx.png
+    |   |       |   libgdx128.png
+    |   |       |   libgdx16.png
+    |   |       |   libgdx32.png
+    |   |       |   libgdx64.png
+    |   |       |   soldado_corriendo.png
+    |   |       |   
+    |   |       +---fondos
+    |   |       |       fondoMenu.png
+    |   |       |       G2L.png
+    |   |       |       
+    |   |       +---fuentes
+    |   |       |       fuentePrueba.ttf
+    |   |       |       
+    |   |       +---nivel
+    |   |       |       mapaPrueba.tmx
+    |   |       |       Tileset (2).tsx
+    |   |       |       TilesSet.png
+    |   |       |       
+    |   |       +---plataformas
+    |   |       |       bloque verde.png
+    |   |       |       Pincho.png
+    |   |       |       
+    |   |       +---skin
+    |   |       |       default.fnt
+    |   |       |       default.png
+    |   |       |       uiskin.atlas
+    |   |       |       uiskin.json
+    |   |       |       uiskin.png
+    |   |       |       
+    |   |       \---sonidos
+    |   |           |   8bit attempt.ogg
+    |   |           |   
+    |   |           \---musicaInGame
+    |   |                   INFO.txt
+    |   |                   Juhani Junkala [Retro Game Music Pack] Ending.wav
+    |   |                   Juhani Junkala [Retro Game Music Pack] Level 2.wav
+    |   |                   Juhani Junkala [Retro Game Music Pack] Level 3.wav
+    |   |                   Juhani Junkala [Retro Game Music Pack] Title Screen.wav
+    |   |                   musicaNivel1.wav
+    |   |                   
+    |   \---tmp
+    |       \---compileJava
+    |           |   previous-compilation-data.bin
+    |           |   
+    |           \---compileTransaction
+    |               +---backup-dir
+    |               \---stash-dir
+    +---icons
+    |       logo.icns
+    |       logo.ico
+    |       logo.png
+    |       
+    \---src
+        \---main
+            +---java
+            |   \---com
+            |       \---g2l
+            |           \---speedg2l
+            |               \---lwjgl3
+            |                       Lwjgl3Launcher.java
+            |                       StartupHelper.java
+            |                       
+            \---resources
+                    libgdx128.png
+                    libgdx16.png
+                    libgdx32.png
+                    libgdx64.png
+                    
+
+============================================================
+2. CODIGO FUENTE JAVA
+============================================================
+
+
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\Cerrable.java
+============================================================
+
+package com.g2l.speedg2l;
+
+public interface Cerrable {
+    void cerrar();
+}
+
+
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\SpeedG2L.java
+============================================================
+
+package com.g2l.speedg2l;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.entidades.Entidad;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.entidades.Plataforma;
+import com.g2l.speedg2l.pantallas.PantallaJuego;
+import com.g2l.speedg2l.pantallas.PantallaMenu;
+import com.g2l.speedg2l.utilidades.Render;
+
+import java.util.ArrayList;
+
+public class SpeedG2L extends Game {
+
+    private SpriteBatch b;
+    private Imagen logo;
+    private Imagen imgPlataforma;
+    private Plataforma plataforma;
+    private Jugador jugador;
+
+    private ArrayList<Entidad> listaDeEntidades;
+
+    @Override
+    public void create() {
+        Render.app = this;
+
+        this.setScreen(new PantallaMenu());
+        b = Render.batch;
+
+    }
+
+    @Override
+    public void render() {
+        Render.limpiarPantalla();
+        super.render();
+    }
+
+    @Override
+    public void dispose() {
+        b.dispose();
+    }
+}
+
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Animacion.java
+============================================================
+.
+package com.g2l.speedg2l.animaciones;
+
+public abstract class Animacion {
+
+    protected boolean terminado=false;
+    protected float duracion=0;
+    protected float tiempoTranscurrido;
+
+    protected Animacion(float duracion){
+        if(duracion < 0){
+            throw new IllegalArgumentException("Error, el tiempo de la animacion no puede ser negativo.");
+        }else{
+            this.duracion = duracion;
+        }
+    }
+
+    protected Animacion(){}
+
+    public abstract void iniciar();
+
+    public boolean isTerminado() {
+        return terminado;
+    }
+
+    public float getTiempoTranscurrido() {
+        return tiempoTranscurrido;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\AnimacionEntidad.java
+============================================================
+.
+package com.g2l.speedg2l.animaciones;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class AnimacionEntidad extends Animacion implements Cerrable {
+
+    private Texture spritesheet;
+    private Animation<TextureRegion> animacion;
+    private float estadoTiempo;
+    private int filas;
+    private int columnas;
+
+    public AnimacionEntidad(String ruta, float velocidadFotograma, int columnas, int filas) {
+        spritesheet = new Texture(ruta);
+        this.columnas = columnas;
+        this.filas = filas;
+        TextureRegion[][] sprites = dividirSpritesheet();
+
+        TextureRegion[] frames = crearFrames(sprites);
+
+        animacion = new Animation<>(velocidadFotograma, frames);
+    }
+
+    public void animar(float delta) {
+        estadoTiempo += delta;
+    }
+
+    public void dibujar(float x, float y, float ancho, float alto) {
+        TextureRegion frame = getFrame();
+
+        Render.batch.draw(
+            frame,
+            x,
+            y,
+            ancho,
+            alto
+        );
+    }
+
+    private TextureRegion getFrame() {
+        return animacion.getKeyFrame(estadoTiempo);
+    }
+
+    private TextureRegion[][] dividirSpritesheet() {
+        TextureRegion[][] sprites =  TextureRegion.split(
+            spritesheet,
+            spritesheet.getWidth() / columnas,
+            spritesheet.getHeight() / filas
+        );
+
+        return sprites;
+    }
+
+    private TextureRegion[] crearFrames(TextureRegion[][] sprites){
+        TextureRegion[] frames =  new TextureRegion[columnas * filas];
+        int indiceFrame=0;
+
+        for(int i=0; i < filas; i++){
+            for(int j=0; j < columnas; j++){
+                frames[indiceFrame] = sprites[i][j];
+                indiceFrame++;
+            }
+        }
+
+        return frames;
+    }
+
+    @Override
+    public void iniciar(){
+        animacion.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    @Override
+    public void cerrar() {
+        spritesheet.dispose();
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Fade.java
+============================================================
+.
+package com.g2l.speedg2l.animaciones;
+
+import com.g2l.speedg2l.componentes.Imagen;
+
+public class Fade extends Animacion{
+
+    private boolean fadeInTerminado=false;
+    private float transparencia = 0;
+    private Imagen imagen;
+
+    public Fade(float duracion, Imagen imagen) {
+        super(duracion);
+
+        if(imagen == null){
+            throw new IllegalArgumentException("Error, imagen vacia para la animacion.");
+        }else{
+            this.imagen = imagen;
+        }
+
+    }
+
+@Override
+    public void iniciar(){
+        if(fadeInTerminado) {
+            if(tiempoTranscurrido < duracion){
+                tiempoTranscurrido += 0.03f;
+            }else{
+                transparencia-=0.003f;
+                if(transparencia<0) {
+                    transparencia = 0.0f;
+                    terminado=true;
+                }
+            }
+
+            if(terminado){
+                return;
+            }
+
+        }else{
+            transparencia+=0.003f;
+            if(transparencia>1){
+                transparencia=1.0f;
+                fadeInTerminado=true;
+            }
+        }
+
+        imagen.setTransparencia(transparencia);
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Boton.java
+============================================================
+.
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+public class Boton extends TextButton {
+    private float ancho, altura;
+    public Boton(String texto, Skin skin, ClickListener listener, float ancho, float altura) {
+        super(texto, skin);
+        if(listener == null){
+            throw new IllegalArgumentException("Error, el listener no puede ser nulo.");
+        }else{
+            this.addListener(listener);
+        }
+        if(ancho <= 0){
+            throw new IllegalArgumentException("Error, el ancho no puede ser menor o igual a cero al crear el boton.");
+        }else{
+            this.ancho = ancho;
+            this.setWidth(ancho);
+        }
+
+        if(altura <= 0){
+            throw new IllegalArgumentException("Error, la altura no puede ser menor o igual a cero al crear el boton.");
+        }else{
+            this.altura = altura;
+            this.setHeight(altura);
+        }
+    }
+
+    public Boton(String texto, Skin skin, ClickListener listener) {
+        super(texto, skin);
+        if(listener == null){
+            throw new IllegalArgumentException("Error, el listener no puede ser nulo.");
+        }else{
+            this.addListener(listener);
+        }
+        this.ancho = this.getWidth();
+        this.altura = this.getHeight();
+    }
+
+
+    @Override
+    public void setSize(float width, float height) {
+        super.setSize(width, height);
+    }
+
+    @Override
+    public void setWidth(float width) {
+        super.setWidth(width);
+        this.ancho = width;
+    }
+
+    @Override
+    public void setHeight(float height) {
+        super.setHeight(height);
+        this.altura = height;
+    }
+
+    public float getAncho() {
+        return ancho;
+    }
+
+    public float getAltura() {
+        return altura;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Imagen.java
+============================================================
+.
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class Imagen implements Cerrable {
+    private Texture t;
+    private Sprite s;
+
+    public Imagen(String ruta){
+        t = new Texture(ruta);
+        s = new Sprite(t);
+    }
+
+    public void dibujar(){
+        s.draw(Render.batch);
+    }
+
+    public void setX(float x){
+        s.setX(x);
+    }
+
+    public void setY(float y){
+        s.setY(y);
+    }
+
+    public void setSize(float ancho, float altura){
+        s.setSize(ancho, altura);
+    }
+
+    public void centrar() {
+        setX((Config.getAnchoJuego() / 2.0f) - (s.getWidth() / 2));
+        setY((Config.getAltoJuego() / 2.0f) - (s.getHeight() / 2));
+    }
+
+    public void setTransparencia(float alpha){
+        s.setAlpha(alpha);
+    }
+
+    @Override
+    public void cerrar() {
+        t.dispose();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\PanelBotones.java
+============================================================
+.
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
+public class PanelBotones{
+    private Table contenedor;
+
+    public PanelBotones() {
+        contenedor = new Table();
+        contenedor.setFillParent(true);
+    }
+
+    public void agregarBoton(Boton boton, int padding){
+        contenedor.add(boton)
+            .size(boton.getAncho(), boton.getAltura())
+            .pad(padding)
+            .row();
+    }
+
+    public void centrar(){
+        contenedor.center();
+    }
+
+    public Table getContenedor() {
+        return contenedor;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Texto.java
+============================================================
+.
+package com.g2l.speedg2l.componentes;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class Texto implements Cerrable {
+    private BitmapFont fuente;
+    private float x=0, y=0;
+    private String texto;
+    private GlyphLayout layout;
+
+    public Texto(String rutaFuente, int tamanio, Color color) {
+        FreeTypeFontGenerator generador = new FreeTypeFontGenerator(Gdx.files.internal(rutaFuente));
+        FreeTypeFontParameter parametros = new FreeTypeFontParameter();
+
+        parametros.size = tamanio;
+        parametros.color = color;
+
+        fuente = generador.generateFont(parametros);
+
+        layout = new GlyphLayout();
+    }
+
+    public void dibujar() {
+        fuente.draw(Render.batch, texto, x, y);
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+        layout.setText(fuente, texto);
+    }
+
+    public void setPosition(float x, float y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void centrar(){
+        this.setPosition((Config.getAnchoJuego()/2.0f) - (getAncho()/2), (Config.getAnchoJuego()/2.0f) - (getAlto()/2));
+    }
+
+    public void centrarArriba(int paddingTop){
+        this.setPosition((Config.getAnchoJuego()/2.0f) - (getAncho()/2), Config.getAltoJuego() - paddingTop);
+    }
+
+    public void centrarAbajo(int paddingBottom){
+        this.setPosition((Config.getAnchoJuego()/2.0f) - (getAncho()/2), getAlto() + paddingBottom);
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public float getAncho(){
+        return layout.width;
+    }
+
+    public float getAlto(){
+        return layout.height;
+    }
+
+    @Override
+    public void cerrar() {
+        fuente.dispose();
+    }
+
+    // ver si conviene hacer un setTamanio tambien.
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\interfaz\Hud.java
+============================================================
+.
+package com.g2l.speedg2l.componentes.interfaz;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Recursos;
+
+public class Hud implements Cerrable {
+
+    private Texto cronometro;
+    private float tiempo;
+
+
+    public Hud() {
+        tiempo = 0.0f;
+    }
+
+    public void actualizar() {
+        tiempo += Gdx.graphics.getDeltaTime();
+    }
+
+    public void dibujar() {
+        crearCronometro();
+        cronometro.setPosition(((Config.getAnchoJuego() / 2) - (cronometro.getAncho() / 2)), ((Config.getAltoJuego()) - (cronometro.getAlto() / 2)));
+        cronometro.dibujar();
+    }
+
+    private void crearCronometro(){
+        cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.WHITE);
+
+        int minutos = (int) tiempo / 60;
+        int segundos = (int) tiempo % 60;
+        int centesimas = (int) (tiempo * 100) % 100;
+
+        cronometro.setTexto( "m: " + minutos + " seg: " + segundos + "," + centesimas);
+    }
+
+    @Override
+    public void cerrar() {
+        cronometro.cerrar();
+    }
+
+    public Texto getCronometro() {
+        return cronometro;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Caja.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+public abstract class Caja extends Obstaculo{
+
+    public Caja(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Entidad.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+import com.badlogic.gdx.math.Rectangle;
+
+public class Entidad {
+    private float ancho;
+    private float alto;
+    protected float posicionX;
+    protected float posicionY;
+
+    private Rectangle hitbox;
+
+    protected Entidad(float ancho, float alto, float posicionX, float posicionY){
+        this.ancho = ancho;
+        this.alto = alto;
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
+
+        this.hitbox = new Rectangle(posicionX, posicionY, ancho, alto);
+    }
+
+    public float getAncho(){
+        return this.ancho;
+    }
+
+    public float getAlto(){
+        return this.alto;
+    }
+
+    public float getPosicionY(){ return this.posicionY; }
+
+    public float getPosicionX(){ return this.posicionX; }
+
+    protected Rectangle getHitbox(){ return this.hitbox; }
+
+    public void actualizarHitbox(){ hitbox.setPosition(posicionX, posicionY); }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Jugador.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+import com.badlogic.gdx.math.Rectangle;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
+import com.g2l.speedg2l.utilidades.Direccion;
+import com.g2l.speedg2l.utilidades.Entradas;
+
+import java.util.ArrayList;
+
+public class Jugador extends Entidad{
+
+    private final double velocidadX = 1;
+    private final double velocidadY = 10;
+
+    private int posicionTecho = 300;
+    private int posicionSuelo = 100;
+
+    private double gravedad = 0.4;
+    private double velocidadYMenosGravedad = velocidadY;
+
+    private double velocidadConAceleracionDerecha = velocidadX;
+    private double velocidadConAceleracionIzquierda = velocidadX;
+    private double aceleracion = 0.1;
+    private boolean acelerandoDerecha = false;
+    private boolean acelerandoIzquierda = false;
+    private final double velocidadMaxima = 10;
+    private AnimacionEntidad animacion;
+    boolean saltando = false;
+
+    public Jugador(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+        animacion = new AnimacionEntidad("soldado_corriendo.png", 0.09f, 4, 3);
+        animacion.iniciar();
+    }
+
+    public void animar(float delta) {
+        if (acelerandoDerecha || acelerandoIzquierda) {
+            animacion.animar(delta);
+        }
+    }
+
+    public void dibujar() {
+        animacion.dibujar(
+            posicionX,
+            posicionY,
+            getAncho(),
+            getAlto()
+        );
+    }
+
+    public void moverJugador(Entradas entradas){
+        if (entradas.izquierda()){
+            acelerandoIzquierda = true;
+        }
+        else{
+            acelerandoIzquierda = false;
+        }
+
+        if (entradas.derecha()){
+            acelerandoDerecha = true;
+        }
+        else{
+            acelerandoDerecha = false;
+        }
+
+      if (entradas.arriba() && !saltando){
+            this.saltando = true;
+        }
+    }
+
+    public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades){
+        if (saltando){
+            saltar(listaDeEntidades);
+        }
+        if (acelerandoDerecha){
+            acelerarDerecha(listaDeEntidades);
+        }
+        else{
+            desAcelerarDerecha(listaDeEntidades);
+        }
+
+        if(acelerandoIzquierda){
+            acelerarIzquierda(listaDeEntidades);
+        }
+        else{
+            desAcelerarIzquierda(listaDeEntidades);
+        }
+    }
+
+    private void saltar(ArrayList<Entidad> listaDeEntidades){
+        velocidadYMenosGravedad -= gravedad;
+        Entidad entidadColisionada = null;
+        entidadColisionada = hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad);
+        if (posicionY >= posicionTecho || entidadColisionada instanceof Plataforma) {
+            velocidadYMenosGravedad = 0;
+        }
+
+        this.posicionY += velocidadYMenosGravedad;
+        actualizarHitbox();
+
+        if (posicionY <= posicionSuelo){
+            this.saltando = false;
+            velocidadYMenosGravedad = velocidadY;
+            posicionY = posicionSuelo;
+            actualizarHitbox();
+            return;
+        }
+    }
+
+    protected void rebotar(ArrayList<Entidad> listaDeEntidades){
+        saltar(listaDeEntidades);
+        if (velocidadConAceleracionDerecha > 5){
+            variacionVelocidad(0.5);
+        }
+        else if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha = 2.5;
+        }
+        else if (velocidadConAceleracionIzquierda > 5){
+            variacionVelocidad(0.5);
+        }
+        else if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda = 5;
+        }
+        else if (velocidadConAceleracionIzquierda == 0 && velocidadConAceleracionDerecha == 0){
+            velocidadConAceleracionDerecha = 2.5;
+        }
+    }
+
+    protected void variacionVelocidad(double multiplicadorDeVariacion){
+        if (velocidadConAceleracionDerecha > 0){
+            velocidadConAceleracionDerecha *= multiplicadorDeVariacion;
+        }
+        else if (velocidadConAceleracionIzquierda > 0){
+            velocidadConAceleracionIzquierda *= multiplicadorDeVariacion;
+        }
+    }
+
+    private Entidad hayColisionVertical(ArrayList<Entidad> listaDeEntidades, double aceleracion) {
+
+        boolean hayColision = false;
+        Entidad entidadColisionada = null;
+
+        Rectangle futuraHitbox = new Rectangle(
+            (float) getPosicionX(),
+            (float) getPosicionY() + (float) aceleracion,
+            getAncho(),
+            getAlto()
+        );
+
+        int i = 0;
+
+        while(i<listaDeEntidades.size() && !hayColision){
+
+            if(futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())){
+                hayColision = true;
+                entidadColisionada = listaDeEntidades.get(i);
+            }
+
+            i++;
+        }
+
+        return entidadColisionada;
+    }
+
+
+    private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades){
+        if(velocidadConAceleracionDerecha <= velocidadMaxima){
+            this.velocidadConAceleracionDerecha += aceleracion;
+        }
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
+        actualizarHitbox();
+        // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
+    }
+
+    private void desAcelerarDerecha(ArrayList<Entidad> listaDeEntidades) {
+        if (velocidadConAceleracionDerecha > 0) {
+            velocidadConAceleracionDerecha -= aceleracion;
+        }
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
+        actualizarHitbox();
+    }
+
+    private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
+            if (velocidadConAceleracionIzquierda <= velocidadMaxima) {
+                velocidadConAceleracionIzquierda += aceleracion;
+            }
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
+            actualizarHitbox();
+    }
+
+    private void desAcelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
+            if (velocidadConAceleracionIzquierda > 0) {
+                velocidadConAceleracionIzquierda -= aceleracion;
+            }
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
+            actualizarHitbox();
+    }
+
+    private Entidad hayColisionHorizontal (ArrayList < Entidad > listaDeEntidades,double aceleracion){
+
+            boolean hayColision = false;
+            Entidad entidadColisionada = null;
+
+            Rectangle futuraHitbox = new Rectangle(
+                getPosicionX() + (float) aceleracion,
+                getPosicionY(),
+                getAncho(),
+                getAlto()
+            );
+
+            int i = 0;
+
+            while (i < listaDeEntidades.size() && !hayColision) {
+
+                if (futuraHitbox.overlaps(listaDeEntidades.get(i).getHitbox())) {
+                    hayColision = true;
+                    entidadColisionada = listaDeEntidades.get(i);
+                }
+
+                i++;
+            }
+
+            return entidadColisionada;
+    }
+
+
+    private void trabajarColisionHorizontal(Entidad entidadColisionada, Direccion direccionMovimiento) {
+
+        switch (direccionMovimiento) {
+            case DERECHA:
+
+                if (entidadColisionada == null){
+                    posicionX += velocidadConAceleracionDerecha;
+                }
+                else if (entidadColisionada instanceof Plataforma) {
+                    velocidadConAceleracionDerecha = 0;
+                }
+                else if (entidadColisionada instanceof Obstaculo){
+                    Obstaculo obstaculoColisionado = (Obstaculo) entidadColisionada;
+                    if (obstaculoColisionado.getColisionLateral()){
+                        obstaculoColisionado.alColisionar(this);
+                    }
+                }
+
+                break;
+
+
+            case IZQUIERDA:
+
+                if (entidadColisionada == null){
+                    posicionX -= velocidadConAceleracionIzquierda;
+                }
+                else if (entidadColisionada instanceof Plataforma) {
+                    velocidadConAceleracionIzquierda = 0;
+                }
+                else if (entidadColisionada instanceof Obstaculo){
+                    Obstaculo obstaculoColisionado = (Obstaculo) entidadColisionada;
+                    if (obstaculoColisionado.getColisionLateral()){
+                        obstaculoColisionado.alColisionar(this);
+                    }
+                }
+        }
+    }
+
+    public boolean colisionaCon(Entidad entidad) {
+        return getHitbox().overlaps(entidad.getHitbox());
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Meta.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+public class Meta extends Entidad{
+    public Meta(float ancho, float alto, float posicionX, float posicionY) {
+        super(ancho, alto, posicionX, posicionY);
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Obstaculo.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+import java.util.ArrayList;
+
+public abstract class Obstaculo extends Entidad{
+
+    protected boolean colisionLateral;
+    protected boolean colisionVertical;
+
+    public Obstaculo(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+    public boolean getColisionLateral(){
+        return this.colisionLateral;
+    }
+
+    public boolean getColisionVertical(){
+        return this.colisionVertical;
+    }
+
+    public abstract void alColisionar(Jugador jugador /*, ArrayList<Entidad> listaDeEntidades*/);
+
+    public abstract void asignarTipoDeColision();
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Pincho.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+import java.util.ArrayList;
+
+public class Pincho extends Obstaculo{
+
+    public Pincho(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+    @Override
+    public void alColisionar(Jugador jugador){
+        if(jugador.getHitbox().overlaps(this.getHitbox())){
+            // jugador.rebotar(listaDeEntidades);
+            jugador.variacionVelocidad(0.5);
+        }
+    }
+
+    @Override
+    public void asignarTipoDeColision(){
+        colisionLateral = false;
+        colisionVertical = true;
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Plataforma.java
+============================================================
+.
+package com.g2l.speedg2l.entidades;
+
+public class Plataforma extends Entidad{
+
+    private double posicionX;
+    private double posicionY;
+
+    public Plataforma(float ancho , float alto, float posicionX, float posicionY){
+        super(ancho, alto, posicionX, posicionY);
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Camara.java
+============================================================
+.
+package com.g2l.speedg2l.mundo;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.utilidades.ConfigViewport;
+
+public class Camara {
+
+    private OrthographicCamera camara;
+
+    public Camara(ConfigViewport configViewport) {
+        camara = configViewport.getCamara();
+    }
+
+    public void seguirJugador(Jugador jugador) {
+        camara.position.set(
+            jugador.getPosicionX() + jugador.getAncho() / 2,
+            jugador.getPosicionY() + jugador.getAlto() / 2,
+            0
+        );
+
+        camara.update();
+    }
+
+    public OrthographicCamera getCamara() {
+        return camara;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Mapa.java
+============================================================
+.
+package com.g2l.speedg2l.mundo;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.g2l.speedg2l.Cerrable;
+
+public class Mapa implements Cerrable {
+    private TiledMap mapa;
+    private OrthogonalTiledMapRenderer renderMapa;
+    private Nivel nivelActual;
+
+    public Mapa(String ruta){
+        if(ruta.isBlank()){
+            throw new IllegalArgumentException("Error, ruta del mapa vacia");
+        }else{
+            TmxMapLoader cargador = new TmxMapLoader();
+            mapa = cargador.load(ruta);
+            renderMapa = new OrthogonalTiledMapRenderer(mapa);
+        }
+    }
+
+    public void dibujar(OrthographicCamera camara){
+        renderMapa.setView(camara);
+        renderMapa.render();
+    }
+
+    @Override
+    public void cerrar() {
+            mapa.dispose();
+            renderMapa.dispose();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Nivel.java
+============================================================
+.
+package com.g2l.speedg2l.mundo;
+
+public enum Nivel {
+    NIVEL_1,
+    NIVEL_2,
+    NIVEL_3;
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\Pantalla.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Screen;
+import com.g2l.speedg2l.utilidades.ConfigViewport;
+import com.g2l.speedg2l.utilidades.Render;
+
+public abstract class Pantalla implements Screen {
+    protected ConfigViewport configViewport;
+
+    protected Pantalla(){
+        configViewport = new ConfigViewport();
+    }
+
+
+    @Override
+    public void resize(int width, int height){
+        configViewport.actualizar(width, height);
+    }
+
+    protected void cambiarPantalla(Screen pantallaNueva){
+        Render.app.setScreen(pantallaNueva);
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaCarga.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.animaciones.Fade;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class PantallaCarga extends Pantalla {
+
+    private Imagen imagenFondo;
+    private SpriteBatch b;
+    private Texto coords;
+    private Entradas entradas;
+    private Fade fade;
+    @Override
+
+    public void show() {
+        b = Render.batch;
+        imagenFondo = new Imagen(Recursos.FONDO_CARGA);
+        imagenFondo.setSize(405, 512);
+        imagenFondo.centrar();
+        imagenFondo.setTransparencia(0);
+        fade = new Fade(5.0f, imagenFondo);
+
+        coords = new Texto(Recursos.FUENTE_MENU, 20, Color.WHITE);
+        entradas = new Entradas();
+        Gdx.input.setInputProcessor(entradas);
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+        coords.setTexto("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
+        coords.centrar();
+        System.out.println("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
+        fade.iniciar();
+        configViewport.aplicarViewport(b);
+        b.begin();
+        coords.dibujar();
+        imagenFondo.dibujar();
+        b.end();
+        if(fade.isTerminado()){
+            cambiarPantalla(new PantallaMenu());
+        }
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        b.dispose();
+        imagenFondo.cerrar();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaConfig.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+import com.g2l.speedg2l.utilidades.Resolucion;
+
+public class PantallaConfig extends Pantalla {
+
+    private Stage stage;
+    private Skin skin;
+
+    private Label textoVolumen;
+    private Label textoSilencio;
+    private float volumen = 1.0f;
+    private boolean sonidoSilenciado = false;
+    private Resolucion[] resoluciones;
+
+    @Override
+    public void show() {
+
+        stage = new Stage(configViewport.getViewport());
+        skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+        calcularResoluciones();
+
+        crearInterfaz();
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    private void calcularResoluciones() {
+        int anchoMax = Config.getAnchoMonitor();
+        int altoMax = Config.getAltoMonitor();
+
+        Resolucion[] resolucionesDisponibles = Resolucion.values();
+        Resolucion[] resolucionesSoportadas = new Resolucion[resolucionesDisponibles.length];
+        int cantidadResolucionesDisponibles=0;
+
+        for(int i=0; i < resolucionesDisponibles.length; i++){
+            Resolucion r = resolucionesDisponibles[i];
+
+            if(r.getAncho() <= anchoMax && r.getAlto() <= altoMax){
+                resolucionesSoportadas[cantidadResolucionesDisponibles] = r;
+                cantidadResolucionesDisponibles++;
+            }
+        }
+
+        resoluciones = new Resolucion[cantidadResolucionesDisponibles];
+
+        for(int i=0; i < cantidadResolucionesDisponibles; i++){
+            resoluciones[i] = resolucionesSoportadas[i];
+        }
+    }
+
+    private void crearInterfaz() {
+        Table tabla = new Table();
+        tabla.setFillParent(true);
+        tabla.center();
+
+        Label titulo = new Label("CONFIGURACION", skin);
+        titulo.setFontScale(1.5f);
+
+        Label textoResolucion = new Label("Resolucion:", skin);
+
+        SelectBox<Resolucion> selectorResoluciones = new SelectBox<>(skin);
+        selectorResoluciones.setItems(resoluciones);
+        selectorResoluciones.setSelected(Resolucion.values()[0]);
+
+        for (Resolucion resolucion : resoluciones) {
+            if (resolucion.getAncho() == Gdx.graphics.getWidth()
+                && resolucion.getAlto() == Gdx.graphics.getHeight()) {
+
+                selectorResoluciones.setSelected(resolucion);
+                break;
+            }
+        }
+
+        selectorResoluciones.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                Resolucion seleccionada = selectorResoluciones.getSelected();
+
+                Gdx.graphics.setWindowedMode(
+                    seleccionada.getAncho(),
+                    seleccionada.getAlto()
+                );
+            }
+        });
+
+        textoVolumen = new Label(
+            "Volumen: " + (int)(volumen * 100) + "%",
+            skin
+        );
+
+        textoSilencio = new Label(
+            "Sonido: " + (sonidoSilenciado ? "Silenciado" : "Activado"),
+            skin
+        );
+
+        Boton btnSubirVolumen = new Boton(
+            "Subir volumen",
+            skin,
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+
+                    if (volumen < 1.0f) {
+                        volumen += 0.1f;
+                    }
+
+                    if (volumen > 1.0f) {
+                        volumen = 1.0f;
+                    }
+
+                    textoVolumen.setText(
+                        "Volumen: " + (int)(volumen * 100) + "%"
+                    );
+                    // Aca tambien iria Music.setVolume() / Sound.play().
+                }
+            },
+            250,
+            60
+        );
+
+        Boton btnBajarVolumen = new Boton(
+            "Bajar volumen",
+            skin,
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+
+                    if (volumen > 0.0f) {
+                        volumen -= 0.1f;
+                    }
+
+                    if (volumen < 0.0f) {
+                        volumen = 0.0f;
+                    }
+
+                    textoVolumen.setText(
+                        "Volumen: " + (int)(volumen * 100) + "%"
+                    );
+
+                    // Aca conectariamos Music.setVolume() o Sound.play().
+                }
+            },
+            250,
+            60
+        );
+
+        Boton btnSilenciar = new Boton(
+            "Silenciar / activar",
+            skin,
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+
+                    sonidoSilenciado = !sonidoSilenciado;
+
+                    textoSilencio.setText(
+                        "Sonido: " +
+                            (sonidoSilenciado ? "Silenciado" : "Activado")
+                    );
+
+                    // Aca despues conectamos lo de Music/Sound.
+                }
+            },
+            250,
+            60
+        );
+
+        Boton btnVolver = new Boton(
+            "Volver",
+            skin,
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    cambiarPantalla(new PantallaMenu());
+                }
+            },
+            250,
+            60
+        );
+
+        tabla.add(titulo).padBottom(30).row();
+
+        tabla.add(textoResolucion).padBottom(10).row();
+        tabla.add(selectorResoluciones).width(250).padBottom(25).row();
+
+        tabla.add(textoVolumen).padBottom(10).row();
+        tabla.add(btnSubirVolumen).pad(5).row();
+        tabla.add(btnBajarVolumen).pad(5).row();
+
+        tabla.add(textoSilencio).padTop(15).padBottom(10).row();
+        tabla.add(btnSilenciar).padBottom(25).row();
+
+        tabla.add(btnVolver).row();
+
+        stage.addActor(tabla);
+    }
+
+    @Override
+    public void render(float delta) {
+
+        Render.limpiarPantalla();
+
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        skin.dispose();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaFin.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.componentes.PanelBotones;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+public class PantallaFin extends Pantalla {
+
+    private Stage stage;
+    private Boton btnSalir;
+    private PanelBotones panelBotones;
+    private SpriteBatch b;
+    private Texto texto, cronometro;
+
+    public PantallaFin(Texto cronometro) {
+        this.cronometro = cronometro;
+    }
+
+    @java.lang.Override
+    public void show() {
+
+        b = Render.batch;
+
+        stage = new Stage(configViewport.getViewport());
+
+        texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+        texto.setTexto("Tiempo final:");
+        texto.centrarArriba(100);
+
+        cronometro.centrarArriba(150);
+
+        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+        crearPanelBotones(skin);
+        agregarAlStage();
+    }
+
+    private void crearPanelBotones(Skin skin) {
+        panelBotones = new PanelBotones();
+
+        final int PADDING = 10;
+        final int ANCHO_BOTONES = 200;
+        final int ALTURA_BOTONES = 60;
+
+        panelBotones.agregarBoton(
+            new Boton(
+                "Menu",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaMenu());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+    }
+
+    @java.lang.Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+
+        configViewport.aplicarViewport(b);
+        b.begin();
+        texto.dibujar();
+        cronometro.dibujar();
+
+        b.end();
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @java.lang.Override
+    public void resize(int i, int i1) {
+
+    }
+
+    @java.lang.Override
+    public void pause() {
+
+    }
+
+    @java.lang.Override
+    public void resume() {
+
+    }
+
+    @java.lang.Override
+    public void hide() {
+
+    }
+
+    @java.lang.Override
+    public void dispose() {
+
+    }
+
+    private void agregarAlStage() {
+        stage.addActor(panelBotones.getContenedor());
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaJuego.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.SpeedG2L;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
+import com.g2l.speedg2l.entidades.*;
+import com.g2l.speedg2l.mundo.Camara;
+import com.g2l.speedg2l.mundo.Mapa;
+import com.g2l.speedg2l.sonidos.Musica;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+import java.util.ArrayList;
+
+public class PantallaJuego extends Pantalla {
+
+    private Stage stage;
+
+    private Jugador jugador;
+    private AnimacionEntidad caminataJugador;    private SpriteBatch b;
+    private Musica musicaJuego;
+    private Hud hud;
+
+    private Plataforma plataforma;
+    private Imagen imgPlataforma;
+
+    private Pincho pincho;
+    private Imagen imgPincho;
+
+    private ArrayList<Entidad> listaDeEntidades;
+    private ArrayList<Obstaculo> listaDeObstaculos;
+
+    private Mapa mapa;
+    private Camara camara;
+    private Entradas entradas;
+
+    private boolean pausado = false;
+    private ShapeRenderer pantallaPausa = new ShapeRenderer();
+    private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+
+    private Meta meta;
+
+    @Override
+    public void show() {
+        b = Render.batch;
+
+        crearYaplicarMusica();
+        camara = new Camara(configViewport);
+        mapa = new Mapa(Recursos.NIVEL_1);
+        entradas = new Entradas();
+        jugador = new Jugador(70.0f, 70.0f, 0.0f, 100.0f);
+        hud = new Hud();
+
+        listaDeEntidades = new ArrayList<>();
+        listaDeObstaculos = new ArrayList<>();
+
+        plataforma = new Plataforma(221.0f, 31.0f, 250.0f, 200.0f);
+        listaDeEntidades.add(plataforma);
+        imgPlataforma = new Imagen(Recursos.PLATAFORMA_VERDE);
+
+        pincho = new Pincho(57.0f, 31.0f, 400.0f, 100.0f);
+        listaDeObstaculos.add(pincho);
+        imgPincho = new Imagen(Recursos.OBSTACULO_PINCHO);
+
+        meta = new Meta(50.0f, 1000.0f, 8000.0f, 100.0f);
+
+        textoPausa.setTexto("PAUSADO");
+
+
+        stage = new Stage(configViewport.getViewport());
+    }
+
+    private void crearYaplicarMusica() {
+        musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
+        musicaJuego.volumen(0.1f);
+        musicaJuego.repetir(true);
+        musicaJuego.reproducir();
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+
+        camara.seguirJugador(jugador);
+
+        mapa.dibujar(camara.getCamara());
+
+        b.setProjectionMatrix(camara.getCamara().combined);
+        b.begin();
+
+        if(entradas.escape()){
+            pausado = !pausado;
+        }
+
+        if(!pausado) {
+            jugador.moverJugador(entradas);
+            jugador.actualizarFisicas(listaDeEntidades);
+            jugador.animar(delta);
+            musicaJuego.reproducir();
+            hud.actualizar();
+            if(jugador.colisionaCon(meta)){
+                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                musicaJuego.cerrar();
+            }
+        }
+
+
+        else if(pausado){
+            textoPausa.setPosition(
+                camara.getCamara().position.x / 2,
+                camara.getCamara().position.y / 2
+            );
+
+            musicaJuego.pausar();
+        }
+
+        jugador.dibujar();
+
+        imgPlataforma.setX(plataforma.getPosicionX());
+        imgPlataforma.setY(plataforma.getPosicionY());
+        imgPlataforma.dibujar();
+
+        imgPincho.setX(pincho.getPosicionX());
+        imgPincho.setY(pincho.getPosicionY());
+        imgPincho.dibujar();
+
+        b.end();
+
+        b.setProjectionMatrix(stage.getCamera().combined);
+
+        b.begin();
+
+        if (pausado) {
+            textoPausa.dibujar();
+        }
+
+        hud.dibujar();
+
+        b.end();
+
+        stage.act(delta);
+        stage.draw();
+    }
+
+    private void dibujarPuasa() {
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+
+        pantallaPausa.setProjectionMatrix(camara.getCamara().combined);
+
+        pantallaPausa.begin(ShapeRenderer.ShapeType.Filled);
+
+        pantallaPausa.setColor(0, 0, 0, 0.5f);
+
+        pantallaPausa.rect(
+            0,
+            0,
+            Config.getAnchoMonitor(),
+            Config.getAltoMonitor()
+        );
+
+
+        pantallaPausa.end();
+
+        Gdx.gl.glDisable(GL20.GL_BLEND);
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaMenu.java
+============================================================
+.
+package com.g2l.speedg2l.pantallas;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.PanelBotones;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+
+import static com.badlogic.gdx.Gdx.app;
+import static com.badlogic.gdx.Gdx.input;
+
+public class PantallaMenu extends Pantalla{
+    private Stage stage;
+    private PanelBotones panelBotones;
+    private Imagen imagenFondo;
+    private SpriteBatch b;
+    private Texto texto;
+
+    @Override
+    public void show() {
+        b = Render.batch;
+        imagenFondo = new Imagen(Recursos.FONDO_MENU);
+        imagenFondo.setSize(Config.getAnchoJuego(), Config.getAltoJuego());
+        texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
+        texto.setTexto("SpeedG2L");
+        texto.centrarArriba(100);
+
+        stage = new Stage(configViewport.getViewport());
+
+        Skin skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+        crearPanelBotones(skin);
+        panelBotones.centrar();
+
+
+        agregarAlStage();
+
+        input.setInputProcessor(stage);
+    }
+
+    @Override
+    public void render(float delta) {
+        Render.limpiarPantalla();
+
+        configViewport.aplicarViewport(b);
+        b.begin();
+        imagenFondo.dibujar();
+        texto.dibujar();
+        b.end();
+        stage.act(delta);
+        stage.draw();
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+        texto.cerrar();
+        stage.dispose();
+    }
+
+
+    private void crearPanelBotones(Skin skin) {
+        panelBotones = new PanelBotones();
+
+        final int PADDING = 10;
+        final int ANCHO_BOTONES = 200;
+        final int ALTURA_BOTONES = 60;
+
+        panelBotones.agregarBoton(
+            new Boton(
+                "Jugar",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaJuego());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+
+        panelBotones.agregarBoton(
+            new Boton(
+                "Configuracion",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaConfig());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+
+        panelBotones.agregarBoton(
+            new Boton(
+                "Salir",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        app.exit();
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+
+    }
+
+    private void agregarAlStage() {
+      stage.addActor(panelBotones.getContenedor());
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\TipoPantalla.java
+============================================================
+.
+package com.g2l.speedg2l;
+
+public enum TipoPantalla {
+    MENU,
+    GAME,
+    OPTIONS
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\sonidos\Musica.java
+============================================================
+.
+package com.g2l.speedg2l.sonidos;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.g2l.speedg2l.Cerrable;
+
+public class Musica implements Cerrable {
+
+    private Music musica;
+
+    public Musica(String ruta) {
+        musica = Gdx.audio.newMusic(Gdx.files.internal(ruta));
+    }
+
+    public void reproducir() { musica.play();}
+
+    public void pausar() {
+        musica.pause();
+    }
+
+    public void detener() {
+        musica.stop();
+    }
+
+    public void repetir(boolean repetir) {
+        musica.setLooping(repetir);
+    }
+
+    public void volumen(float volumen) {
+        musica.setVolume(volumen);
+    }
+
+    public boolean estaReproduciendo() {
+        return musica.isPlaying();
+    }
+
+    @Override
+    public void cerrar() {
+        musica.dispose();
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Config.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.Gdx;
+
+public class Config {
+
+    private static final int ANCHO_JUEGO = 1280;
+    private static final int ALTO_JUEGO = 720;
+
+    private Config() {}
+
+    public static int getAnchoJuego() {
+        return ANCHO_JUEGO;
+    }
+
+    public static int getAltoJuego() {
+        return ALTO_JUEGO;
+    }
+
+    public static int getAnchoMonitor() {
+        return Gdx.graphics.getDisplayMode().width;
+    }
+
+    public static int getAltoMonitor() {
+        return Gdx.graphics.getDisplayMode().height;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\ConfigViewport.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
+public class ConfigViewport {
+    private FitViewport viewport;
+    private OrthographicCamera camara;
+
+    public ConfigViewport(){
+        camara = new OrthographicCamera(
+            Config.getAnchoJuego(),
+            Config.getAltoJuego()
+        );
+        viewport = new FitViewport(Config.getAnchoJuego(), Config.getAltoJuego());
+    }
+
+    public void aplicarViewport(SpriteBatch b) {
+        viewport.apply();
+        b.setProjectionMatrix(viewport.getCamera().combined);
+    }
+
+    public void actualizar(int ancho, int alto){
+        viewport.update(ancho, alto, true);
+    }
+
+    public FitViewport getViewport() {
+        return viewport;
+    }
+
+    public OrthographicCamera getCamara(){
+        return camara;
+    }
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Direccion.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+public enum Direccion {
+    IZQUIERDA,
+    DERECHA;
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Entradas.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+
+public class Entradas implements InputProcessor {
+
+    private boolean abajo=false, arriba=false;
+    private int mouseX, mouseY;
+
+    public boolean izquierda(){
+        return Gdx.input.isKeyPressed(Keys.A);
+    }
+
+    public boolean derecha(){
+        return Gdx.input.isKeyPressed(Keys.D);
+    }
+
+    public boolean abajo(){
+        return Gdx.input.isKeyPressed(Keys.S);
+    }
+    public boolean arriba(){
+        return Gdx.input.isKeyPressed(Keys.W);
+    }
+
+    public boolean barraEspaciadora(){
+        return Gdx.input.isKeyJustPressed(Keys.SPACE);
+    }
+
+    public boolean escape(){return Gdx.input.isKeyJustPressed(Keys.ESCAPE);}
+
+    @Override
+    public boolean keyDown(int keycode) {
+
+        if(keycode == Keys.UP){
+            arriba = true;
+            return true;
+        }else if(keycode == Keys.DOWN){
+            abajo = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if(keycode == Keys.UP){
+            arriba = false;
+            return true;
+        }else if(keycode == Keys.DOWN){
+            abajo = false;
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        mouseX = screenX;
+        mouseY = screenY;
+
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
+
+    public boolean isArriba() {
+        return arriba;
+    }
+
+    public boolean isAbajo() {
+        return abajo;
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+}
+
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Recursos.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+public class Recursos {
+
+    private Recursos(){}
+
+    public static final String FONDO_MENU = "fondos/fondoMenu.png";
+    public static final String FONDO_CARGA = "fondos/G2L.png";
+    public static final String FUENTE_MENU = "fuentes/fuentePrueba.ttf";
+    public static final String PLATAFORMA_VERDE = "plataformas/bloque verde.png";
+    public static final String OBSTACULO_PINCHO = "plataformas/pincho.png";
+    public static final String MUSICA_JUEGO = "sonidos/musicaInGame/musicaNivel1.wav";
+    public static final String NIVEL_1 = "nivel/mapaPrueba.tmx";
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Render.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.g2l.speedg2l.SpeedG2L;
+
+public class Render {
+
+    private Render(){}
+
+    public static SpriteBatch batch = new SpriteBatch();
+    public static SpeedG2L app;
+    public static void limpiarPantalla(){
+       ScreenUtils.clear(Color.BLACK);
+    }
+
+}
+.
+.
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Resolucion.java
+============================================================
+.
+package com.g2l.speedg2l.utilidades;
+
+public enum Resolucion {
+
+    RES_800X600(800, 600),
+    RES_1280X720(1280, 720),
+    RES_1366X768(1366, 768),
+    RES_1440X900(1440, 900),
+    RES_1920X1080(1920, 1080);
+
+    private final int ancho;
+    private final int alto;
+
+    Resolucion(int ancho, int alto) {
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    @Override
+    public String toString() {
+        return (ancho + "x" + alto);
+    }
+}
+.
+
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\Lwjgl3Launcher.java
+============================================================
+
+package com.g2l.speedg2l.lwjgl3;
+
+import com.badlogic.gdx.Graphics.DisplayMode;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.g2l.speedg2l.SpeedG2L;
+
+public class Lwjgl3Launcher {
+
+    public static final String TITULO = "SpeedG2L";
+
+    public static void main(String[] args) {
+        if (StartupHelper.startNewJvmIfRequired()) return;
+        createApplication();
+    }
+
+    private static void createApplication() {
+        Lwjgl3ApplicationConfiguration config =
+            new Lwjgl3ApplicationConfiguration();
+
+        DisplayMode modoMonitor =
+            Lwjgl3ApplicationConfiguration.getDisplayMode();
+
+        config.setTitle(TITULO);
+
+        config.setFullscreenMode(modoMonitor);
+
+        new Lwjgl3Application(new SpeedG2L(), config);
+    }
+}
+
+
+============================================================
+ARCHIVO: C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\StartupHelper.java
+============================================================
+
+/*
+ * Copyright 2020 damios
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at:
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+// Note, the above license and copyright applies to this file only.
+package com.g2l.speedg2l.lwjgl3;
+
+import com.badlogic.gdx.Version;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
+
+import org.lwjgl.system.JNI;
+import org.lwjgl.system.linux.UNISTD;
+import org.lwjgl.system.macosx.LibC;
+import org.lwjgl.system.macosx.ObjCRuntime;
+
+import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+/**
+ * A helper object for game startup, featuring three utilities related to LWJGL3 on various operating systems.
+ * <p>
+ * The utilities are as follows:
+ * <ul>
+ *  <li> Windows: Prevents a common crash related to LWJGL3's extraction of shared library files.</li>
+ *  <li> macOS: Spawns a child JVM process with {@code -XstartOnFirstThread} in the JVM args (if it was not already).
+ *  This is required for LWJGL3 to work on macOS.</li>
+ *  <li> Linux (NVIDIA GPUs only): Spawns a child JVM process with the {@code __GL_THREADED_OPTIMIZATIONS}
+ *  {@link System#getenv(String) Environment Variable} set to {@code 0} (if it was not already). This is required for
+ *  LWJGL3 to work on Linux with NVIDIA GPUs.</li>
+ * </ul>
+ * <a href="https://jvm-gaming.org/t/starting-jvm-on-mac-with-xstartonfirstthread-programmatically/57547">Based on this java-gaming.org post by kappa</a>
+ * @author damios
+ */
+public class StartupHelper {
+
+	private StartupHelper() {}
+
+	private static final String JVM_RESTARTED_ARG = "jvmIsRestarted";
+
+	/**
+	 * Must only be called on Linux. Check OS first (or use short-circuit evaluation)!
+	 * @return whether NVIDIA drivers are present on Linux.
+	 */
+	public static boolean isLinuxNvidia() {
+		String[] drivers = new File("/proc/driver").list(
+			(dir, path) -> path.toUpperCase(Locale.ROOT).contains("NVIDIA")
+		);
+		if (drivers == null) return false;
+		return drivers.length > 0;
+	}
+
+	/**
+	 * Applies the utilities as described by {@link StartupHelper}'s Javadoc.
+	 * <p>
+	 * All {@link System#getenv() Environment Variables} are copied to the child JVM process (if it is spawned), as
+	 * specified by {@link ProcessBuilder#environment()}; the same applies for
+	 * {@link System#getProperties() System Properties}.
+	 * <p>
+	 * <b>Usage:</b>
+	 * <pre><code>
+	 * public static void main(String[] args) {
+	 * 	 if (StartupHelper.startNewJvmIfRequired()) return;
+	 * 	 // ... The rest of main() goes here, as normal.
+	 * }
+	 * </code></pre>
+	 * @return whether a child JVM process was spawned or not.
+	 */
+	public static boolean startNewJvmIfRequired() {
+		return startNewJvmIfRequired(true);
+	}
+
+	/**
+	 * Applies the utilities as described by {@link StartupHelper}'s Javadoc.
+	 * <p>
+	 * All {@link System#getenv() Environment Variables} are copied to the child JVM process (if it is spawned), as
+	 * specified by {@link ProcessBuilder#environment()}; the same applies for
+	 * {@link System#getProperties() System Properties}.
+	 * <p>
+	 * <b>Usage:</b>
+	 * <pre><code>
+	 * public static void main(String[] args) {
+	 *   // The parameter on the next line could instead be false if you don't want to inherit IO.
+	 * 	 if (StartupHelper.startNewJvmIfRequired(true)) return;
+	 * 	 // ... The rest of main() goes here, as normal.
+	 * }
+	 * </code></pre>
+	 * @param inheritIO whether I/O should be inherited in the child JVM process. Please note that enabling this will
+	 *                  block the thread until the child JVM process stops executing.
+	 * @return whether a child JVM process was spawned or not.
+	 */
+	public static boolean startNewJvmIfRequired(boolean inheritIO) {
+		String osName = System.getProperty("os.name").toLowerCase(Locale.ROOT);
+		if (osName.contains("mac")) return startNewJvm0(/*isMac =*/ true, inheritIO);
+		if (osName.contains("windows")) {
+			// Here, we are trying to work around an issue with how LWJGL3 loads its extracted .dll files.
+			// By default, LWJGL3 extracts to the directory specified by "java.io.tmpdir": usually, the user's home.
+			// If the user's name has non-ASCII (or some non-alphanumeric) characters in it, that would fail.
+			// By extracting to the relevant "ProgramData" folder, which is usually "C:\ProgramData", we avoid this.
+			// We also temporarily change the "user.name" property to one without any chars that would be invalid.
+			// We revert our changes immediately after loading LWJGL3 natives.
+			String programData = System.getenv("ProgramData");
+			if (programData == null) programData = "C:\\Temp"; // if ProgramData isn't set, try some fallback.
+			String prevTmpDir = System.getProperty("java.io.tmpdir", programData);
+			String prevUser = System.getProperty("user.name", "libGDX_User");
+			System.setProperty("java.io.tmpdir", programData + "\\libGDX-temp");
+			System.setProperty(
+				"user.name",
+				("User_" + prevUser.hashCode() + "_GDX" + Version.VERSION).replace('.', '_')
+			);
+			Lwjgl3NativesLoader.load();
+			System.setProperty("java.io.tmpdir", prevTmpDir);
+			System.setProperty("user.name", prevUser);
+			return false;
+		}
+		return startNewJvm0(/*isMac =*/ false, inheritIO);
+	}
+
+	private static final String MAC_JRE_ERR_MSG = "A Java installation could not be found. If you are distributing this app with a bundled JRE, be sure to set the '-XstartOnFirstThread' argument manually!";
+	private static final String LINUX_JRE_ERR_MSG = "A Java installation could not be found. If you are distributing this app with a bundled JRE, be sure to set the environment variable '__GL_THREADED_OPTIMIZATIONS' to '0'!";
+	private static final String CHILD_LOOP_ERR_MSG = "The current JVM process is a spawned child JVM process, but StartupHelper has attempted to spawn another child JVM process! This is a broken state, and should not normally happen! Your game may crash or not function properly!";
+
+	/**
+	 * Spawns a child JVM process if on macOS, or on Linux with NVIDIA drivers.
+	 * <p>
+	 * All {@link System#getenv() Environment Variables} are copied to the child JVM process (if it is spawned), as
+	 * specified by {@link ProcessBuilder#environment()}; the same applies for
+	 * {@link System#getProperties() System Properties}.
+	 * @param isMac whether the current OS is macOS. If this is `false` then the current OS is assumed to be Linux (and
+	 *             an immediate check for NVIDIA drivers is performed).
+	 * @param inheritIO whether I/O should be inherited in the child JVM process. Please note that enabling this will
+	 *                 block the thread until the child JVM process stops executing.
+	 * @return whether a child JVM process was spawned or not.
+	 */
+	public static boolean startNewJvm0(boolean isMac, boolean inheritIO) {
+		long processID = getProcessID(isMac);
+		if (!isMac) {
+			// No need to restart non-NVIDIA Linux
+			if (!isLinuxNvidia()) return false;
+			// check whether __GL_THREADED_OPTIMIZATIONS is already disabled
+			if ("0".equals(System.getenv("__GL_THREADED_OPTIMIZATIONS"))) return false;
+		} else {
+			// There is no need for -XstartOnFirstThread on Graal native image
+			if (!System.getProperty("org.graalvm.nativeimage.imagecode", "").isEmpty()) return false;
+
+			// Checks if we are already on the main thread, such as from running via Construo.
+			long objcMsgSend = ObjCRuntime.getLibrary().getFunctionAddress("objc_msgSend");
+			long nsThread = ObjCRuntime.objc_getClass("NSThread");
+			long currentThread = JNI.invokePPP(nsThread, ObjCRuntime.sel_getUid("currentThread"), objcMsgSend);
+			boolean isMainThread = JNI.invokePPZ(currentThread, ObjCRuntime.sel_getUid("isMainThread"), objcMsgSend);
+			if (isMainThread) return false;
+
+			if ("1".equals(System.getenv("JAVA_STARTED_ON_FIRST_THREAD_" + processID))) return false;
+		}
+
+		// Check whether this JVM process is a child JVM process already.
+		// This state shouldn't usually be reachable, but this stops us from endlessly spawning new child JVM processes.
+		if ("true".equals(System.getProperty(JVM_RESTARTED_ARG))) {
+			System.err.println(CHILD_LOOP_ERR_MSG);
+			return false;
+		}
+
+		// Spawn the child JVM process with updated environment variables or JVM args
+		List<String> jvmArgs = new ArrayList<>();
+		// The following line is used assuming you target Java 8, the minimum for LWJGL3.
+		String javaExecPath = System.getProperty("java.home") + "/bin/java";
+		// If targeting Java 9 or higher, you could use the following instead of the above line:
+		//String javaExecPath = ProcessHandle.current().info().command().orElseThrow()
+		if (!(new File(javaExecPath).exists())) {
+			System.err.println(getJreErrMsg(isMac));
+			return false;
+		}
+
+		jvmArgs.add(javaExecPath);
+		if (isMac) jvmArgs.add("-XstartOnFirstThread");
+		jvmArgs.add("-D" + JVM_RESTARTED_ARG + "=true");
+		jvmArgs.addAll(ManagementFactory.getRuntimeMXBean().getInputArguments());
+		jvmArgs.add("-cp");
+		jvmArgs.add(System.getProperty("java.class.path"));
+		String mainClass = System.getenv("JAVA_MAIN_CLASS_" + processID);
+		if (mainClass == null) {
+			StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+			if (trace.length > 0) mainClass = trace[trace.length - 1].getClassName();
+			else {
+				System.err.println("The main class could not be determined.");
+				return false;
+			}
+		}
+		jvmArgs.add(mainClass);
+
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder(jvmArgs);
+			if (!isMac) processBuilder.environment().put("__GL_THREADED_OPTIMIZATIONS", "0");
+
+			if (!inheritIO) processBuilder.start();
+			else processBuilder.inheritIO().start().waitFor();
+		} catch (Exception e) {
+			System.err.println("There was a problem restarting the JVM.");
+			// noinspection CallToPrintStackTrace
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+
+	private static String getJreErrMsg(boolean isMac) {
+		if (isMac) return MAC_JRE_ERR_MSG;
+		else return LINUX_JRE_ERR_MSG;
+	}
+
+	private static long getProcessID(boolean isMac) {
+		if (isMac) return LibC.getpid();
+		else return UNISTD.getpid();
+	}
+}
+
+============================================================
+3. ARCHIVOS DE CONFIGURACION
+============================================================
+
+
+============================================================
+ARCHIVO: build.gradle
+============================================================
+
+buildscript {
+  repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    mavenLocal()
+    google()
+    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
+  }
+  dependencies {
+
+
+  }
+}
+
+allprojects {
+  apply plugin: 'eclipse'
+  apply plugin: 'idea'
+
+  // This allows you to "Build and run using IntelliJ IDEA", an option in IDEA's Settings.
+  idea {
+    module {
+      outputDir = file('build/classes/java/main')
+      testOutputDir = file('build/classes/java/test')
+    }
+  }
+}
+
+configure(subprojects) {
+  apply plugin: 'java-library'
+  java.sourceCompatibility = 21
+
+  // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
+  // The article can be helpful when using assets.txt in your project.
+  tasks.register('generateAssetList') {
+    inputs.dir("${project.rootDir}/assets/")
+    // projectFolder/assets
+    File assetsFolder = new File("${project.rootDir}/assets/")
+    // projectFolder/assets/assets.txt
+    File assetsFile = new File(assetsFolder, "assets.txt")
+    // delete that file in case we've already created it
+    assetsFile.delete()
+
+    // iterate through all files inside that folder
+    // convert it to a relative path
+    // and append it to the file assets.txt
+    fileTree(assetsFolder).collect { assetsFolder.relativePath(it) }.sort().each {
+      assetsFile.append(it + "\n")
+    }
+  }
+  processResources.dependsOn 'generateAssetList'
+
+  compileJava {
+    options.incremental = true
+  }
+}
+
+subprojects {
+  version = "$projectVersion"
+  ext.appName = 'SpeedG2L'
+  repositories {
+    mavenCentral()
+    // You may want to remove the following line if you have errors downloading dependencies.
+    mavenLocal()
+    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
+    maven { url = 'https://jitpack.io' }
+  }
+}
+
+eclipse.project.name = 'SpeedG2L' + '-parent'
+
+
+============================================================
+ARCHIVO: settings.gradle
+============================================================
+
+plugins {
+  // Applies the foojay-resolver plugin to allow automatic download of JDKs.
+  id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+// A list of which subprojects to load as part of the same larger project.
+// You can remove Strings from the list and reload the Gradle project
+// if you want to temporarily disable a subproject.
+include 'lwjgl3', 'core'
+
+
+============================================================
+ARCHIVO: gradle.properties
+============================================================
+
+# This doesn't need to be false, and some projects may be able to take advantage of setting daemon to true.
+# We set it to false by default in order to avoid too many daemons from being created and persisting; each needs RAM.
+org.gradle.daemon=false
+# Sets starting memory usage to 512MB, maximum memory usage to 1GB, and tries to set as much to use Unicode as we can.
+org.gradle.jvmargs=-Xms512M -Xmx1G -Dfile.encoding=UTF-8 -Dconsole.encoding=UTF-8
+# "Configure on-demand" must be false because it breaks projects that have Android modules. The default is also false.
+org.gradle.configureondemand=false
+# The logging level determines which messages get shown about how Gradle itself is working, such as if build.gradle
+# files are fully future-proof (which they never are, because Gradle constantly deprecates working APIs).
+# You can change 'quiet' below to 'lifecycle' to use Gradle's default behavior, which shows some confusing messages.
+# You could instead change 'quiet' below to 'info' to see info that's important mainly while debugging build files.
+# Note that if you want to use Gradle Build Scans, you should set the below logging level to 'lifecycle', otherwise
+# the link to the scan won't get shown at all.
+# Documented at: https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_logging
+org.gradle.logging.level=quiet
+lwjgl3Version=3.4.1
+graalHelperVersion=2.0.1
+enableGraalNative=false
+gdxVersion=1.14.2
+projectVersion=1.0.0
+
+
+============================================================
+ARCHIVO: core\build.gradle
+============================================================
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  if(enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+}
+
+jar {
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
+============================================================
+ARCHIVO: lwjgl3\build.gradle
+============================================================
+
+
+buildscript {
+  repositories {
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath "io.github.fourlastor:construo:2.1.0"
+    if(enableGraalNative == 'true') {
+      classpath "org.graalvm.buildtools.native:org.graalvm.buildtools.native.gradle.plugin:0.9.28"
+    }
+  }
+}
+plugins {
+  id "application"
+}
+apply plugin: 'io.github.fourlastor.construo'
+
+
+import io.github.fourlastor.construo.Target
+
+sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
+application.mainClass = 'com.g2l.speedg2l.lwjgl3.Lwjgl3Launcher'
+application.applicationName = appName
+eclipse.project.name = appName + '-lwjgl3'
+java.sourceCompatibility = 21
+java.targetCompatibility = 21
+if (JavaVersion.current().isJava9Compatible()) {
+        compileJava.options.release.set(21)
+}
+
+dependencies {
+  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation project(':core')
+
+  if(enableGraalNative == 'true') {
+    implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
+      implementation "io.github.berstanio:gdx-svmhelper-extension-freetype:$graalHelperVersion"
+
+  }
+  // Forces LWJGL3 to use at least $lwjgl3Version, currently 3.4.1, to avoid problems on Java 25 and up.
+  constraints{
+    implementation("org.lwjgl:lwjgl:$lwjgl3Version")
+    implementation("org.lwjgl:lwjgl-glfw:$lwjgl3Version")
+    implementation("org.lwjgl:lwjgl-jemalloc:$lwjgl3Version")
+    implementation("org.lwjgl:lwjgl-openal:$lwjgl3Version")
+    implementation("org.lwjgl:lwjgl-opengl:$lwjgl3Version")
+    implementation("org.lwjgl:lwjgl-stb:$lwjgl3Version")
+  }
+}
+
+def os = System.properties['os.name'].toLowerCase(Locale.ROOT)
+
+run {
+  workingDir = rootProject.file('assets').path
+// You can uncomment the next line if your IDE claims a build failure even when the app closed properly.
+  //setIgnoreExitValue(true)
+  jvmArgs += "--enable-native-access=ALL-UNNAMED"
+  if (os.contains('mac')) jvmArgs += "-XstartOnFirstThread"
+}
+
+jar {
+// sets the name of the .jar file this produces to the name of the game or app, with the version after.
+  archiveFileName.set("${appName}-${projectVersion}.jar")
+// the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  dependsOn configurations.runtimeClasspath
+  from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+// these "exclude" lines remove some unnecessary duplicate files in the output JAR.
+  exclude('META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  dependencies {
+    exclude('META-INF/INDEX.LIST', 'META-INF/maven/**')
+  }
+// setting the manifest makes the JAR runnable.
+// enabling native access helps avoid a warning when Java 24 or later runs the JAR.
+// setting Multi-Release to true allows LWJGL3 to use different classes on recent Java versions.
+  manifest {
+    attributes 'Main-Class': application.mainClass, 'Enable-Native-Access': 'ALL-UNNAMED', 'Multi-Release': 'true'
+  }
+// this last step may help on some OSes that need extra instruction to make runnable JARs.
+  doLast {
+    file(archiveFile).setExecutable(true, false)
+  }
+}
+
+// Builds a JAR that only includes the files needed to run on macOS, not Windows or Linux.
+// The file size for a Mac-only JAR is about 7MB smaller than a cross-platform JAR.
+tasks.register("jarMac") {
+  dependsOn("jar")
+  group("build")
+  jar.archiveFileName.set("${appName}-${projectVersion}-mac.jar")
+  jar.exclude("windows/x86/**", "windows/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**", "**/*.dll", "**/*.so",
+    'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  dependencies {
+    jar.exclude("windows/x86/**", "windows/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**",
+      'META-INF/INDEX.LIST', 'META-INF/maven/**')
+  }
+}
+
+// Builds a JAR that only includes the files needed to run on Linux, not Windows or macOS.
+// The file size for a Linux-only JAR is about 5MB smaller than a cross-platform JAR.
+tasks.register("jarLinux") {
+  dependsOn("jar")
+  group("build")
+  jar.archiveFileName.set("${appName}-${projectVersion}-linux.jar")
+  jar.exclude("windows/x86/**", "windows/x64/**", "macos/arm64/**", "macos/x64/**", "**/*.dll", "**/*.dylib",
+    'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  dependencies {
+    jar.exclude("windows/x86/**", "windows/x64/**", "macos/arm64/**", "macos/x64/**",
+      'META-INF/INDEX.LIST', 'META-INF/maven/**')
+  }
+}
+
+// Builds a JAR that only includes the files needed to run on Windows, not Linux or macOS.
+// The file size for a Windows-only JAR is about 6MB smaller than a cross-platform JAR.
+tasks.register("jarWin") {
+  dependsOn("jar")
+  group("build")
+  jar.archiveFileName.set("${appName}-${projectVersion}-win.jar")
+  jar.exclude("macos/arm64/**", "macos/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**", "**/*.dylib", "**/*.so",
+    'META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  dependencies {
+    jar.exclude("macos/arm64/**", "macos/x64/**", "linux/arm32/**", "linux/arm64/**", "linux/x64/**",
+      'META-INF/INDEX.LIST', 'META-INF/maven/**')
+  }
+}
+
+construo {
+  // name of the executable
+  name.set(appName)
+  // human-readable name, used for example in the `.app` name for macOS
+  humanName.set(appName)
+  jlink {
+    guessModulesFromJar.set(false)
+    // You may need to add more modules, as needed.
+    modules.addAll("java.base", "java.management", "java.desktop", "jdk.unsupported")
+  }
+
+  targets.configure {
+    register("linuxX64", Target.Linux) {
+      architecture.set(Target.Architecture.X86_64)
+      jdkUrl.set("https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.10%2B7/OpenJDK21U-jdk_x64_linux_hotspot_21.0.10_7.tar.gz")
+      // Linux does not currently have a way to set the icon on the executable
+    }
+    register("macM1", Target.MacOs) {
+      architecture.set(Target.Architecture.AARCH64)
+      jdkUrl.set("https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.10%2B7/OpenJDK21U-jdk_aarch64_mac_hotspot_21.0.10_7.tar.gz")
+      // macOS needs an identifier
+      identifier.set("com.g2l.speedg2l." + appName)
+      // Optional: icon for macOS, as an ICNS file
+      macIcon.set(project.file("icons/logo.icns"))
+    }
+    register("macX64", Target.MacOs) {
+      architecture.set(Target.Architecture.X86_64)
+      jdkUrl.set("https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.10%2B7/OpenJDK21U-jdk_x64_mac_hotspot_21.0.10_7.tar.gz")
+      // macOS needs an identifier
+      identifier.set("com.g2l.speedg2l." + appName)
+      // Optional: icon for macOS, as an ICNS file
+      macIcon.set(project.file("icons/logo.icns"))
+    }
+    register("winX64", Target.Windows) {
+      architecture.set(Target.Architecture.X86_64)
+      // Optional: icon for Windows, as a PNG
+      icon.set(project.file("icons/logo.png"))
+      jdkUrl.set("https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.10%2B7/OpenJDK21U-jdk_x64_windows_hotspot_21.0.10_7.zip")
+      // Uncomment the next line to show a console when the game runs, to print messages.
+      //useConsole.set(true)
+    }
+  }
+}
+
+// Equivalent to the jar task; here for compatibility with gdx-setup.
+tasks.register('dist') {
+  dependsOn 'jar'
+}
+
+distributions {
+  main {
+    contents {
+      into('libs') {
+        project.configurations.runtimeClasspath.files.findAll { file ->
+          file.getName() != project.tasks.jar.outputs.files.singleFile.name
+        }.each { file ->
+          exclude file.name
+        }
+      }
+    }
+  }
+}
+
+startScripts.dependsOn(':lwjgl3:jar')
+startScripts.classpath = project.tasks.jar.outputs.files
+
+// Helps if debugging on Linux with an Nvidia GPU.
+// This means StartupHelper won't try to restart the JVM, which can prevent debugging.
+// This only applies to Gradle tasks, not main methods debugged when launching a main() method directly.
+// As a more general solution, set the environment variable __GL_THREADED_OPTIMIZATIONS to 0 globally, on Linux
+// machines with Nvidia GPUs where you need to debug LWJGL3 apps and games.
+// You can also set __GL_THREADED_OPTIMIZATIONS to 0 in run configurations, which you would need per main() method.
+// StartupHelper will still restart the JVM to set this environment variable when run as a distributable JAR, which is
+// a good thing for end users. They won't need to ever set the debug-specific environment variable.
+tasks.withType(JavaExec.class).configureEach {
+  environment("__GL_THREADED_OPTIMIZATIONS", 0)
+}
+
+if(enableGraalNative == 'true') {
+  apply from: file("nativeimage.gradle")
+}
+
+============================================================
+ARCHIVO: README.md
+============================================================
+
+# SpeedG2L
+## Integrantes del proyecto: Giménez Ignacio, Laje Eluney, Linzalata Julián Martín.
+## Descripción Corta del Juego:
+Desarrollaremos un videojuego (en Java 21 LTS,  framework LibGDX en la versión 1.14.2) de carreras plataformero en 2D para PC. Nos basamos en el videojuego “SpeedRunners”, donde dos jugadores en red competirán en un mapa lleno de obstáculos para llegar a la meta en el menor tiempo posible. Se llamará “SPEED G2L”.
+## Tecnologías Utilizadas:
+- Java 21 LTS.
+- Framework LibGDX.
+- Git y GitHub para el control de versiones.
+- Herramienta para creación de mapas: pendiente de investigación y selección.
+
+
+### Plataforma objetivo:
+- Escritorio
+## Cómo Compilar y Ejecutar
+
+
+### Requisitos
+
+
+- Java Development Kit (JDK) 21.
+- Git.
+- Un IDE compatible con Gradle, como IntelliJ IDEA o Eclipse.
+
+
+### Clonar el repositorio
+
+
+```bash
+git clone https://github.com/Julinza2007/SpeedG2L.git
+cd SpeedG2L
+```
+
+
+### Ejecutar el proyecto
+
+
+Desde la terminal:
+
+
+**Windows**
+```bash
+gradlew.bat lwjgl3:run
+```
+
+
+**Linux / macOS**
+```bash
+./gradlew lwjgl3:run
+```
+
+
+También es posible abrir el proyecto desde IntelliJ IDEA o Eclipse como un proyecto Gradle y ejecutar la clase principal del módulo `lwjgl3`. Para esto hay que ir hasta SpeedG2L/lwjgl3/src/main/java/com.g2l.speedg2l.lwjgl3 y ejecutar el archivo llamado "lwjgl3Launcher"
+
+
+
+
+## Estado Actual del Proyecto:
+Configuración inicial y estructura del proyecto.
+
+## Wiki del Proyecto:
+[Ver la Propuesta completa del Proyecto aquí](https://github.com/Julinza2007/SpeedG2L/wiki/Propuesta-del-Proyecto-%E2%80%90-SpeedG2L)
+
+
+============================================================
+ARCHIVO: CHANGELOG.md
+============================================================
+
+# Changelog
+
+Todos los cambios importantes de este proyecto serán documentados en este archivo.
+
+El formato de este archivo está basado en Keep a Changelog.
+
+
+## [0.4.0] - 2026-07-21
+
+### Agregado
+
+- Se incorporo la clase "SpeedG2L" al programa
+
+## [0.3.0] - 2026-07-15
+
+### Agregado
+
+- Incorporación de imágenes y referencias visuales en la Wiki.
+- Se incorporo una tabla en la Wiki, ubicada en la sección "Organización del trabajo"
+- Actualización del README con instrucciones de ejecución.
+
+## [0.2.0] - 2026-07-14
+
+### Agregado
+
+- Publicación de la propuesta formal en la Wiki.
+
+## [0.1.0] - 2026-07-13
+
+### Agregado
+
+- Inicialización del proyecto mediante LibGDX LiftOff.
+- Creación del repositorio Git.
+- Incorporación de README.md.
+- Incorporación de CHANGELOG.md.
+- Configuración inicial del archivo .gitignore.
+
+
+============================================================
+4. ASSETS
+============================================================
+
+Lista de archivos dentro de assets:
+
+C:\Users\Admin\SpeedG2L\assets\assets.txt
+C:\Users\Admin\SpeedG2L\assets\libgdx.png
+C:\Users\Admin\SpeedG2L\assets\soldado_corriendo.png
+C:\Users\Admin\SpeedG2L\assets\fondos\fondoMenu.png
+C:\Users\Admin\SpeedG2L\assets\fondos\G2L.png
+C:\Users\Admin\SpeedG2L\assets\fuentes\fuentePrueba.ttf
+C:\Users\Admin\SpeedG2L\assets\nivel\mapaPrueba.tmx
+C:\Users\Admin\SpeedG2L\assets\nivel\Tileset (2).tsx
+C:\Users\Admin\SpeedG2L\assets\nivel\TilesSet.png
+C:\Users\Admin\SpeedG2L\assets\plataformas\bloque verde.png
+C:\Users\Admin\SpeedG2L\assets\plataformas\Pincho.png
+C:\Users\Admin\SpeedG2L\assets\skin\default.fnt
+C:\Users\Admin\SpeedG2L\assets\skin\default.png
+C:\Users\Admin\SpeedG2L\assets\skin\uiskin.atlas
+C:\Users\Admin\SpeedG2L\assets\skin\uiskin.json
+C:\Users\Admin\SpeedG2L\assets\skin\uiskin.png
+C:\Users\Admin\SpeedG2L\assets\sonidos\8bit attempt.ogg
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\INFO.txt
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\Juhani Junkala [Retro Game Music Pack] Ending.wav
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\Juhani Junkala [Retro Game Music Pack] Level 2.wav
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\Juhani Junkala [Retro Game Music Pack] Level 3.wav
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\Juhani Junkala [Retro Game Music Pack] Title Screen.wav
+C:\Users\Admin\SpeedG2L\assets\sonidos\musicaInGame\musicaNivel1.wav
+
+============================================================
+5. CLASES JAVA ENCONTRADAS
+============================================================
+
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\Cerrable.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\SpeedG2L.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Animacion.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\AnimacionEntidad.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Fade.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Boton.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Imagen.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\PanelBotones.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Texto.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\interfaz\Hud.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Caja.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Entidad.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Jugador.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Meta.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Obstaculo.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Pincho.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Plataforma.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Camara.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Mapa.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Nivel.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\Pantalla.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaCarga.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaConfig.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaFin.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaJuego.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaMenu.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\TipoPantalla.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\sonidos\Musica.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Config.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\ConfigViewport.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Direccion.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Entradas.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Recursos.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Render.java
+C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Resolucion.java
+C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\Lwjgl3Launcher.java
+C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\StartupHelper.java
+
+============================================================
+6. IMPORTS UTILIZADOS
+============================================================
+
+
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\Cerrable.java]
+
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\SpeedG2L.java]
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.entidades.Entidad;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.entidades.Plataforma;
+import com.g2l.speedg2l.pantallas.PantallaJuego;
+import com.g2l.speedg2l.pantallas.PantallaMenu;
+import com.g2l.speedg2l.utilidades.Render;
+import java.util.ArrayList;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Animacion.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\AnimacionEntidad.java]
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\animaciones\Fade.java]
+import com.g2l.speedg2l.componentes.Imagen;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Boton.java]
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Imagen.java]
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\PanelBotones.java]
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\Texto.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\componentes\interfaz\Hud.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.Cerrable;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Recursos;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Caja.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Entidad.java]
+import com.badlogic.gdx.math.Rectangle;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Jugador.java]
+import com.badlogic.gdx.math.Rectangle;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
+import com.g2l.speedg2l.utilidades.Direccion;
+import com.g2l.speedg2l.utilidades.Entradas;
+import java.util.ArrayList;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Meta.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Obstaculo.java]
+import java.util.ArrayList;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Pincho.java]
+import java.util.ArrayList;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\entidades\Plataforma.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Camara.java]
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.g2l.speedg2l.entidades.Jugador;
+import com.g2l.speedg2l.utilidades.ConfigViewport;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Mapa.java]
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.g2l.speedg2l.Cerrable;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\mundo\Nivel.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\Pantalla.java]
+import com.badlogic.gdx.Screen;
+import com.g2l.speedg2l.utilidades.ConfigViewport;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaCarga.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.animaciones.Fade;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaConfig.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Render;
+import com.g2l.speedg2l.utilidades.Resolucion;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaFin.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.componentes.PanelBotones;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaJuego.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.g2l.speedg2l.SpeedG2L;
+import com.g2l.speedg2l.animaciones.AnimacionEntidad;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.componentes.interfaz.Hud;
+import com.g2l.speedg2l.entidades.*;
+import com.g2l.speedg2l.mundo.Camara;
+import com.g2l.speedg2l.mundo.Mapa;
+import com.g2l.speedg2l.sonidos.Musica;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Entradas;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+import java.util.ArrayList;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\PantallaMenu.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.g2l.speedg2l.componentes.Boton;
+import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.PanelBotones;
+import com.g2l.speedg2l.componentes.Texto;
+import com.g2l.speedg2l.utilidades.Config;
+import com.g2l.speedg2l.utilidades.Recursos;
+import com.g2l.speedg2l.utilidades.Render;
+import static com.badlogic.gdx.Gdx.app;
+import static com.badlogic.gdx.Gdx.input;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\pantallas\TipoPantalla.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\sonidos\Musica.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.g2l.speedg2l.Cerrable;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Config.java]
+import com.badlogic.gdx.Gdx;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\ConfigViewport.java]
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Direccion.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Entradas.java]
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Recursos.java]
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Render.java]
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.g2l.speedg2l.SpeedG2L;
+.
+[C:\Users\Admin\SpeedG2L\core\src\main\java\com\g2l\speedg2l\utilidades\Resolucion.java]
+
+[C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\Lwjgl3Launcher.java]
+import com.badlogic.gdx.Graphics.DisplayMode;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.g2l.speedg2l.SpeedG2L;
+
+[C:\Users\Admin\SpeedG2L\lwjgl3\src\main\java\com\g2l\speedg2l\lwjgl3\StartupHelper.java]
+import com.badlogic.gdx.Version;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
+import org.lwjgl.system.JNI;
+import org.lwjgl.system.linux.UNISTD;
+import org.lwjgl.system.macosx.LibC;
+import org.lwjgl.system.macosx.ObjCRuntime;
+import java.io.File;
+import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+============================================================
+                   FIN DEL INFORME
+============================================================
