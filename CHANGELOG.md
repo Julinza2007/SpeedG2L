@@ -4,6 +4,56 @@ Todos los cambios importantes de este proyecto serán documentados en este archi
 
 El formato de este archivo está basado en Keep a Changelog.
 
+## [0.19.0] - 2026-09-04
+
+## Agregado
+
+- Se agregaron getters para tamaño de pantalla actual
+- Se agrego y aplico el archivo de efecto de sonido para la meta
+- Se realizo la clase para los efectos de sonido
+- Se hizo el merge final entre ramas para la segunda pre-entrega
+
+## Modificado
+
+- Se arreglo la centralizacion de la pausa
+
+## [0.18.0] - 2026-09-03
+
+## Agregado
+
+- Se agrego la pantalla completa y ventana opcional
+- Se agregaron los controles para la musica
+
+## Modificado
+
+- Se agrego el listener de entrada en "pantallaFin"
+- Se agrego el modo ventana por default
+
+## [0.17.5] - 2026-09-02
+
+## Modificado
+
+- Se arreglo un problema de rendimiento
+- Se arreglo el bug donde el jugador volaba
+
+## [0.17.0] - 2026-09-01
+
+## Agregado
+
+- Se realizo un nuevo metodo para cargar las colisiones y poner en uso los atributos booleanos hechos anteriormente
+
+## Modificado
+
+- Se arreglo el contenido del tileset ya que tenia errores
+- Se arreglo el bug de muchas posibles instancias de "pantallaJuego"
+
+## [0.16.0] - 2026-08-31
+
+## Agregado
+
+- Se agrego la pantalla final
+- Se agrego un getter en "Mapa"
+
 ## [0.15.0] - 2026-08-29
 
 ## Agregado
@@ -90,7 +140,7 @@ El formato de este archivo está basado en Keep a Changelog.
 
 ## [0.8.0] - 2026-07-26
 
-# Modificado
+## Modificado
 
 - Se arreglaron problemas en las colisiones
 
