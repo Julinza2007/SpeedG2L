@@ -36,409 +36,325 @@ public class PantallaConfig extends Pantalla {
 
         crearInterfaz();
 
-        Gdx.input.setInputProcessor(stage);
+        configurarInput(stage);
     }
 
     private void calcularResoluciones() {
-
         int anchoMax = Config.getAnchoMonitor();
         int altoMax = Config.getAltoMonitor();
 
         Resolucion[] resolucionesDisponibles = Resolucion.values();
-
-        Resolucion[] resolucionesSoportadas =
-            new Resolucion[resolucionesDisponibles.length];
+        Resolucion[] resolucionesSoportadas = new Resolucion[resolucionesDisponibles.length];
 
         int cantidadResolucionesDisponibles = 0;
 
         for (int i = 0; i < resolucionesDisponibles.length; i++) {
-
             Resolucion r = resolucionesDisponibles[i];
 
-            if (r.getAncho() <= anchoMax
-                && r.getAlto() <= altoMax) {
-
+            if (r.getAncho() <= anchoMax && r.getAlto() <= altoMax) {
                 resolucionesSoportadas[cantidadResolucionesDisponibles] = r;
                 cantidadResolucionesDisponibles++;
             }
         }
 
-        resoluciones =
-            new Resolucion[cantidadResolucionesDisponibles];
+        resoluciones = new Resolucion[cantidadResolucionesDisponibles];
 
         for (int i = 0; i < cantidadResolucionesDisponibles; i++) {
-
             resoluciones[i] = resolucionesSoportadas[i];
         }
     }
 
     private void crearInterfaz() {
+        Table tabla = crearTabla();
+        Label titulo = crearTitulo();
+        SelectBox<Resolucion> selectorResoluciones = crearSelectorResoluciones();
 
+        SelectBox<String> selectorModoPantalla = crearSelectorModoPantalla();
+
+        configurarListenersPantalla(selectorResoluciones, selectorModoPantalla);
+
+        crearTextosVolumen();
+
+        Boton btnSubirVolumen =
+            crearBotonSubirVolumen();
+
+        Boton btnBajarVolumen =
+            crearBotonBajarVolumen();
+
+        Boton btnSilenciar =
+            crearBotonSilenciar();
+
+        Boton btnVolver =
+            crearBotonVolver();
+
+        agregarControlesTabla(
+            tabla,
+            titulo,
+            selectorResoluciones,
+            selectorModoPantalla,
+            btnSubirVolumen,
+            btnBajarVolumen,
+            btnSilenciar,
+            btnVolver
+        );
+
+        stage.addActor(tabla);
+    }
+
+    private Table crearTabla() {
         Table tabla = new Table();
         tabla.setFillParent(true);
         tabla.center();
 
-        Label titulo =
-            new Label("CONFIGURACION", skin);
+        return tabla;
+    }
 
+    private Label crearTitulo() {
+        Label titulo = new Label("CONFIGURACION", skin);
         titulo.setFontScale(1.5f);
+        return titulo;
+    }
 
-        Label textoResolucion =
-            new Label("Resolucion:", skin);
-
-        SelectBox<Resolucion> selectorResoluciones =
-            new SelectBox<>(skin);
-
+    private SelectBox<Resolucion> crearSelectorResoluciones() {
+        SelectBox<Resolucion> selectorResoluciones = new SelectBox<>(skin);
         selectorResoluciones.setItems(resoluciones);
-
         selectorResoluciones.setSelected(resoluciones[0]);
+        seleccionarResolucionActual(selectorResoluciones);
 
-        for (Resolucion resolucion : resoluciones) {
+        return selectorResoluciones;
+    }
 
-            if (resolucion.getAncho() == Gdx.graphics.getWidth()
-                && resolucion.getAlto() == Gdx.graphics.getHeight()) {
-
+    private void seleccionarResolucionActual(SelectBox<Resolucion> selectorResoluciones) {
+        boolean encontrada=false;
+        int i=0;
+        while(i < resoluciones.length && !encontrada){
+            Resolucion resolucion = resoluciones[i];
+            if (resolucion.getAncho() == Config.getAnchoPantallaActual() &&
+                resolucion.getAlto() == Config.getAltoPantallaActual()
+            ) {
                 selectorResoluciones.setSelected(resolucion);
-                break;
+                encontrada=true;
             }
+            i++;
         }
+    }
 
-        Label textoModoPantalla =
-            new Label("Modo de pantalla:", skin);
-
-        SelectBox<String> selectorModoPantalla =
-            new SelectBox<>(skin);
+    private SelectBox<String> crearSelectorModoPantalla() {
+        SelectBox<String> selectorModoPantalla = new SelectBox<>(skin);
 
         selectorModoPantalla.setItems(
             ModoPantalla.VENTANA.getNombre(),
             ModoPantalla.PANTALLA_COMPLETA.getNombre()
         );
 
-        selectorModoPantalla.setSelected(
-            ModoPantalla.VENTANA.getNombre()
+        selectorModoPantalla.setSelected(ModoPantalla.VENTANA.getNombre());
+
+        return selectorModoPantalla;
+    }
+
+    private void configurarListenersPantalla(SelectBox<Resolucion> selectorResoluciones,
+        SelectBox<String> selectorModoPantalla) {
+
+        selectorResoluciones.addListener(
+            new ChangeListener() {
+                @Override
+                public void changed(
+                    ChangeEvent event,
+                    Actor actor
+                ) {
+                    Resolucion resolucion = selectorResoluciones.getSelected();
+                    String modo = selectorModoPantalla.getSelected();
+                    aplicarConfiguracionPantalla(resolucion,modo);
+                }
+            }
         );
 
-        selectorResoluciones.addListener(new ChangeListener() {
-
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-
-                Resolucion seleccionada =
-                    selectorResoluciones.getSelected();
-
-                String modo =
-                    selectorModoPantalla.getSelected();
-
-                if (modo.equals(
-                    ModoPantalla.VENTANA.getNombre())) {
-
-                    Gdx.graphics.setWindowedMode(
-                        seleccionada.getAncho(),
-                        seleccionada.getAlto()
-                    );
-
-                } else {
-
-                    for (
-                        com.badlogic.gdx.Graphics.DisplayMode displayMode :
-                        Gdx.graphics.getDisplayModes()
-                    ) {
-
-                        if (
-                            displayMode.width == seleccionada.getAncho()
-                                && displayMode.height == seleccionada.getAlto()
-                        ) {
-
-                            Gdx.graphics.setFullscreenMode(
-                                displayMode
-                            );
-
-                            break;
-                        }
-                    }
+        selectorModoPantalla.addListener(
+            new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    String modo = selectorModoPantalla.getSelected();
+                    Resolucion resolucion = selectorResoluciones.getSelected();
+                    aplicarConfiguracionPantalla(resolucion, modo);
                 }
             }
-        });
+        );
+    }
 
-        selectorModoPantalla.addListener(new ChangeListener() {
+    private void aplicarConfiguracionPantalla(Resolucion resolucion, String modo) {
+        if (modo.equals(ModoPantalla.VENTANA.getNombre())){
+            aplicarModoVentana(resolucion);
+        }else {
+            aplicarPantallaCompleta(resolucion);
+        }
+    }
 
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
+    private void aplicarModoVentana(Resolucion resolucion) {
+        Gdx.graphics.setWindowedMode(
+            resolucion.getAncho(),
+            resolucion.getAlto()
+        );
+    }
 
-                String seleccionado =
-                    selectorModoPantalla.getSelected();
-
-                Resolucion resolucion =
-                    selectorResoluciones.getSelected();
-
-                if (seleccionado.equals(
-                    ModoPantalla.VENTANA.getNombre())) {
-
-                    Gdx.graphics.setWindowedMode(
-                        resolucion.getAncho(),
-                        resolucion.getAlto()
-                    );
-
-                } else {
-
-                    for (
-                        com.badlogic.gdx.Graphics.DisplayMode modo :
-                        Gdx.graphics.getDisplayModes()
-                    ) {
-
-                        if (
-                            modo.width == resolucion.getAncho()
-                                && modo.height == resolucion.getAlto()
-                        ) {
-
-                            Gdx.graphics.setFullscreenMode(modo);
-
-                            break;
-                        }
-                    }
-                }
+    private void aplicarPantallaCompleta(Resolucion resolucion) {
+        boolean encontrado = false;
+        int i=0;
+        com.badlogic.gdx.Graphics.DisplayMode[] modos = Gdx.graphics.getDisplayModes();
+        while (i < modos.length && !encontrado) {
+            com.badlogic.gdx.Graphics.DisplayMode modo = modos[i];
+            if (modo.width == resolucion.getAncho() &&
+                modo.height == resolucion.getAlto()) {
+                Gdx.graphics.setFullscreenMode(modo);
+                encontrado = true;
             }
-        });
+            i++;
+        }
+    }
 
-        textoVolumen =
-            new Label(
-                "Volumen: " +
-                    Math.round(Config.getVolumenMusica() * 100) +
-                    "%",
-                skin
-            );
+    private void crearTextosVolumen() {
+        textoVolumen = new Label("Volumen: " + Math.round(Config.getVolumenMusica() * 100) + "%", skin);
+        textoSilencio = new Label("Sonido: " +(Config.isSonidoSilenciado()? "Silenciado": "Activado"), skin);
+    }
 
-        textoSilencio =
-            new Label(
-                "Sonido: " +
-                    (
-                        Config.isSonidoSilenciado()
-                            ? "Silenciado"
-                            : "Activado"
-                    ),
-                skin
-            );
+    private Boton crearBotonSubirVolumen() {
+        return new Boton("Subir volumen", skin,
+            new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    float volumenActual =Config.getVolumenMusica();
+                    volumenActual += 0.1f;
+                    Config.setVolumenMusica(volumenActual);
+                    actualizarVolumenMusica();
+                    actualizarTextoVolumen();
+                }
+            },
+            250,
+            60
+        );
+    }
 
-        Boton btnSubirVolumen =
-            new Boton(
-                "Subir volumen",
-                skin,
+    private Boton crearBotonBajarVolumen() {
 
-                new ClickListener() {
+        return new Boton("Bajar volumen", skin,
+            new ClickListener() {
 
-                    @Override
-                    public void clicked(
-                        InputEvent event,
-                        float x,
-                        float y
-                    ) {
+                @Override
+                public void clicked(
+                    InputEvent event,
+                    float x,
+                    float y
+                ) {
+                    float volumenActual = Config.getVolumenMusica();
+                    volumenActual -= 0.1f;
+                    Config.setVolumenMusica(volumenActual);
+                    actualizarVolumenMusica();
+                    actualizarTextoVolumen();
+                }
+            },
+            250,
+            60
+        );
+    }
 
-                        float volumenActual =
-                            Config.getVolumenMusica();
+    private Boton crearBotonSilenciar() {
+        return new Boton("Silenciar / activar", skin,
+            new ClickListener() {
 
-                        volumenActual += 0.1f;
+                @Override
+                public void clicked(
+                    InputEvent event,
+                    float x,
+                    float y
+                ) {
+                    boolean silenciado = !Config.isSonidoSilenciado();
+                    Config.setSonidoSilenciado(silenciado);
+                    actualizarVolumenMusica();
+                    actualizarTextoVolumen();
+                    actualizarTextoSilencio();
+                }
+            },
+            250,
+            60
+        );
+    }
 
-                        Config.setVolumenMusica(volumenActual);
+    private void actualizarVolumenMusica() {
+        if (Render.musicaJuego == null) {
+            return;
+        }else if(Config.isSonidoSilenciado()) {
+            Render.musicaJuego.volumen(0.0f);
+        } else {
+            Render.musicaJuego.volumen(Config.getVolumenMusica());
+        }
+    }
 
-                        if (!Config.isSonidoSilenciado()) {
+    private Boton crearBotonVolver() {
+        return new Boton("Volver", skin,
+            new ClickListener() {
 
-                            if (Render.musicaJuego != null) {
+                @Override
+                public void clicked(
+                    InputEvent event,
+                    float x,
+                    float y
+                ) {
+                    cambiarPantalla(new PantallaMenu());
+                }
+            },
+            250,
+            60
+        );
+    }
 
-                                Render.musicaJuego.volumen(
-                                    Config.getVolumenMusica()
-                                );
-                            }
-                        }
+    private void agregarControlesTabla(
+        Table tabla,
+        Label titulo,
+        SelectBox<Resolucion> selectorResoluciones,
+        SelectBox<String> selectorModoPantalla,
+        Boton btnSubirVolumen,
+        Boton btnBajarVolumen,
+        Boton btnSilenciar,
+        Boton btnVolver
+    ) {
 
-                        actualizarTextoVolumen();
-                    }
-                },
+        Label textoResolucion = new Label("Resolucion:", skin);
+        Label textoModoPantalla = new Label("Modo de pantalla:", skin);
 
-                250,
-                60
-            );
+        tabla.add(titulo).padBottom(30).row();
+        tabla.add(textoResolucion).padBottom(10).row();
 
-        Boton btnBajarVolumen =
-            new Boton(
-                "Bajar volumen",
-                skin,
+        tabla.add(selectorResoluciones).width(250).padBottom(25).row();
 
-                new ClickListener() {
+        tabla.add(textoModoPantalla).padBottom(10).row();
 
-                    @Override
-                    public void clicked(
-                        InputEvent event,
-                        float x,
-                        float y
-                    ) {
+        tabla.add(selectorModoPantalla).width(250).padBottom(25).row();
 
-                        float volumenActual =
-                            Config.getVolumenMusica();
+        tabla.add(textoVolumen).padBottom(10).row();
 
-                        volumenActual -= 0.1f;
+        tabla.add(btnSubirVolumen).pad(5).row();
 
-                        Config.setVolumenMusica(volumenActual);
+        tabla.add(btnBajarVolumen).pad(5).row();
 
-                        if (!Config.isSonidoSilenciado()) {
+        tabla.add(textoSilencio).padTop(15).padBottom(10).row();
 
-                            if (Render.musicaJuego != null) {
+        tabla.add(btnSilenciar).padBottom(25).row();
 
-                                Render.musicaJuego.volumen(
-                                    Config.getVolumenMusica()
-                                );
-                            }
-                        }
-
-                        actualizarTextoVolumen();
-                    }
-                },
-
-                250,
-                60
-            );
-
-        Boton btnSilenciar =
-            new Boton(
-                "Silenciar / activar",
-                skin,
-
-                new ClickListener() {
-
-                    @Override
-                    public void clicked(
-                        InputEvent event,
-                        float x,
-                        float y
-                    ) {
-
-                        boolean silenciado =
-                            !Config.isSonidoSilenciado();
-
-                        Config.setSonidoSilenciado(silenciado);
-
-                        if (Render.musicaJuego != null) {
-
-                            if (silenciado) {
-
-                                Render.musicaJuego.volumen(0.0f);
-
-                            } else {
-
-                                Render.musicaJuego.volumen(
-                                    Config.getVolumenMusica()
-                                );
-                            }
-                        }
-
-                        actualizarTextoVolumen();
-                        actualizarTextoSilencio();
-                    }
-                },
-
-                250,
-                60
-            );
-
-        // VOLVER
-        Boton btnVolver =
-            new Boton(
-                "Volver",
-                skin,
-
-                new ClickListener() {
-
-                    @Override
-                    public void clicked(
-                        InputEvent event,
-                        float x,
-                        float y
-                    ) {
-
-                        cambiarPantalla(
-                            new PantallaMenu()
-                        );
-                    }
-                },
-
-                250,
-                60
-            );
-
-        tabla.add(titulo)
-            .padBottom(30)
-            .row();
-
-        tabla.add(textoResolucion)
-            .padBottom(10)
-            .row();
-
-        tabla.add(selectorResoluciones)
-            .width(250)
-            .padBottom(25)
-            .row();
-
-        tabla.add(textoModoPantalla)
-            .padBottom(10)
-            .row();
-
-        tabla.add(selectorModoPantalla)
-            .width(250)
-            .padBottom(25)
-            .row();
-
-        tabla.add(textoVolumen)
-            .padBottom(10)
-            .row();
-
-        tabla.add(btnSubirVolumen)
-            .pad(5)
-            .row();
-
-        tabla.add(btnBajarVolumen)
-            .pad(5)
-            .row();
-
-        tabla.add(textoSilencio)
-            .padTop(15)
-            .padBottom(10)
-            .row();
-
-        tabla.add(btnSilenciar)
-            .padBottom(25)
-            .row();
-
-        tabla.add(btnVolver)
-            .row();
-
-        stage.addActor(tabla);
+        tabla.add(btnVolver).row();
     }
 
     private void actualizarTextoVolumen() {
-
-        textoVolumen.setText(
-            "Volumen: " +
-                Math.round(Config.getVolumenMusica() * 100) +
-                "%"
-        );
+        textoVolumen.setText("Volumen: " + Math.round(Config.getVolumenMusica() * 100) + "%");
     }
 
     private void actualizarTextoSilencio() {
-
         textoSilencio.setText(
-            "Sonido: " +
-                (
-                    Config.isSonidoSilenciado()
-                        ? "Silenciado"
-                        : "Activado"
-                )
+            "Sonido: " + (Config.isSonidoSilenciado() ? "Silenciado": "Activado")
         );
     }
 
     @Override
     public void render(float delta) {
-
         Render.limpiarPantalla();
-
         stage.act(delta);
         stage.draw();
     }
@@ -457,7 +373,6 @@ public class PantallaConfig extends Pantalla {
 
     @Override
     public void dispose() {
-
         stage.dispose();
         skin.dispose();
     }
