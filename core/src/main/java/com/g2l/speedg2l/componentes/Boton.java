@@ -43,6 +43,8 @@ public class Boton extends TextButton {
     @Override
     public void setSize(float width, float height) {
         super.setSize(width, height);
+        this.ancho = width;
+        this.altura = height;
     }
 
     @Override
