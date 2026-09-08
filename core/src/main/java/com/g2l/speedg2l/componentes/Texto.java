@@ -51,7 +51,7 @@ public class Texto implements Cerrable {
     }
 
     public void centrar(){
-        this.setPosition((Config.getAnchoJuego()/2.0f) - (getAncho()/2), (Config.getAnchoJuego()/2.0f) - (getAlto()/2));
+        this.setPosition((Config.getAnchoJuego()/2.0f) - (getAncho()/2), (Config.getAltoJuego()/2.0f) - (getAlto()/2));
     }
 
     public void centrarArriba(int paddingTop){
