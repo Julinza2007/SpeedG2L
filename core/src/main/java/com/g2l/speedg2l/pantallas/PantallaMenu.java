@@ -106,6 +106,23 @@ public class PantallaMenu extends Pantalla{
         );
 
         panelBotones.agregarBoton(
+            new Boton("Instrucciones", skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        com.badlogic.gdx.scenes.scene2d.InputEvent event,
+                        float x,
+                        float y) {
+                        cambiarPantalla(new PantallaInstrucciones());
+                    }
+                },
+                ANCHO_BOTONES,
+                ALTURA_BOTONES
+            ),
+            PADDING
+        );
+
+        panelBotones.agregarBoton(
             new Boton(
                 "Configuracion",
                 skin,
