@@ -81,6 +81,8 @@ public class PantallaJuego extends Pantalla {
 
     @Override
     public void render(float delta) {
+        delta = Gdx.graphics.getDeltaTime();
+
         Render.limpiarPantalla();
 
         camara.seguirJugador(jugador);
@@ -99,7 +101,7 @@ public class PantallaJuego extends Pantalla {
                 musicaJuego.reproducir();
             }
             jugador.moverJugador(entradas);
-            jugador.actualizarFisicas(listaDeEntidades);
+            jugador.actualizarFisicas(listaDeEntidades, delta);
             jugador.animar(delta);
             hud.actualizar();
             if(jugador.colisionaCon(meta)){
