@@ -123,11 +123,11 @@ public class PantallaJuego extends Pantalla {
 
         b.setProjectionMatrix(stage.getCamera().combined);
 
-        b.begin();
-
         if (pausado) {
             dibujarPausa();
         }
+
+        b.begin();
 
         hud.dibujar();
 
