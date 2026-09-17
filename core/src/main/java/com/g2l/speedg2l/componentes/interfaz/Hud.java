@@ -45,4 +45,8 @@ public class Hud implements Cerrable {
     public Texto getCronometro() {
         return cronometro;
     }
+
+    public float getTiempo() {
+        return tiempo;
+    }
 }

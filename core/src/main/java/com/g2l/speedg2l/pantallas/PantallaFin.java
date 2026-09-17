@@ -20,10 +20,11 @@ public class PantallaFin extends Pantalla {
     private Boton btnSalir;
     private PanelBotones panelBotones;
     private SpriteBatch b;
-    private Texto texto, cronometro;
+    private Texto cronometro;
+    float tiempo;
 
-    public PantallaFin(Texto cronometro) {
-        this.cronometro = cronometro;
+    public PantallaFin(float tiempo) {
+        this.tiempo = tiempo;
     }
 
     @java.lang.Override
@@ -33,9 +34,13 @@ public class PantallaFin extends Pantalla {
 
         stage = new Stage(configViewport.getViewport());
 
-        texto = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
-        texto.setTexto("Tiempo final:");
-        texto.centrarArriba(100);
+        cronometro = new Texto(Recursos.FUENTE_MENU, 60, Color.MAROON);
+
+        int minutos = (int) tiempo / 60;
+        int segundos = (int) tiempo % 60;
+        int centesimas = (int) (tiempo * 100) % 100;
+
+        cronometro.setTexto("Tiempo final:\n" + "min: " + minutos + " seg: " + segundos + "," + centesimas);
 
         cronometro.centrarArriba(150);
 
@@ -79,7 +84,6 @@ public class PantallaFin extends Pantalla {
 
         configViewport.aplicarViewport(b);
         b.begin();
-        texto.dibujar();
         cronometro.dibujar();
 
         b.end();

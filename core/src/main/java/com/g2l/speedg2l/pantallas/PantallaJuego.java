@@ -105,7 +105,7 @@ public class PantallaJuego extends Pantalla {
             jugador.animar(delta);
             hud.actualizar();
             if(jugador.colisionaCon(meta)){
-                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                cambiarPantalla(new PantallaFin(hud.getTiempo()));
                 musicaJuego.cerrar();
             }
         } else if(pausado){
