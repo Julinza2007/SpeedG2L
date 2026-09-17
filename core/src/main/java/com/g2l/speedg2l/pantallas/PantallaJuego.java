@@ -213,6 +213,7 @@ public class PantallaJuego extends Pantalla {
     @Override
     public void dispose() {
         stage.dispose();
+        b.dispose();
         musicaJuego.cerrar();
         Render.musicaJuego = null;
     }
