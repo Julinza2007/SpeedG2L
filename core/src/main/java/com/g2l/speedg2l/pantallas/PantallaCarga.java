@@ -14,7 +14,6 @@ public class PantallaCarga extends Pantalla {
 
     private Imagen imagenFondo;
     private SpriteBatch b;
-    private Texto coords;
     private Entradas entradas;
     private Fade fade;
     @Override
@@ -26,22 +25,16 @@ public class PantallaCarga extends Pantalla {
         imagenFondo.centrar();
         imagenFondo.setTransparencia(0);
         fade = new Fade(5.0f, imagenFondo);
-
-        coords = new Texto(Recursos.FUENTE_MENU, 20, Color.WHITE);
         entradas = new Entradas();
-        Gdx.input.setInputProcessor(entradas);
+//        Gdx.input.setInputProcessor(entradas);
     }
 
     @Override
     public void render(float delta) {
         Render.limpiarPantalla();
-        coords.setTexto("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
-        coords.centrar();
-        System.out.println("Coord x: " + entradas.getMouseX() + " Coord y: " + entradas.getMouseY());
         fade.iniciar();
         configViewport.aplicarViewport(b);
         b.begin();
-        coords.dibujar();
         imagenFondo.dibujar();
         b.end();
         if(fade.isTerminado()){
