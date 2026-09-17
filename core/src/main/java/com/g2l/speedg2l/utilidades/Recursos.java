@@ -1,8 +1,13 @@
-package com.g2l.speedg2l.utilidades.Recursos;
+package com.g2l.speedg2l.utilidades;
 
 public class Recursos {
 
     private Recursos(){}
 
-    public static final 
+    public static final String FONDO_MENU = "fondos/fondoMenu.png";
+    public static final String FONDO_CARGA = "fondos/G2L.png";
+    public static final String FUENTE_MENU = "fuentes/fuentePrueba.ttf";
+    public static final String MUSICA_JUEGO = "sonidos/musicaInGame/musicaNivel1.wav";
+    public static final String EFECTO_META = "sonidos/efectoMeta.ogg";
+    public static final String NIVEL_1 = "nivel/mapaPrueba.tmx";
 }

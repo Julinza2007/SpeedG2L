@@ -1,7 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.g2l.speedg2l.componentes.Boton;
 import com.g2l.speedg2l.componentes.PanelBotones;
 import com.g2l.speedg2l.componentes.Texto;
-import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.sonidos.EfectoSonido;
 import com.g2l.speedg2l.utilidades.Config;
 import com.g2l.speedg2l.utilidades.Recursos;
@@ -29,7 +27,7 @@ public class PantallaFin extends Pantalla {
         this.cronometro = cronometro;
     }
 
-    @java.lang.Override
+    @Override
     public void show() {
 
         b = Render.batch;
@@ -83,7 +81,7 @@ public class PantallaFin extends Pantalla {
         );
     }
 
-    @java.lang.Override
+    @Override
     public void render(float delta) {
         Render.limpiarPantalla();
 
@@ -97,27 +95,23 @@ public class PantallaFin extends Pantalla {
         stage.draw();
     }
 
-    @java.lang.Override
-    public void resize(int i, int i1) {
-
-    }
-
-    @java.lang.Override
+    @Override
     public void pause() {
 
     }
 
-    @java.lang.Override
+    @Override
     public void resume() {
 
     }
 
-    @java.lang.Override
+    @Override
     public void hide() {
 
     }
 
-    @java.lang.Override
+
+    @Override
     public void dispose() {
         stage.dispose();
         efectoMeta.cerrar();

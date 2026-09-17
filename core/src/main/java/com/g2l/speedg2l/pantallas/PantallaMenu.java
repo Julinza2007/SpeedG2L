@@ -38,7 +38,6 @@ public class PantallaMenu extends Pantalla{
         crearPanelBotones(skin);
         panelBotones.centrar();
 
-
         agregarAlStage();
 
         configurarInput(stage);
