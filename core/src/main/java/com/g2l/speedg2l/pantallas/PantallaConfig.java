@@ -1,5 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -25,6 +26,10 @@ public class PantallaConfig extends Pantalla {
     private Label textoSilencio;
 
     private Resolucion[] resoluciones;
+
+    protected PantallaConfig(Game juego) {
+        super(juego);
+    }
 
     @Override
     public void show() {
@@ -298,7 +303,7 @@ public class PantallaConfig extends Pantalla {
                     float x,
                     float y
                 ) {
-                    cambiarPantalla(new PantallaMenu());
+                    cambiarPantalla(new PantallaMenu(juego));
                 }
             },
             250,

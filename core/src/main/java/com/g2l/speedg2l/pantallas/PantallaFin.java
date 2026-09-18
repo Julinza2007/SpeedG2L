@@ -1,5 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,7 +24,8 @@ public class PantallaFin extends Pantalla {
     private Texto texto, cronometro;
     private EfectoSonido efectoMeta;
 
-    public PantallaFin(Texto cronometro) {
+    public PantallaFin(Game juego, Texto cronometro) {
+        super(juego);
         this.cronometro = cronometro;
     }
 
@@ -71,7 +73,7 @@ public class PantallaFin extends Pantalla {
                         com.badlogic.gdx.scenes.scene2d.InputEvent event,
                         float x,
                         float y) {
-                        cambiarPantalla(new PantallaMenu());
+                        cambiarPantalla(new PantallaMenu(juego));
                     }
                 },
                 ANCHO_BOTONES,

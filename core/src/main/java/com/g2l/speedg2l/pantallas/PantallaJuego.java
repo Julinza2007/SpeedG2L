@@ -2,6 +2,7 @@ package com.g2l.speedg2l.pantallas;
 
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -48,6 +49,10 @@ public class PantallaJuego extends Pantalla {
     private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
 
     private Meta meta;
+
+    protected PantallaJuego(Game juego) {
+        super(juego);
+    }
 
     @Override
     public void show() {
@@ -116,7 +121,7 @@ public class PantallaJuego extends Pantalla {
             jugador.animar(delta);
             hud.actualizar();
             if(jugador.colisionaCon(meta)){
-                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                cambiarPantalla(new PantallaFin(juego, hud.getCronometro()));
                 musicaJuego.cerrar();
             }
         } else if(pausado){

@@ -1,5 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.g2l.speedg2l.componentes.Texto;
@@ -9,6 +10,10 @@ import com.g2l.speedg2l.utilidades.Render;
 public class PantallaInstrucciones extends Pantalla{
     private Texto texto;
     private Batch b;
+
+    protected PantallaInstrucciones(Game juego) {
+        super(juego);
+    }
 
     @Override
     public void show() {

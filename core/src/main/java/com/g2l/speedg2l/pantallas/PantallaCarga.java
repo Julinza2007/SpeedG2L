@@ -1,5 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +18,11 @@ public class PantallaCarga extends Pantalla {
     private Texto coords;
     private Entradas entradas;
     private Fade fade;
+
+    protected PantallaCarga(Game juego) {
+        super(juego);
+    }
+
     @Override
 
     public void show() {
@@ -45,7 +51,7 @@ public class PantallaCarga extends Pantalla {
         imagenFondo.dibujar();
         b.end();
         if(fade.isTerminado()){
-            cambiarPantalla(new PantallaMenu());
+            cambiarPantalla(new PantallaMenu(juego));
         }
     }
 

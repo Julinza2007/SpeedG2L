@@ -1,5 +1,6 @@
 package com.g2l.speedg2l.pantallas;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,10 @@ public class PantallaMenu extends Pantalla{
     private Imagen imagenFondo;
     private SpriteBatch b;
     private Texto texto;
+
+    public PantallaMenu(Game juego) {
+        super(juego);
+    }
 
     @Override
     public void show() {
@@ -95,7 +100,7 @@ public class PantallaMenu extends Pantalla{
                         com.badlogic.gdx.scenes.scene2d.InputEvent event,
                         float x,
                         float y) {
-                        cambiarPantalla(new PantallaJuego());
+                        cambiarPantalla(new PantallaJuego(juego));
                     }
                 },
                 ANCHO_BOTONES,
@@ -112,7 +117,7 @@ public class PantallaMenu extends Pantalla{
                         com.badlogic.gdx.scenes.scene2d.InputEvent event,
                         float x,
                         float y) {
-                        cambiarPantalla(new PantallaInstrucciones());
+                        cambiarPantalla(new PantallaInstrucciones(juego));
                     }
                 },
                 ANCHO_BOTONES,
@@ -131,7 +136,7 @@ public class PantallaMenu extends Pantalla{
                         com.badlogic.gdx.scenes.scene2d.InputEvent event,
                         float x,
                         float y) {
-                        cambiarPantalla(new PantallaConfig());
+                        cambiarPantalla(new PantallaConfig(juego));
                     }
                 },
                 ANCHO_BOTONES,
