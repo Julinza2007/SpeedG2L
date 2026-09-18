@@ -24,7 +24,7 @@ public class Texto implements Cerrable {
         parametros.color = color;
 
         fuente = generador.generateFont(parametros);
-
+        generador.dispose();
         layout = new GlyphLayout();
     }
 
