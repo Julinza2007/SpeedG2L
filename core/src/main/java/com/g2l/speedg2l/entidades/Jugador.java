@@ -10,20 +10,20 @@ import java.util.ArrayList;
 public class Jugador extends Entidad{
 
     private final double velocidadX = 1;
-    private final double velocidadY = 10;
+    private final double velocidadY = 500;
 
     private int posicionTecho = 1000;
     private int posicionSuelo = 0;
 
-    private double gravedad = 0.4;
+    private double gravedad = 800;
     private double velocidadYMenosGravedad = 0;
 
     private double velocidadConAceleracionDerecha = velocidadX;
     private double velocidadConAceleracionIzquierda = velocidadX;
-    private double aceleracion = 0.1;
+    private double aceleracion = 80;
     private boolean acelerandoDerecha = false;
     private boolean acelerandoIzquierda = false;
-    private final double velocidadMaxima = 10;
+    private final double velocidadMaxima = 1000;
     private AnimacionEntidad animacion;
     boolean saltando = false;
 
@@ -69,22 +69,22 @@ public class Jugador extends Entidad{
         }
     }
 
-    public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades){
+    public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades, float delta){
 
-            actualizarMovimientoVertical(listaDeEntidades);
+            actualizarMovimientoVertical(listaDeEntidades, delta);
 
         if (acelerandoDerecha){
-            acelerarDerecha(listaDeEntidades);
+            acelerarDerecha(listaDeEntidades, delta);
         }
         else{
-            desAcelerarDerecha(listaDeEntidades);
+            desAcelerarDerecha(listaDeEntidades, delta);
         }
 
         if(acelerandoIzquierda){
-            acelerarIzquierda(listaDeEntidades);
+            acelerarIzquierda(listaDeEntidades, delta);
         }
         else{
-            desAcelerarIzquierda(listaDeEntidades);
+            desAcelerarIzquierda(listaDeEntidades, delta);
         }
 //        if(!saltando) {
 //            int velocidadCayendo = 0;
@@ -99,16 +99,18 @@ public class Jugador extends Entidad{
 //        }
     }
 
-    private void actualizarMovimientoVertical(ArrayList<Entidad> listaDeEntidades) {
+    private void actualizarMovimientoVertical(ArrayList<Entidad> listaDeEntidades, float delta) {
 
-            velocidadYMenosGravedad -= gravedad;
+        velocidadYMenosGravedad -= gravedad * delta;
+
+        double desplazamientoY = velocidadYMenosGravedad * delta;
 
         Entidad entidadColisionada =
-            hayColisionVertical(listaDeEntidades, velocidadYMenosGravedad);
+            hayColisionVertical(listaDeEntidades, desplazamientoY);
 
         if (entidadColisionada instanceof Plataforma) {
 
-            if (velocidadYMenosGravedad < 0) {
+            if (desplazamientoY < 0) {
                 // Está cayendo sobre la plataforma
 
                 posicionY = entidadColisionada.getPosicionY()
@@ -126,9 +128,7 @@ public class Jugador extends Entidad{
         }
         if (entidadColisionada == null){
             // No hay plataforma: continúa moviéndose
-            int velocidadCaida = 0;
-            velocidadCaida -= gravedad;
-            posicionY += velocidadYMenosGravedad;
+            posicionY += desplazamientoY;
         }
 
         // Evitar atravesar el suelo
@@ -142,8 +142,8 @@ public class Jugador extends Entidad{
     }
 
 
-    protected void rebotar(ArrayList<Entidad> listaDeEntidades){
-        actualizarMovimientoVertical(listaDeEntidades);
+    protected void rebotar(ArrayList<Entidad> listaDeEntidades, float delta){
+        actualizarMovimientoVertical(listaDeEntidades, delta);
         if (velocidadConAceleracionDerecha > 5){
             variacionVelocidad(0.5);
         }
@@ -198,40 +198,60 @@ public class Jugador extends Entidad{
     }
 
 
-    private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades){
-        if(velocidadConAceleracionDerecha <= velocidadMaxima){
-            this.velocidadConAceleracionDerecha += aceleracion;
+    private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades, float delta){
+        if(velocidadConAceleracionDerecha < velocidadMaxima){
+            this.velocidadConAceleracionDerecha += aceleracion * delta;
+            if(velocidadConAceleracionDerecha > velocidadMaxima){
+                velocidadConAceleracionDerecha = velocidadMaxima;
+            }
         }
-        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
-        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
+        double desplazamientoX = velocidadConAceleracionDerecha * delta;
+
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, desplazamientoX);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA, desplazamientoX);
         actualizarHitbox();
         // System.out.println("La aceleracion del jugador es de: " + velocidadConAceleracionDerecha);
     }
 
-    private void desAcelerarDerecha(ArrayList<Entidad> listaDeEntidades) {
+    private void desAcelerarDerecha(ArrayList<Entidad> listaDeEntidades, float delta) {
         if (velocidadConAceleracionDerecha > 0) {
-            velocidadConAceleracionDerecha -= aceleracion;
+            velocidadConAceleracionDerecha -= aceleracion * delta;
+            if(velocidadConAceleracionDerecha < 0){
+                velocidadConAceleracionDerecha = 0;
+            }
         }
-        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
-        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA);
+        double desplazamientoX = velocidadConAceleracionDerecha * delta;
+
+        Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, desplazamientoX);
+        trabajarColisionHorizontal(entidadColisionada, Direccion.DERECHA, desplazamientoX);
         actualizarHitbox();
     }
 
-    private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
-            if (velocidadConAceleracionIzquierda <= velocidadMaxima) {
-                velocidadConAceleracionIzquierda += aceleracion;
+    private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades, float delta) {
+            if (velocidadConAceleracionIzquierda < velocidadMaxima) {
+                velocidadConAceleracionIzquierda += aceleracion * delta;
+                if (velocidadConAceleracionIzquierda > velocidadMaxima){
+                    velocidadConAceleracionIzquierda = velocidadMaxima;
+                }
             }
-            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
-            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
+            double desplazamientoX = velocidadConAceleracionIzquierda * delta;
+
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, -desplazamientoX);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA, desplazamientoX);
             actualizarHitbox();
     }
 
-    private void desAcelerarIzquierda (ArrayList < Entidad > listaDeEntidades) {
+    private void desAcelerarIzquierda (ArrayList < Entidad > listaDeEntidades, float delta) {
             if (velocidadConAceleracionIzquierda > 0) {
-                velocidadConAceleracionIzquierda -= aceleracion;
+                velocidadConAceleracionIzquierda -= aceleracion * delta;
+                if (velocidadConAceleracionIzquierda < 0){
+                    velocidadConAceleracionIzquierda = 0;
+                }
             }
-            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, velocidadConAceleracionDerecha);
-            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA);
+            double desplazamientoX = velocidadConAceleracionIzquierda * delta;
+
+            Entidad entidadColisionada = hayColisionHorizontal(listaDeEntidades, -desplazamientoX);
+            trabajarColisionHorizontal(entidadColisionada, Direccion.IZQUIERDA, desplazamientoX);
             actualizarHitbox();
     }
 
@@ -263,13 +283,13 @@ public class Jugador extends Entidad{
     }
 
 
-    private void trabajarColisionHorizontal(Entidad entidadColisionada, Direccion direccionMovimiento) {
+    private void trabajarColisionHorizontal(Entidad entidadColisionada, Direccion direccionMovimiento, double desplazamientoX) {
 
         switch (direccionMovimiento) {
             case DERECHA:
 
                 if (entidadColisionada == null){
-                    posicionX += velocidadConAceleracionDerecha;
+                    posicionX += desplazamientoX;
                 }
                 else if (entidadColisionada instanceof Plataforma) {
                     velocidadConAceleracionDerecha = 0;
@@ -287,7 +307,7 @@ public class Jugador extends Entidad{
             case IZQUIERDA:
 
                 if (entidadColisionada == null){
-                    posicionX -= velocidadConAceleracionIzquierda;
+                    posicionX -= desplazamientoX;
                 }
                 else if (entidadColisionada instanceof Plataforma) {
                     velocidadConAceleracionIzquierda = 0;
