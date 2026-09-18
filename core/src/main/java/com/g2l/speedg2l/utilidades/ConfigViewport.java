@@ -5,15 +5,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class ConfigViewport {
-    private FitViewport viewport;
-    private OrthographicCamera camara;
 
-    public ConfigViewport(){
-        camara = new OrthographicCamera(
+    private FitViewport viewport;
+
+    public ConfigViewport() {
+        viewport = new FitViewport(
             Config.getAnchoJuego(),
             Config.getAltoJuego()
         );
-        viewport = new FitViewport(Config.getAnchoJuego(), Config.getAltoJuego());
     }
 
     public void aplicarViewport(SpriteBatch b) {
@@ -21,7 +20,7 @@ public class ConfigViewport {
         b.setProjectionMatrix(viewport.getCamera().combined);
     }
 
-    public void actualizar(int ancho, int alto){
+    public void actualizar(int ancho, int alto) {
         viewport.update(ancho, alto, true);
     }
 
@@ -29,7 +28,7 @@ public class ConfigViewport {
         return viewport;
     }
 
-    public OrthographicCamera getCamara(){
-        return camara;
+    public OrthographicCamera getCamara() {
+        return (OrthographicCamera) viewport.getCamera();
     }
 }
