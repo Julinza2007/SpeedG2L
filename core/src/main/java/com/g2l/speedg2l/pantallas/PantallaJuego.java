@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
@@ -75,7 +76,12 @@ public class PantallaJuego extends Pantalla {
 
         cargarColisionesDesdeMapa();
 
-        stage = new Stage(configViewport.getViewport());
+        stage = new Stage(
+            new FitViewport(
+                Config.getAnchoJuego(),
+                Config.getAltoJuego()
+            )
+        );
     }
 
     private void crearYaplicarMusica() {
