@@ -229,5 +229,6 @@ public class PantallaJuego extends Pantalla {
         b.dispose();
         musicaJuego.cerrar();
         Render.musicaJuego = null;
+        jugador.cerrar();
     }
 }

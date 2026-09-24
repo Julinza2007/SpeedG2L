@@ -9,17 +9,16 @@ import java.util.ArrayList;
 
 public class Jugador extends Entidad{
 
-    private final double velocidadX = 1;
-    private final double velocidadY = 500;
+    private final double VELOCIDAD_X = 1;
+    private final double VELOCIDAD_Y = 500;
 
-    private int posicionTecho = 1000;
     private int posicionSuelo = 0;
 
     private double gravedad = 800;
     private double velocidadYMenosGravedad = 0;
 
-    private double velocidadConAceleracionDerecha = velocidadX;
-    private double velocidadConAceleracionIzquierda = velocidadX;
+    private double velocidadConAceleracionDerecha = VELOCIDAD_X;
+    private double velocidadConAceleracionIzquierda = VELOCIDAD_X;
     private double aceleracion = 80;
     private boolean acelerandoDerecha = false;
     private boolean acelerandoIzquierda = false;
@@ -48,6 +47,10 @@ public class Jugador extends Entidad{
         );
     }
 
+    public void cerrar(){
+        animacion.cerrar();
+    }
+
     public void moverJugador(Entradas entradas){
         if (entradas.izquierda()){
             acelerandoIzquierda = true;
@@ -64,7 +67,7 @@ public class Jugador extends Entidad{
         }
 
       if (entradas.arriba() && !saltando){
-            velocidadYMenosGravedad = velocidadY;
+            velocidadYMenosGravedad = VELOCIDAD_Y;
             this.saltando = true;
         }
     }
@@ -86,17 +89,6 @@ public class Jugador extends Entidad{
         else{
             desAcelerarIzquierda(listaDeEntidades, delta);
         }
-//        if(!saltando) {
-//            int velocidadCayendo = 0;
-//            Entidad entidadColisionada = null;
-//            entidadColisionada = hayColisionVertical(listaDeEntidades, gravedad);
-//            while (entidadColisionada == null) {
-//                if(velocidadCayendo <= 10) {velocidadCayendo -= gravedad;}
-//                else {velocidadCayendo = 10;}
-//                posicionY += velocidadCayendo;
-//                entidadColisionada = hayColisionVertical(listaDeEntidades, gravedad);
-//            }
-//        }
     }
 
     private void actualizarMovimientoVertical(ArrayList<Entidad> listaDeEntidades, float delta) {
