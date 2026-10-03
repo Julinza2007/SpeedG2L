@@ -28,4 +28,20 @@ public class Entradas {
     public boolean escape() {
         return Gdx.input.isKeyJustPressed(Keys.ESCAPE);
     }
+
+    public boolean flechaIzquierda() {
+        return Gdx.input.isKeyPressed(Keys.DPAD_LEFT);
+    }
+
+    public boolean flechaDerecha() {
+        return Gdx.input.isKeyPressed(Keys.DPAD_RIGHT);
+    }
+
+    public boolean flechaAbajo() {
+        return Gdx.input.isKeyPressed(Keys.DPAD_DOWN);
+    }
+
+    public boolean flechaArriba() {
+        return Gdx.input.isKeyPressed(Keys.DPAD_UP);
+    }
 }

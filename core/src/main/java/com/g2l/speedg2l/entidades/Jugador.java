@@ -51,25 +51,50 @@ public class Jugador extends Entidad{
         animacion.cerrar();
     }
 
-    public void moverJugador(Entradas entradas){
-        if (entradas.izquierda()){
-            acelerandoIzquierda = true;
-        }
-        else{
-            acelerandoIzquierda = false;
+    public void moverJugador(Entradas entradas, Jugadores numeroJugador){
+        switch (numeroJugador){
+            case JUGADOR_1:
+                if (entradas.izquierda()){
+                    acelerandoIzquierda = true;
+                }
+                else{
+                    acelerandoIzquierda = false;
+                }
+
+                if (entradas.derecha()){
+                    acelerandoDerecha = true;
+                }
+                else{
+                    acelerandoDerecha = false;
+                }
+                if (entradas.arriba() && !saltando){
+                    velocidadYMenosGravedad = VELOCIDAD_Y;
+                    this.saltando = true;
+                }
+
+                break;
+
+            case JUGADOR_2:
+                if (entradas.flechaIzquierda()){
+                    acelerandoIzquierda = true;
+                }
+                else{
+                    acelerandoIzquierda = false;
+                }
+
+                if (entradas.flechaDerecha()){
+                    acelerandoDerecha = true;
+                }
+                else{
+                    acelerandoDerecha = false;
+                }
+                if (entradas.flechaArriba() && !saltando){
+                    velocidadYMenosGravedad = VELOCIDAD_Y;
+                    this.saltando = true;
+                }
+                break;
         }
 
-        if (entradas.derecha()){
-            acelerandoDerecha = true;
-        }
-        else{
-            acelerandoDerecha = false;
-        }
-
-      if (entradas.arriba() && !saltando){
-            velocidadYMenosGravedad = VELOCIDAD_Y;
-            this.saltando = true;
-        }
     }
 
     public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades, float delta){

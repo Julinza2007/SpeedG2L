@@ -31,6 +31,7 @@ public class PantallaJuego extends Pantalla {
     private Stage stage;
 
     private Jugador jugador;
+    private Jugador jugador2;
     private SpriteBatch b;
     private Musica musicaJuego;
     private Hud hud;
@@ -65,6 +66,7 @@ public class PantallaJuego extends Pantalla {
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
         jugador = new Jugador(70.0f, 70.0f, 0.0f, 33.0f);
+        jugador2 = new Jugador(70.0f, 70.0f, 25.0f, 33.0f);
         hud = new Hud();
 
         meta = new Meta(50.0f, 1000.0f, 8000.0f, 100.0f);
@@ -124,9 +126,12 @@ public class PantallaJuego extends Pantalla {
             if(!musicaJuego.estaReproduciendo()) {
                 musicaJuego.reproducir();
             }
-            jugador.moverJugador(entradas);
+            jugador.moverJugador(entradas, Jugadores.JUGADOR_1);
             jugador.actualizarFisicas(listaDeEntidades, delta);
             jugador.animar(delta);
+            jugador2.moverJugador(entradas, Jugadores.JUGADOR_2);
+            jugador2.actualizarFisicas(listaDeEntidades, delta);
+            jugador2.animar(delta);
             hud.actualizar();
             if(jugador.colisionaCon(meta)){
                 cambiarPantalla(new PantallaFin(juego, hud.getTiempo()));
@@ -142,6 +147,7 @@ public class PantallaJuego extends Pantalla {
         }
 
         jugador.dibujar();
+        jugador2.dibujar();
 
         b.end();
 
