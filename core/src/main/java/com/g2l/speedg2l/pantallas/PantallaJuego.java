@@ -2,6 +2,7 @@ package com.g2l.speedg2l.pantallas;
 
 
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
@@ -29,6 +31,7 @@ public class PantallaJuego extends Pantalla {
     private Stage stage;
 
     private Jugador jugador;
+    private Jugador jugador2;
     private SpriteBatch b;
     private Musica musicaJuego;
     private Hud hud;
@@ -49,15 +52,21 @@ public class PantallaJuego extends Pantalla {
 
     private Meta meta;
 
+    protected PantallaJuego(Game juego) {
+        super(juego);
+    }
+
     @Override
     public void show() {
         b = Render.batch;
 
         crearYaplicarMusica();
+
         camara = new Camara(configViewport);
         mapa = new Mapa(Recursos.NIVEL_1);
         entradas = new Entradas();
         jugador = new Jugador(70.0f, 70.0f, 0.0f, 33.0f);
+        jugador2 = new Jugador(70.0f, 70.0f, 25.0f, 33.0f);
         hud = new Hud();
 
         meta = new Meta(50.0f, 1000.0f, 8000.0f, 100.0f);
@@ -69,18 +78,37 @@ public class PantallaJuego extends Pantalla {
 
         cargarColisionesDesdeMapa();
 
-        stage = new Stage(configViewport.getViewport());
+        stage = new Stage(
+            new FitViewport(
+                Config.getAnchoJuego(),
+                Config.getAltoJuego()
+            )
+        );
     }
 
     private void crearYaplicarMusica() {
-        musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
-        musicaJuego.volumen(0.1f);
-        musicaJuego.repetir(true);
-        musicaJuego.reproducir();
+
+        if (Render.musicaJuego == null) {
+            Render.musicaJuego = new Musica(Recursos.MUSICA_JUEGO);
+            Render.musicaJuego.repetir(true);
+        }
+        if (Config.isSonidoSilenciado()) {
+            Render.musicaJuego.setVolumen(0.0f);
+        } else {
+            Render.musicaJuego.setVolumen(Config.getVolumenMaster());
+        }
+
+        musicaJuego = Render.musicaJuego;
+
+        if (!musicaJuego.estaReproduciendo()) {
+            musicaJuego.reproducir();
+        }
     }
 
     @Override
     public void render(float delta) {
+        delta = Gdx.graphics.getDeltaTime();
+
         Render.limpiarPantalla();
 
         camara.seguirJugador(jugador);
@@ -98,14 +126,29 @@ public class PantallaJuego extends Pantalla {
             if(!musicaJuego.estaReproduciendo()) {
                 musicaJuego.reproducir();
             }
-            jugador.moverJugador(entradas);
-            jugador.actualizarFisicas(listaDeEntidades);
+            jugador.moverJugador(entradas, Jugadores.JUGADOR_1);
+            jugador.actualizarFisicas(listaDeEntidades, delta);
             jugador.animar(delta);
+            jugador2.moverJugador(entradas, Jugadores.JUGADOR_2);
+            jugador2.actualizarFisicas(listaDeEntidades, delta);
+            jugador2.animar(delta);
             hud.actualizar();
+
+            for (Obstaculo o : listaDeObstaculos) {
+                if (jugador.colisionaCon(o)) {
+                    o.alColisionar(jugador);
+                }
+                if (jugador2.colisionaCon(o)) {
+                    o.alColisionar(jugador2);
+                }
+            }
+
             if(jugador.colisionaCon(meta)){
-                cambiarPantalla(new PantallaFin(hud.getCronometro()));
+                cambiarPantalla(new PantallaFin(juego, hud.getTiempo()));
                 musicaJuego.cerrar();
             }
+
+
         } else if(pausado){
             textoPausa.setPosition(
                 (Config.getAnchoJuego() / 2) - (textoPausa.getAncho() / 2),
@@ -116,16 +159,17 @@ public class PantallaJuego extends Pantalla {
         }
 
         jugador.dibujar();
+        jugador2.dibujar();
 
         b.end();
 
         b.setProjectionMatrix(stage.getCamera().combined);
 
-        b.begin();
-
         if (pausado) {
             dibujarPausa();
         }
+
+        b.begin();
 
         hud.dibujar();
 
@@ -174,6 +218,11 @@ public class PantallaJuego extends Pantalla {
                                 Plataforma bloque = new Plataforma(tileAncho, tileAlto, x * tileAncho, y * tileAlto);
                                 listaDeEntidades.add(bloque);
                             }
+
+                            if (propiedades.containsKey("mortal") && propiedades.get("mortal", Boolean.class)) {
+                                Lava lava = new Lava(tileAncho, tileAlto, x * tileAncho, y * tileAlto);
+                                listaDeObstaculos.add(lava);
+                            }
                         }
                     }
                 }
@@ -200,5 +249,9 @@ public class PantallaJuego extends Pantalla {
     @Override
     public void dispose() {
         stage.dispose();
+        b.dispose();
+        musicaJuego.cerrar();
+        Render.musicaJuego = null;
+        jugador.cerrar();
     }
 }
