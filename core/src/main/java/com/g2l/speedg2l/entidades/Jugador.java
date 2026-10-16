@@ -34,9 +34,9 @@ public class Jugador extends Entidad{
     private float tiempoRalentizacion = 0;
     private float tiempoEfectoLava = 0;
 
-    public Jugador(float ancho , float alto, float posicionX, float posicionY){
+    public Jugador(float ancho , float alto, float posicionX, float posicionY, String ruta){
         super(ancho, alto, posicionX, posicionY);
-        animacion = new AnimacionEntidad("soldado_corriendo.png", 0.09f, 4, 3);
+        animacion = new AnimacionEntidad(ruta, 0.09f, 4, 3);
         animacion.iniciar();
     }
 
