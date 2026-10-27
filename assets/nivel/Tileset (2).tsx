@@ -26,4 +26,9 @@
         <property name="solido" type="bool" value="true"/>
     </properties>
 </tile>
+<tile id="9" type="Lava">
+    <properties>
+        <property name="mortal" type="bool" value="true"/>
+    </properties>
+</tile>
 </tileset>

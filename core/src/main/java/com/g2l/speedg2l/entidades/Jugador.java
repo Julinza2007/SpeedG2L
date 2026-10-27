@@ -19,16 +19,24 @@ public class Jugador extends Entidad{
 
     private double velocidadConAceleracionDerecha = VELOCIDAD_X;
     private double velocidadConAceleracionIzquierda = VELOCIDAD_X;
-    private double aceleracion = 80;
+    private double aceleracion = 180;
     private boolean acelerandoDerecha = false;
     private boolean acelerandoIzquierda = false;
     private final double velocidadMaxima = 1000;
+    private double limiteVelocidad = velocidadMaxima;
     private AnimacionEntidad animacion;
     boolean saltando = false;
 
-    public Jugador(float ancho , float alto, float posicionX, float posicionY){
+    private final float DURACION_EFECTO_LAVA = 0.5f;
+    private final double REBOTE_LAVA = 350;
+    private final float DURACION_RALENTIZACION = 5.0f;
+    private final double VELOCIDAD_MAX_RALENTIZADO = 100;
+    private float tiempoRalentizacion = 0;
+    private float tiempoEfectoLava = 0;
+
+    public Jugador(float ancho , float alto, float posicionX, float posicionY, String ruta){
         super(ancho, alto, posicionX, posicionY);
-        animacion = new AnimacionEntidad("soldado_corriendo.png", 0.09f, 4, 3);
+        animacion = new AnimacionEntidad(ruta, 0.09f, 4, 3);
         animacion.iniciar();
     }
 
@@ -99,7 +107,25 @@ public class Jugador extends Entidad{
 
     public void actualizarFisicas(ArrayList<Entidad> listaDeEntidades, float delta){
 
-            actualizarMovimientoVertical(listaDeEntidades, delta);
+        actualizarMovimientoVertical(listaDeEntidades, delta);
+
+        if (tiempoEfectoLava > 0) {
+            tiempoEfectoLava -= delta;
+        }
+
+        if (tiempoRalentizacion > 0) {
+            tiempoRalentizacion -= delta;
+            limiteVelocidad = VELOCIDAD_MAX_RALENTIZADO;
+
+            if (velocidadConAceleracionDerecha > limiteVelocidad) {
+                velocidadConAceleracionDerecha = limiteVelocidad;
+            }
+            if (velocidadConAceleracionIzquierda > limiteVelocidad) {
+                velocidadConAceleracionIzquierda = limiteVelocidad;
+            }
+        } else {
+            limiteVelocidad = velocidadMaxima;
+        }
 
         if (acelerandoDerecha){
             acelerarDerecha(listaDeEntidades, delta);
@@ -216,10 +242,10 @@ public class Jugador extends Entidad{
 
 
     private void acelerarDerecha(ArrayList<Entidad> listaDeEntidades, float delta){
-        if(velocidadConAceleracionDerecha < velocidadMaxima){
+        if(velocidadConAceleracionDerecha < limiteVelocidad){
             this.velocidadConAceleracionDerecha += aceleracion * delta;
-            if(velocidadConAceleracionDerecha > velocidadMaxima){
-                velocidadConAceleracionDerecha = velocidadMaxima;
+            if(velocidadConAceleracionDerecha > limiteVelocidad){
+                velocidadConAceleracionDerecha = limiteVelocidad;
             }
         }
         double desplazamientoX = velocidadConAceleracionDerecha * delta;
@@ -245,10 +271,10 @@ public class Jugador extends Entidad{
     }
 
     private void acelerarIzquierda (ArrayList < Entidad > listaDeEntidades, float delta) {
-            if (velocidadConAceleracionIzquierda < velocidadMaxima) {
+            if (velocidadConAceleracionIzquierda < limiteVelocidad) {
                 velocidadConAceleracionIzquierda += aceleracion * delta;
-                if (velocidadConAceleracionIzquierda > velocidadMaxima){
-                    velocidadConAceleracionIzquierda = velocidadMaxima;
+                if (velocidadConAceleracionIzquierda > limiteVelocidad){
+                    velocidadConAceleracionIzquierda = limiteVelocidad;
                 }
             }
             double desplazamientoX = velocidadConAceleracionIzquierda * delta;
@@ -340,6 +366,17 @@ public class Jugador extends Entidad{
 
     public boolean colisionaCon(Entidad entidad) {
         return getHitbox().overlaps(entidad.getHitbox());
+    }
+
+    public void aplicarEfectoLava() {
+        tiempoRalentizacion = DURACION_RALENTIZACION;
+
+        if (tiempoEfectoLava > 0) {
+            return;
+        }
+        velocidadYMenosGravedad = REBOTE_LAVA;
+        saltando = true;
+        tiempoEfectoLava = DURACION_EFECTO_LAVA;
     }
 
 }
