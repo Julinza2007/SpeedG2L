@@ -126,7 +126,6 @@ public class PantallaJuego extends Pantalla {
     @Override
     public void render(float delta) {
         delta = Gdx.graphics.getDeltaTime();
-
         Render.limpiarPantalla();
 
         camara.seguirJugador(jugador);

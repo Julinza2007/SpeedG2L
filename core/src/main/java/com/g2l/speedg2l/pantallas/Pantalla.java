@@ -24,8 +24,12 @@ public abstract class Pantalla implements Screen {
         configViewport.actualizar(width, height);
     }
 
-    protected void cambiarPantalla(Screen pantallaNueva){
+    protected void cambiarPantalla(Screen pantallaNueva) {
+        Screen pantallaAnterior = juego.getScreen();
         juego.setScreen(pantallaNueva);
+        if (pantallaAnterior != null) {
+            pantallaAnterior.dispose();
+        }
     }
 
     protected void configurarInput(InputProcessor inputProcessor){
