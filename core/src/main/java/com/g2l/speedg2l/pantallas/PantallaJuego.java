@@ -10,9 +10,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.g2l.speedg2l.componentes.Boton;
 import com.g2l.speedg2l.componentes.Imagen;
+import com.g2l.speedg2l.componentes.PanelBotones;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
 import com.g2l.speedg2l.entidades.*;
@@ -36,9 +41,6 @@ public class PantallaJuego extends Pantalla {
     private Musica musicaJuego;
     private Hud hud;
 
-    private Pincho pincho;
-    private Imagen imgPincho;
-
     private ArrayList<Entidad> listaDeEntidades;
     private ArrayList<Obstaculo> listaDeObstaculos;
 
@@ -49,8 +51,10 @@ public class PantallaJuego extends Pantalla {
     private boolean pausado = false;
     private ShapeRenderer pantallaPausa = new ShapeRenderer();
     private Texto textoPausa = new Texto(Recursos.FUENTE_MENU, 60, Color.RED);
-
+    private PanelBotones panelBotones;
+    private Skin skinPausa;
     private Meta meta;
+
 
     protected PantallaJuego(Game juego) {
         super(juego);
@@ -84,6 +88,20 @@ public class PantallaJuego extends Pantalla {
                 Config.getAltoJuego()
             )
         );
+
+
+        skinPausa = new Skin(
+            Gdx.files.internal("skin/uiskin.json")
+        );
+
+        crearPanelBotones(skinPausa);
+
+        panelBotones.centrar();
+        panelBotones.getContenedor().setVisible(false);
+
+        stage.addActor(panelBotones.getContenedor());
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     private void crearYaplicarMusica() {
@@ -120,6 +138,7 @@ public class PantallaJuego extends Pantalla {
 
         if(entradas.escape()){
             pausado = !pausado;
+            panelBotones.getContenedor().setVisible(pausado);
         }
 
         if(!pausado) {
@@ -150,11 +169,6 @@ public class PantallaJuego extends Pantalla {
 
 
         } else if(pausado){
-            textoPausa.setPosition(
-                (Config.getAnchoJuego() / 2) - (textoPausa.getAncho() / 2),
-                (Config.getAltoJuego() / 2) + (textoPausa.getAlto() / 2)
-            );
-
             musicaJuego.pausar();
         }
 
@@ -164,19 +178,46 @@ public class PantallaJuego extends Pantalla {
         b.end();
 
         b.setProjectionMatrix(stage.getCamera().combined);
-
-        if (pausado) {
-            dibujarPausa();
-        }
-
         b.begin();
 
         hud.dibujar();
-
         b.end();
 
+        if(pausado){
+            dibujarPausa();
+            b.begin();
+
+            textoPausa.centrarArriba(200);
+            textoPausa.dibujar();
+
+            b.end();
+        }
         stage.act(delta);
         stage.draw();
+    }
+
+    private void crearPanelBotones(Skin skin) {
+        panelBotones = new PanelBotones();
+
+        panelBotones.agregarBoton(
+            new Boton(
+                "Volver al menu",
+                skin,
+                new ClickListener() {
+                    @Override
+                    public void clicked(
+                        InputEvent event,
+                        float x,
+                        float y
+                    ) {
+                        cambiarPantalla(new PantallaMenu(juego));
+                    }
+                },
+                200,
+                60
+            ),
+            10
+        );
     }
 
     private void dibujarPausa() {
@@ -248,10 +289,12 @@ public class PantallaJuego extends Pantalla {
 
     @Override
     public void dispose() {
-        stage.dispose();
-        b.dispose();
         musicaJuego.cerrar();
         Render.musicaJuego = null;
         jugador.cerrar();
+        stage.dispose();
+        skinPausa.dispose();
+        pantallaPausa.dispose();
+        textoPausa.cerrar();
     }
 }
