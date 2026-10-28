@@ -34,6 +34,8 @@ public class Jugador extends Entidad{
     private float tiempoRalentizacion = 0;
     private float tiempoEfectoLava = 0;
 
+    private boolean mirandoDerecha= true;
+
     public Jugador(float ancho , float alto, float posicionX, float posicionY, String ruta){
         super(ancho, alto, posicionX, posicionY);
         animacion = new AnimacionEntidad(ruta, 0.09f, 4, 3);
@@ -44,6 +46,7 @@ public class Jugador extends Entidad{
         if (acelerandoDerecha || acelerandoIzquierda) {
             animacion.animar(delta);
         }
+
     }
 
     public void dibujar() {
@@ -51,7 +54,8 @@ public class Jugador extends Entidad{
             posicionX,
             posicionY,
             getAncho(),
-            getAlto()
+            getAlto(),
+            mirandoDerecha
         );
     }
 
@@ -64,9 +68,11 @@ public class Jugador extends Entidad{
             case JUGADOR_1:
                 if (entradas.izquierda()){
                     acelerandoIzquierda = true;
+                    mirandoDerecha = false;
                 }
                 else{
                     acelerandoIzquierda = false;
+                    mirandoDerecha = true;
                 }
 
                 if (entradas.derecha()){
@@ -85,9 +91,11 @@ public class Jugador extends Entidad{
             case JUGADOR_2:
                 if (entradas.flechaIzquierda()){
                     acelerandoIzquierda = true;
+                    mirandoDerecha = false;
                 }
                 else{
                     acelerandoIzquierda = false;
+                    mirandoDerecha = true;
                 }
 
                 if (entradas.flechaDerecha()){

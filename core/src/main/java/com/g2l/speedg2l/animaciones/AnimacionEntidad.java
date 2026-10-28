@@ -29,16 +29,14 @@ public class AnimacionEntidad extends Animacion implements Cerrable {
         estadoTiempo += delta;
     }
 
-    public void dibujar(float x, float y, float ancho, float alto) {
+    public void dibujar(float x, float y, float ancho, float alto, boolean mirandoDerecha) {
         TextureRegion frame = getFrame();
 
-        Render.batch.draw(
-            frame,
-            x,
-            y,
-            ancho,
-            alto
-        );
+        if (mirandoDerecha) {
+            Render.batch.draw(frame, x, y, ancho, alto);
+        } else {
+            Render.batch.draw(frame,x + ancho, y, -ancho, alto);
+        }
     }
 
     private TextureRegion getFrame() {

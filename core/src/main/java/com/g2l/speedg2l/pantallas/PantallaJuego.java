@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.g2l.speedg2l.componentes.Boton;
-import com.g2l.speedg2l.componentes.Imagen;
 import com.g2l.speedg2l.componentes.PanelBotones;
 import com.g2l.speedg2l.componentes.Texto;
 import com.g2l.speedg2l.componentes.interfaz.Hud;
